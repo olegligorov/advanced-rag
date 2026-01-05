@@ -1,0 +1,9 @@
+langchain_community
+langchain_core
+sentence-transformers
+scikit-learn
+matplotlib
+numpy
+pandas
+faiss-cpu
+langchain_huggingface
