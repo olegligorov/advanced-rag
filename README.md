@@ -17,12 +17,24 @@ This project demonstrates advanced Retrieval-Augmented Generation (RAG) techniqu
 
 ## Setup
 1. Clone this repository.
-2. Install dependencies:
+2. Create and activate a virtual environment:
+   ```bash
+   python3 -m venv venv
+   ```
+   On macOS/Linux:
+   ```bash
+   source venv/bin/activate
+   ```
+   On Windows:
+   ```bash
+   .\venv\Scripts\activate
+   ```
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-3. Download or place Kubernetes markdown docs in `k8s_data/concepts/`.
-4. Open `advanced_rag_playground.ipynb` in Jupyter or VS Code.
+4. Download or place Kubernetes markdown docs in `k8s_data/concepts/`.
+5. Open `advanced_rag_playground.ipynb` in Jupyter or VS Code.
 
 ## Usage
 - Run the notebook cells sequentially to:
