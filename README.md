@@ -58,3 +58,29 @@ See `requirements.txt` for all dependencies. Key libraries:
 ## Notes
 - The notebook is optimized for macOS and supports Apple Silicon (MPS) for neural models.
 - Switch the device parameter in the CrossEncoder initialization to "cpu" or "cuda" if not using a Mac with MPS support.
+
+
+## Reads: 
+RAG: https://github.com/aishwaryanr/awesome-generative-ai-guide/blob/main/research_updates/rag_research_table.md
+https://arxiv.org/html/2510.12323v1
+
+
+RRF: https://medium.com/@devalshah1619/mathematical-intuition-behind-reciprocal-rank-fusion-rrf-explained-in-2-mins-002df0cc5e2a
+
+
+Hybrid Search: https://medium.com/@hitendra.patel2986/i-built-a-hybrid-search-system-that-beats-standard-rag-by-35-1968791ae539 
+
+## Future improvements
+Check query expansion techniques to improve retrieval performance.
+smt like
+```
+def expand_query(user_query: str):
+    # Ask the LLM to generate 3 different search queries
+    prompt = f"Generate 3 different search queries to find information for: {user_query}. Output only the queries, one per line."
+    response = ollama.generate(model='llama3', prompt=prompt)
+    
+    # Split the response into a list of strings
+    queries = response['response'].strip().split('\n')
+    queries.append(user_query) # Always include the original
+    return queries
+```
