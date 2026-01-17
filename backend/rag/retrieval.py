@@ -5,28 +5,45 @@ import hashlib
 from typing import List
 
 from .reranking import Reranker
+from config import EMBEDDING_MODEL, VECTOR_RETRIEVAL_K, BM25_RETRIEVAL_K, RERANK_TOP_N
 class HybridRetriever:
+    """
+    Hybrid retrieval system combining dense vector search and sparse keyword search.
+
+    This retriever implements a state-of-the-art approach that combines:
+    - Dense retrieval: FAISS vector database with semantic embeddings
+    - Sparse retrieval: BM25 algorithm for keyword matching
+    - Reciprocal Rank Fusion (RRF): Fuses results from both retrievers
+    - Cross-encoder re-ranking: Final re-ranking for optimal relevance
+
+    The hybrid approach is more robust than either method alone because:
+    - Vector search captures semantic meaning and context
+    - BM25 excels at exact term matching and rare keywords
+    - RRF fusion leverages strengths of both methods
+    - Re-ranking provides final quality control
+    """
+
     def __init__(self, semantic_docs, hf_embeddings=None):
         """
         Initialize HybridRetriever with vector and BM25 retrievers.
 
         Args:
-            semantic_docs: List of chunked documents
-            hf_embeddings: Optional HuggingFaceEmbeddings instance. If None, creates a new one.
+            semantic_docs (list[Document]): List of chunked documents to index for retrieval.
+            hf_embeddings (HuggingFaceEmbeddings, optional): Pre-loaded HuggingFaceEmbeddings instance.
+                If None, creates a new embedding model using EMBEDDING_MODEL from config.
+                Passing a pre-loaded model saves memory when sharing across components.
         """
-        # TODO set this as a config variable
         if hf_embeddings is None:
-            hf_embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-        
+            hf_embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
+
         vector_db = FAISS.from_documents(
             documents=semantic_docs,
             embedding=hf_embeddings
         )
-        self.vector_retriever = vector_db.as_retriever(search_kwargs={"k": 25})
-        
+        self.vector_retriever = vector_db.as_retriever(search_kwargs={"k": VECTOR_RETRIEVAL_K})
+
         self.bm25_retriever = BM25Retriever.from_documents(documents=semantic_docs)
-        # TODO set this as a config variable
-        self.bm25_retriever.k = 25
+        self.bm25_retriever.k = BM25_RETRIEVAL_K
         
         # Reranked
         self.reranker = Reranker()
@@ -68,8 +85,23 @@ class HybridRetriever:
         
     def _get_id(self, doc):
         """
-        Generates a deterministic ID for a document.
-        Uses 'source' metadata if available, combined with a content hash.
+        Generate a deterministic unique ID for a document.
+
+        Uses MD5 hash of document content to ensure uniqueness. If 'source' metadata
+        exists (e.g., filename), combines it with a truncated hash for readability.
+
+        This is critical for RRF fusion to correctly identify duplicate documents
+        retrieved by both vector and BM25 methods.
+
+        Args:
+            doc (Document): LangChain Document object
+
+        Returns:
+            str: Unique identifier in format "source_hash16" or just "hash" if no source
+
+        Example:
+            doc with source="configmaps.md" and content "..."
+            -> "configmaps.md_a1b2c3d4e5f6g7h8"
         """
         
         content_hash = hashlib.md5(doc.page_content.encode('utf-8')).hexdigest()
@@ -78,16 +110,31 @@ class HybridRetriever:
         
         return content_hash
     
-    def search(self, query: str, top_n =5) -> List:
+    def search(self, query: str, top_n=RERANK_TOP_N) -> List:
         """
-        Perform hybrid search with re-ranking.
-        
+        Perform hybrid search with re-ranking to retrieve most relevant documents.
+
+        Pipeline:
+        1. Vector Retrieval: Retrieve top-k documents using FAISS semantic search
+        2. BM25 Retrieval: Retrieve top-k documents using BM25 keyword matching
+        3. RRF Fusion: Combine and rank results using Reciprocal Rank Fusion
+        4. Re-ranking: Apply cross-encoder model to re-rank fused results
+        5. Return: Top-n highest scoring documents after re-ranking
+
+        This multi-stage approach ensures both semantic relevance and keyword precision.
+
         Args:
-            query: search query
-            top_n: Number of final documents to return after re-ranking
-            
+            query (str): User's search query or question
+            top_n (int, optional): Number of final documents to return after re-ranking.
+                Defaults to RERANK_TOP_N (5).
+
         Returns:
-            List of top_n re-ranked documents
+            list[Document]: Top-n most relevant documents, sorted by relevance score.
+                Each document includes page_content and metadata (source, etc.)
+
+        Example:
+            retriever.search("How do I configure Pod resource limits?", top_n=3)
+            -> [doc1, doc2, doc3] sorted by relevance
         """        
         
         # First retrieve vector and bm25 results

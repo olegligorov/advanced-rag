@@ -74,7 +74,6 @@ LLM_MODEL = "llama3"
 
 # Retrieval parameters
 RETRIEVAL_K = 25
-RRF_K = 60
 RERANK_TOP_N = 5
 CHUNK_PERCENTILE = 95
 
