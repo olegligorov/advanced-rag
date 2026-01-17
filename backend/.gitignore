@@ -1,6 +1,5 @@
 # Python
 __pycache__/
-*.py[cod]
 *$py.class
 *.so
 .Python
@@ -38,7 +37,6 @@ venv.bak/
 
 # Environment variables
 .env
-.env.local
 
 # Logs
 *.log
@@ -51,7 +49,6 @@ htmlcov/
 
 # ML Models Cache (HuggingFace, etc)
 .cache/
-models/
 *.bin
 *.onnx
 *.pt
