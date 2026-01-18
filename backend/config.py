@@ -7,6 +7,7 @@ from pathlib import Path
 # Base paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_PATH = os.path.join(BASE_DIR, "k8s_data", "concepts")
+CACHE_DIR = os.path.join(BASE_DIR, "backend", ".cache", "indices")
 
 # Model configurations
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
