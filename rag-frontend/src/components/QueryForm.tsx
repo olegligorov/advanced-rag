@@ -2,6 +2,7 @@ import { useState, type KeyboardEvent } from 'react'
 import { ArrowUp, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 
 interface QueryFormProps {
@@ -32,20 +33,14 @@ export function QueryForm({ onSubmit, isLoading, className }: QueryFormProps) {
   return (
     <Card className={cn('p-6', className)}>
       <div className="relative">
-        <textarea
+        <Textarea
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask a question about Kubernetes... (Shift+Enter for new line)"
+          placeholder="Ask a question about Kubernetes..."
           disabled={isLoading}
-          rows={3}
-          className={cn(
-            'w-full rounded-lg border border-input bg-background pl-4 pr-14 py-3',
-            'text-sm text-foreground placeholder:text-muted-foreground',
-            'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-            'disabled:cursor-not-allowed disabled:opacity-50',
-            'resize-none'
-          )}
+          rows={2}
+          className={cn('pr-14 resize-none focus-visible:ring-0 focus-visible:ring-offset-0')}
         />
 
         <Button
@@ -54,7 +49,7 @@ export function QueryForm({ onSubmit, isLoading, className }: QueryFormProps) {
           disabled={isLoading || !question.trim()}
           size="icon"
           className={cn(
-            'absolute bottom-4 right-3 h-9 w-9 rounded-xl',
+            'absolute bottom-3 right-3 h-9 w-9 rounded-xl',
             'transition-all duration-200',
             !question.trim() && 'opacity-50'
           )}
