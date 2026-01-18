@@ -3,9 +3,11 @@ FastAPI server for Plug and Play RAG System
 """
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from contextlib import asynccontextmanager
 from pydantic import BaseModel, Field
 from typing import List
+import json
 
 from config import DATA_PATH, RERANK_TOP_N
 from models.rag_pipeline import RAGPipeline
@@ -59,7 +61,7 @@ class QueryResponse(BaseModel):
 
 
 @app.get("/api/health")
-async def health_check():
+def health_check():
     """
     Health check endpoint to verify server and pipeline status.
     """
@@ -70,10 +72,10 @@ async def health_check():
     }
 
 @app.post("/api/query", response_model=QueryResponse)
-async def query_endpoint(request: QueryRequest):
+def query_endpoint(request: QueryRequest):
     """
     Query the RAG system with a question.
-    Returns retrieved and re-ranked documents.
+    Returns LLM-generated answer with sources.
     """
     if rag_pipeline is None:
         raise HTTPException(
@@ -104,6 +106,79 @@ async def query_endpoint(request: QueryRequest):
             status_code=500,
             detail=f"Query processing failed: {str(e)}"
         )
+
+
+@app.post("/api/query/stream")
+def query_stream_endpoint(request: QueryRequest):
+    """
+    Query the RAG system with streaming response.
+    Returns LLM-generated answer as Server-Sent Events (SSE).
+
+    The response stream format:
+    1. First event: metadata with sources (JSON)
+    2. Subsequent events: answer chunks (text)
+    3. Final event: [DONE] marker
+    """
+    if rag_pipeline is None:
+        raise HTTPException(
+            status_code=503,
+            detail="RAG pipeline not initialized. Please wait for startup to complete."
+        )
+
+    def generate():
+        try:
+            retrieved_docs, answer_stream = rag_pipeline.query_stream(
+                query=request.question,
+                top_n=request.top_n
+            )
+
+            sources = [
+                {
+                    "rank": idx + 1,
+                    "source": doc.metadata.get("source", "unknown"),
+                    "snippet": doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content
+                }
+                for idx, doc in enumerate(retrieved_docs)
+            ]
+
+            # First send the sources
+            metadata = {
+                "type": "metadata",
+                "sources": sources,
+                "question": request.question
+            }
+            
+            # \n\n -> According to the SSE specification: Events are separated by blank lines (two consecutive newline characters)
+            yield f"data: {json.dumps(metadata)}\n\n"
+
+            # Stream answer chunks
+            for chunk in answer_stream:
+                if chunk:  # Only send non-empty chunks
+                    chunk_data = {
+                        "type": "chunk",
+                        "content": chunk
+                    }
+                    yield f"data: {json.dumps(chunk_data)}\n\n"
+
+            # Send done signal
+            yield f"data: {json.dumps({'type': 'done'})}\n\n"
+
+        except Exception as e:
+            error_data = {
+                "type": "error",
+                "message": str(e)
+            }
+            yield f"data: {json.dumps(error_data)}\n\n"
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no"  # Disable buffering in nginx
+        }
+    )
 
 
 if __name__ == "__main__":

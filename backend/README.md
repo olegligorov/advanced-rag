@@ -66,6 +66,13 @@ curl -X POST http://localhost:8000/api/query \
   -d '{"question": "How do I configure Pod limits?" }'
 ```
 
+Streaming query:
+```bash
+curl -N -X POST http://localhost:8000/api/query/stream \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What is a Pod?", "top_n": 5}'
+```
+
 ## Project Structure
 
 ```

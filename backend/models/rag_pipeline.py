@@ -250,3 +250,32 @@ class RAGPipeline:
         )
 
         return result
+
+    def query_stream(self, query: str, top_n: int = 5):
+        """
+        Process a user query through the RAG pipeline with streaming generation.
+
+        Full RAG workflow with streaming:
+        1. Hybrid Retrieval: Retrieve relevant documents using vector + BM25 search
+        2. Re-ranking: Re-rank results with cross-encoder for maximum relevance
+        3. Streaming Generation: Stream LLM answer as it's generated
+
+        Args:
+            query (str): User's question or search query
+            top_n (int, optional): Number of top-ranked documents to retrieve.
+                Defaults to 5. These documents provide context for the LLM.
+
+        Yields:
+            dict: First yields metadata with sources, then yields answer chunks
+
+        Example:
+            >>> pipeline = RAGPipeline("./k8s_docs")
+            >>> for chunk in pipeline.query_stream("How do I set memory limits?"):
+            >>>     print(chunk, end="", flush=True)
+        """
+        retrieved_docs = self._retriever.search(query=query, top_n=top_n)
+
+        return retrieved_docs, self._generator.generate_stream(
+            query=query,
+            documents=retrieved_docs
+        )
