@@ -58,6 +58,14 @@ Response:
 curl http://localhost:8000/api/health
 ```
 
+
+Send a test query to the RAG pipeline:
+```bash
+curl -X POST http://localhost:8000/api/query \
+  -H "Content-Type: application/json" \
+  -d '{"question": "How do I configure Pod limits?" }'
+```
+
 ## Project Structure
 
 ```
