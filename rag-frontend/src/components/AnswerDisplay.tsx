@@ -1,4 +1,6 @@
-import { cn } from '../lib/utils'
+import { MessageSquare, Loader2 } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 interface AnswerDisplayProps {
   answer: string
@@ -12,29 +14,40 @@ export function AnswerDisplay({ answer, isStreaming, className }: AnswerDisplayP
   }
 
   return (
-    <div className={cn('space-y-3', className)}>
-      <div className="flex items-center gap-2">
-        <h2 className="text-lg font-semibold text-foreground">Answer</h2>
-        {isStreaming && (
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <div className="h-2 w-2 animate-pulse rounded-full bg-primary" />
-            <span>Generating...</span>
+    <Card className={className}>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <MessageSquare className="h-5 w-5 text-primary" />
+            <CardTitle>Answer</CardTitle>
           </div>
+          {isStreaming && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span>Generating...</span>
+            </div>
+          )}
+        </div>
+        {!isStreaming && answer && (
+          <CardDescription>AI-generated response based on documentation</CardDescription>
         )}
-      </div>
-
-      <div
-        className={cn(
-          'rounded-lg border border-border bg-card p-4',
-          'text-sm text-card-foreground leading-relaxed',
-          'whitespace-pre-wrap wrap-break-word'
-        )}
-      >
-        {answer || (
-          <span className="text-muted-foreground italic">Waiting for response...</span>
-        )}
-        {isStreaming && <span className="inline-block w-1 h-4 ml-1 bg-primary animate-pulse" />}
-      </div>
-    </div>
+      </CardHeader>
+      <CardContent>
+        <div
+          className={cn(
+            'prose prose-sm max-w-none dark:prose-invert',
+            'text-card-foreground leading-relaxed',
+            'whitespace-pre-wrap wrap-break-word'
+          )}
+        >
+          {answer || (
+            <span className="text-muted-foreground italic">Waiting for response...</span>
+          )}
+          {isStreaming && (
+            <span className="inline-block w-0.5 h-5 ml-1 bg-primary animate-pulse align-middle" />
+          )}
+        </div>
+      </CardContent>
+    </Card>
   )
 }

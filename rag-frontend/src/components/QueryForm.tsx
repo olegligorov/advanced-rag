@@ -1,81 +1,76 @@
-import { useState } from 'react'
-import { cn } from '../lib/utils'
+import { useState, type KeyboardEvent } from 'react'
+import { ArrowUp, Loader2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 interface QueryFormProps {
-  onSubmit: (question: string, topN: number) => void
+  onSubmit: (question: string) => void
   isLoading: boolean
   className?: string
 }
 
 export function QueryForm({ onSubmit, isLoading, className }: QueryFormProps) {
   const [question, setQuestion] = useState('')
-  const [topN, setTopN] = useState(5)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (question.trim()) {
-      onSubmit(question, topN)
+  const handleSubmit = () => {
+    if (question.trim() && !isLoading) {
+      onSubmit(question)
+      setQuestion('')
     }
   }
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    // Submit on Enter (without Shift)
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSubmit()
+    }
+    // Allow Shift+Enter for new line (default textarea behavior)
+  }
+
   return (
-    <form onSubmit={handleSubmit} className={cn('space-y-4', className)}>
-      <div className="space-y-2">
-        <label htmlFor="question" className="text-sm font-medium text-foreground">
-          Ask a question
-        </label>
+    <Card className={cn('p-6', className)}>
+      <div className="relative">
         <textarea
-          id="question"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          placeholder="e.g., How do I set Pod resource limits?"
+          onKeyDown={handleKeyDown}
+          placeholder="Ask a question about Kubernetes... (Shift+Enter for new line)"
           disabled={isLoading}
           rows={3}
           className={cn(
-            'w-full rounded-lg border border-input bg-background px-3 py-2',
+            'w-full rounded-lg border border-input bg-background pl-4 pr-14 py-3',
             'text-sm text-foreground placeholder:text-muted-foreground',
             'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
             'disabled:cursor-not-allowed disabled:opacity-50',
             'resize-none'
           )}
         />
-      </div>
 
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <label htmlFor="top_n" className="text-sm font-medium text-foreground">
-            Top results:
-          </label>
-          <input
-            id="top_n"
-            type="number"
-            min="1"
-            max="20"
-            value={topN}
-            onChange={(e) => setTopN(Number(e.target.value))}
-            disabled={isLoading}
-            className={cn(
-              'w-16 rounded-md border border-input bg-background px-2 py-1',
-              'text-sm text-foreground',
-              'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-              'disabled:cursor-not-allowed disabled:opacity-50'
-            )}
-          />
-        </div>
-
-        <button
-          type="submit"
+        <Button
+          type="button"
+          onClick={handleSubmit}
           disabled={isLoading || !question.trim()}
+          size="icon"
           className={cn(
-            'ml-auto rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground',
-            'hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-            'disabled:cursor-not-allowed disabled:opacity-50',
-            'transition-colors'
+            'absolute bottom-4 right-3 h-9 w-9 rounded-xl',
+            'transition-all duration-200',
+            !question.trim() && 'opacity-50'
           )}
         >
-          {isLoading ? 'Searching...' : 'Search'}
-        </button>
+          {isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <ArrowUp className="h-4 w-4" />
+          )}
+        </Button>
       </div>
-    </form>
+
+      <p className="mt-2 text-xs text-muted-foreground">
+        Press <kbd className="px-1.5 py-0.5 text-xs font-semibold bg-muted rounded">Enter</kbd> to send,
+        <kbd className="ml-1 px-1.5 py-0.5 text-xs font-semibold bg-muted rounded">Shift + Enter</kbd> for new line
+      </p>
+    </Card>
   )
 }
