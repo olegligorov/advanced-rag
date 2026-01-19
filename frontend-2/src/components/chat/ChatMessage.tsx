@@ -50,7 +50,7 @@ export function ChatMessage({ role, content, sources, isStreaming }: ChatMessage
           </div>
         )}
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-          Answer
+          {role === 'user' ? 'Question' : 'Answer'}
         </p>
         <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
           {content}
