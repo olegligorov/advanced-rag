@@ -5,10 +5,10 @@ import { useChat } from '@/hooks/useChat'
 import { ThemeProvider } from '@/components/theme-provider'
 
 const SUGGESTED_QUESTIONS = [
-  'What are the main features of our product?',
-  'How do I set up authentication?',
-  'Explain the pricing structure',
-  'What integrations are available?',
+  "Why is my Pod stuck in CrashLoopBackOff and how do I debug it?",
+  "How do I troubleshoot a 503 Service Unavailable error when using an Nginx Ingress?",
+  "What are the most common reasons a Pod remains in a Pending state?",
+  "Show me the kubectl command to find pods that have restarted more than 5 times in the last hour.",
 ]
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
   const hasMessages = messages.length > 0
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="askbase-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="vela-theme">
       <Layout>
         {hasMessages ? (
           <MessageList messages={messages} isLoading={isLoading} />

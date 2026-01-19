@@ -7,10 +7,17 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between px-4 max-w-full">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
+            <Button
+            onClick={() => window.location.href = "/"}
+            variant="ghost"
+            size="icon"
+            className="h-9 w-9 text-muted-foreground hover:text-foreground"
+          >
             <Database className="h-5 w-5 text-primary-foreground" />
+          </Button>
           </div>
           <div className="flex flex-col">
-            <h1 className="text-lg font-semibold text-foreground leading-none">AskBase</h1>
+            <h1 className="text-lg font-semibold text-foreground leading-none">Vela</h1>
             <p className="text-xs text-muted-foreground leading-none mt-1">RAG-Powered Assistant</p>
           </div>
         </div>

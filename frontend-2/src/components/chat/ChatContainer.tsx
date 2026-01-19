@@ -18,7 +18,7 @@ export function ChatContainer({ value, onChange, onSubmit, isLoading }: ChatCont
           isLoading={isLoading}
         />
         <p className="text-xs text-muted-foreground text-center mt-2">
-          AskBase can make mistakes. Verify important information.
+          Vela can make mistakes. Verify important information.
         </p>
       </div>
     </div>

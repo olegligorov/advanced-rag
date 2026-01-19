@@ -17,7 +17,7 @@ export function SuggestedQuestions({ questions, onSelect }: SuggestedQuestionsPr
           <Button
             key={index}
             variant="outline"
-            className="h-auto p-4 justify-start text-left whitespace-normal hover:bg-secondary/80 hover:border-primary/50 transition-all group bg-transparent"
+            className="rounded-xl h-auto p-4 justify-start text-left whitespace-normal hover:bg-secondary/80 hover:border-primary/50 transition-all group bg-transparent"
             onClick={() => onSelect(question)}
           >
             <MessageSquare className="h-4 w-4 mr-3 shrink-0 text-primary group-hover:scale-110 transition-transform" />
