@@ -84,3 +84,7 @@ def expand_query(user_query: str):
     queries.append(user_query) # Always include the original
     return queries
 ```
+
+For a better UX, consider implementing memory mechanisms to retain chat history and context across interactions.
+
+Or create it as a conversation mode, so both will be supported
