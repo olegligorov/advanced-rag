@@ -1,4 +1,4 @@
-from langchain_community.document_loaders import DirectoryLoader, UnstructuredMarkdownLoader
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain_huggingface import HuggingFaceEmbeddings
 import os
 import pickle
@@ -76,7 +76,7 @@ class RAGPipeline:
         self.__loader = DirectoryLoader(
             dataDirectory,
             glob="**/*.md",
-            loader_cls=UnstructuredMarkdownLoader)
+            loader_cls=TextLoader)
 
         self._raw_docs = self.load_documents(self.__loader)
 
