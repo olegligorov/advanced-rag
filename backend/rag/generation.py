@@ -6,7 +6,10 @@ Handles answer generation using retrieved context documents and Ollama LLM.
 
 from langchain_community.llms import Ollama
 from langchain_core.prompts import PromptTemplate, ChatPromptTemplate
-from langchain_classic.chains.combine_documents import create_stuff_documents_chain
+try:
+    from langchain_classic.chains.combine_documents import create_stuff_documents_chain
+except ImportError:
+    from langchain.chains.combine_documents import create_stuff_documents_chain
 from typing import List, Dict
 from templates import SYSTEM_TEXT_TEMPLATE
 from config import LLM_MODEL, OLLAMA_HOST, OLLAMA_TEMPERATURE

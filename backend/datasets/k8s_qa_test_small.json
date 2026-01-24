@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "generated_by": "dataset_generator.py",
+    "num_samples": 10,
+    "source": "kubernetes documentation",
+    "random_seed": 42
+  },
+  "test_cases": [
+    {
+      "question_id": "k8s_001",
+      "question": "Here's a specific technical question that can be answered using only the information in the provided text:\n\nWhat is the effect of a terminating pod on running pods in a Kubernetes cluster, according to the NoExecute policy?",
+      "ground_truth": "According to the NoExecute policy, when a terminating pod exists in a Kubernetes cluster, the effect is that running pods are terminated.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md"
+      ],
+      "category": "resource-management",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_002",
+      "question": "Here's a specific technical question that can be answered using only the information in the provided text:\n\nWhat is the command used to configure access to multiple clusters with kubectl config, according to the Kubernetes documentation?\n\nThis question meets the criteria because it:\n\n1. Can be definitively answered from the text above (the answer is not explicitly stated, but the relevant information is present).\n2. Is specific to Kubernetes concepts (kubectl config and configuring access to multiple clusters).\n3. Would be useful for testing a RAG system (assuming RAG stands for \"Reference Architecture Guidance\", this question would help test an individual's understanding of Kubernetes configuration options).",
+      "ground_truth": "According to the text, the command used to configure access to multiple clusters with kubectl config is not explicitly stated. However, based on the provided text, it can be inferred that you can achieve this by creating a new context for each cluster and then switching between contexts using `kubectl config use-context`.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/organize-cluster-access-kubeconfig.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_003",
+      "question": "Here is a specific technical question that can be answered using only the information in the provided text:\n\nWhat are the two parts that make up the Konnectivity service in a Kubernetes cluster, and what is their respective network location?\n\nThis question requires the answerer to understand the structure of the Konnectivity service as described in the text, and can be definitively answered from the provided information.",
+      "ground_truth": "The two parts that make up the Konnectivity service are the Konnectivity server and the Konnectivity agents. The Konnectivity server is located in the control plane network, while the Konnectivity agents are located in the nodes network.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/control-plane-node-communication.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_004",
+      "question": "Here is a specific technical question that can be answered using only the information in the provided text:\n\nWhat is the flexible option for traffic routing within Kubernetes that is closely related to the service.kubernetes.io/topology-mode annotation?\n\nThis question meets the criteria because it:\n\n1. Can be definitively answered from the text above (the answer is \"trafficDistribution\" field).\n2. Is specific to Kubernetes concepts (it refers to a specific feature of Kubernetes services).\n3. Would be useful for testing a RAG system (as it requires knowledge of Kubernetes features and annotations).",
+      "ground_truth": "According to the text, the flexible option for traffic routing within Kubernetes that is closely related to the service.kubernetes.io/topology-mode annotation is the \"trafficDistribution\" field.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/topology-aware-routing.md"
+      ],
+      "category": "networking",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_005",
+      "question": "Here is a specific technical question that can be answered using ONLY the information in the provided text:\n\n**Question:** How do I enable dual-stack networking using kubeadm in my Kubernetes cluster?\n\nThis question meets all three criteria:\n\n1. It can be definitively answered from the text above, which mentions \"Enable dual-stack networking using kubeadm\".\n2. It is specific to Kubernetes concepts (kubeadm and dual-stack networking).\n3. It would be useful for testing a RAG (Redundant Array of Genomes) system, as it involves configuring network settings in a Kubernetes cluster, which may be relevant for RAG systems that require reliable and fault-tolerant networking.",
+      "ground_truth": "According to the text, you can enable dual-stack networking using kubeadm in your Kubernetes cluster.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/dual-stack.md"
+      ],
+      "category": "networking",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_006",
+      "question": "Here's a technical question that can be answered using only the information in the provided text:\n\nWhat is the effect on Pod distribution if you set podAntiAffinity to requiredDuringSchedulingIgnoredDuringExecution mode?\n\nThis question requires knowledge of Kubernetes concepts, specifically the behavior of podAntiAffinity, and can be definitively answered based on the text.",
+      "ground_truth": "According to the provided text, if you set podAntiAffinity to requiredDuringSchedulingIgnoredDuringExecution mode, then only a single Pod can be scheduled into a single topology domain. This means that the Pods will be repelled from each other and distributed across different topology domains in order to satisfy this constraint.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/topology-spread-constraints.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_007",
+      "question": "Here's a specific technical question that can be answered using only the information in the provided text:\n\nWhat is the technology used by Kubernetes Dynamic Resource Allocation (DRA) for performing fine-grained filtering of devices based on specific attributes?\n\nAnswer: Common Expression Language (CEL).",
+      "ground_truth": "The technology used by Kubernetes Dynamic Resource Allocation (DRA) for performing fine-grained filtering of devices based on specific attributes is the Common Expression Language (CEL).",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md"
+      ],
+      "category": "resource-management",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_008",
+      "question": "Here is a technical question based on the provided text:\n\nWhat happens when a StatefulSet's update strategy is set to RollingUpdate and .spec.minReadySeconds is not specified?\n\nAnswer: The Kubernetes control plane waits until an updated Pod is Running and Ready prior to updating its predecessor.",
+      "ground_truth": "When a StatefulSet's update strategy is set to RollingUpdate and .spec.minReadySeconds is not specified, the Kubernetes control plane waits until an updated Pod is Running and Ready prior to updating its predecessor.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_009",
+      "question": "Here is a specific technical question that can be answered using only the information in the provided text:\n\n**Question:** What is the default state of most scheduling plugins in Kubernetes v1.18 or later?\n\nThis question meets the criteria you specified:\n\n1. Can be definitively answered from the text above: Yes, the answer can be found in the first sentence of the text.\n2. Is specific to Kubernetes concepts: Yes, it references a specific version of Kubernetes and a concept within that version (scheduling plugins).\n3. Would be useful for testing a RAG system: Yes, this question is concise and precise, making it suitable for use in a Rapid Application Group (RAG) system, which aims to quickly test and validate knowledge against specific technical requirements.",
+      "ground_truth": "According to the text, most scheduling plugins are \"in use and enabled by default\" in Kubernetes v1.18 or later. This means that the default state of most scheduling plugins is enabled.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/scheduling-framework.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_010",
+      "question": "Here's a specific technical question based on the provided text:\n\nWhat is the purpose of automatic labelling in Kubernetes?\n\nThis question can be definitively answered by referring to the text, which states that \"Automatic labelling generates labels for objects in your cluster.\" Therefore, this question meets criteria 1.",
+      "ground_truth": "According to the text, automatic labelling in Kubernetes \"generates labels for objects in your cluster\". Its purpose is to assign labels to objects in the cluster.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/namespaces.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    }
+  ]
+}

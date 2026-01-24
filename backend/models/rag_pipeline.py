@@ -105,7 +105,7 @@ class RAGPipeline:
         """
         Load raw documents using the configured document loader.
 
-        Uses LangChain's DirectoryLoader with UnstructuredMarkdownLoader to:
+        Uses LangChain's DirectoryLoader with TextLoader to:
         - Recursively find all .md files in the specified directory
         - Parse markdown formatting and structure
         - Extract metadata (source file path, etc.)
@@ -279,3 +279,57 @@ class RAGPipeline:
             query=query,
             documents=retrieved_docs
         )
+
+    def query_with_contexts(self, query: str, top_n: int = 5):
+        """
+        Process a user query and return answer WITH full retrieved contexts.
+
+        This method is designed for evaluation purposes. Unlike query() which
+        returns only snippets, this returns complete context texts needed for
+        faithfulness evaluation.
+
+        Full RAG workflow:
+        1. Hybrid Retrieval: Retrieve relevant documents
+        2. Re-ranking: Re-rank for maximum relevance
+        3. Generation: Generate answer using LLM
+        4. Context Extraction: Extract full text of retrieved contexts
+
+        Args:
+            query (str): User's question or search query
+            top_n (int, optional): Number of top-ranked documents to retrieve.
+                Defaults to 5.
+
+        Returns:
+            dict: {
+                "question": str,
+                "answer": str,
+                "contexts": List[str],  # Full text of retrieved chunks
+                "sources": List[dict]   # Source metadata
+            }
+
+        Example:
+            >>> pipeline = RAGPipeline("./k8s_docs")
+            >>> result = pipeline.query_with_contexts("What is a Pod?", top_n=5)
+            >>> print(result["answer"])
+            >>> print(result["contexts"])  # Full context texts for evaluation
+        """
+        # Retrieve relevant documents
+        retrieved_docs = self._retriever.search(query=query, top_n=top_n)
+
+        # Generate answer using LLM with retrieved context
+        result = self._generator.generate(
+            query=query,
+            documents=retrieved_docs,
+            include_sources=True
+        )
+
+        # Extract full contexts from retrieved documents
+        contexts = [doc.page_content for doc in retrieved_docs]
+
+        # Return result with full contexts for evaluation
+        return {
+            "question": query,
+            "answer": result["answer"],
+            "contexts": contexts,
+            "sources": result["sources"]
+        }

@@ -32,3 +32,8 @@ OLLAMA_TEMPERATURE = 0.2
 
 # Logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+
+# Evaluation settings
+EVALUATION_LLM = LLM_MODEL  # Reuse same LLM for evaluation
+TEST_DATASET_PATH = os.path.join(BASE_DIR, "backend", "datasets", "k8s_qa_test_set.json")
+EVALUATION_RESULTS_DIR = os.path.join(BASE_DIR, "backend", "results")
