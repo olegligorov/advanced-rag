@@ -110,7 +110,7 @@ class HybridRetriever:
         
         return content_hash
     
-    def search(self, query: str, top_n=RERANK_TOP_N) -> List:
+    def search(self, query: str, top_n=RERANK_TOP_N, score_threshold=None, min_docs=1) -> List:
         """
         Perform hybrid search with re-ranking to retrieve most relevant documents.
 
@@ -119,7 +119,8 @@ class HybridRetriever:
         2. BM25 Retrieval: Retrieve top-k documents using BM25 keyword matching
         3. RRF Fusion: Combine and rank results using Reciprocal Rank Fusion
         4. Re-ranking: Apply cross-encoder model to re-rank fused results
-        5. Return: Top-n highest scoring documents after re-ranking
+        5. Score Filtering: Filter documents by relevance score threshold (optional)
+        6. Return: Top-n highest scoring documents after re-ranking and filtering
 
         This multi-stage approach ensures both semantic relevance and keyword precision.
 
@@ -127,29 +128,43 @@ class HybridRetriever:
             query (str): User's search query or question
             top_n (int, optional): Number of final documents to return after re-ranking.
                 Defaults to RERANK_TOP_N (5).
+            score_threshold (float, optional): Minimum reranker score threshold.
+                Documents below this threshold are filtered out. If None, no filtering.
+                Typical cross-encoder scores range from -10 to +10, with positive
+                scores indicating relevance. Recommended thresholds:
+                - 0.5-1.0: Strict filtering (high precision)
+                - 0.0-0.5: Moderate filtering (balanced)
+                - -1.0-0.0: Lenient filtering (high recall)
+            min_docs (int, optional): Minimum number of documents to return even if
+                they don't meet the threshold. Prevents returning empty results.
+                Defaults to 1.
 
         Returns:
             list[Document]: Top-n most relevant documents, sorted by relevance score.
                 Each document includes page_content and metadata (source, etc.)
+        """
 
-        Example:
-            retriever.search("How do I configure Pod resource limits?", top_n=3)
-            -> [doc1, doc2, doc3] sorted by relevance
-        """        
-        
         # First retrieve vector and bm25 results
         v_docs = self.vector_retriever.invoke(query)
         bm25_docs = self.bm25_retriever.invoke(query)
-        
+
         # Fuse them with rrf
         fused_results = self.rrf(vector_results=v_docs, bm25_results=bm25_docs)
-        
-        # print(self._visualize_topdocs(top_docs))
-        
-        # Re-rank the results from the fusion
-        top_docs = self.reranker.rerank(query, fused_results, top_n=top_n)
 
-        # todo maybe visualize the top_docs
+        # Re-rank the results from the fusion with scores
+        scored_docs = self.reranker.rerank_with_scores(query, fused_results, top_n=top_n)
+
+        # Apply score threshold filtering if specified
+        if score_threshold is not None:
+            filtered_docs = [(score, doc) for score, doc in scored_docs if score >= score_threshold]
+
+            # Ensure we return at least min_docs if available
+            if len(filtered_docs) < min_docs and len(scored_docs) >= min_docs:
+                filtered_docs = scored_docs[:min_docs]
+        else:
+            filtered_docs = scored_docs
+        
+        top_docs = [doc for score, doc in filtered_docs]
         return top_docs        
         
     

@@ -7,7 +7,7 @@ from pathlib import Path
 from rag.chunking import SemanticChunker
 from rag.retrieval import HybridRetriever
 from rag.generation import Generator
-from config import EMBEDDING_MODEL, CHUNK_PERCENTILE, CACHE_DIR
+from config import EMBEDDING_MODEL, CHUNK_PERCENTILE, CACHE_DIR, RERANK_SCORE_THRESHOLD, MIN_RETRIEVED_DOCS
 
 class RAGPipeline:
     """
@@ -220,7 +220,12 @@ class RAGPipeline:
             >>> pipeline = RAGPipeline("./k8s_docs")
             >>> docs = pipeline.retrieve("How do I set memory limits?", top_n=3)
         """
-        return self._retriever.search(query=query, top_n=top_n)
+        return self._retriever.search(
+            query=query,
+            top_n=top_n,
+            score_threshold=RERANK_SCORE_THRESHOLD,
+            min_docs=MIN_RETRIEVED_DOCS
+        )
 
     def query(self, query: str, top_n: int = 5):
         """
@@ -229,7 +234,8 @@ class RAGPipeline:
         Full RAG workflow:
         1. Hybrid Retrieval: Retrieve relevant documents using vector + BM25 search
         2. Re-ranking: Re-rank results with cross-encoder for maximum relevance
-        3. Generation: Generate natural language answer using LLM with retrieved context
+        3. Score Filtering: Filter by relevance threshold (if configured)
+        4. Generation: Generate natural language answer using LLM with retrieved context
 
         Args:
             query (str): User's question or search query
@@ -239,8 +245,13 @@ class RAGPipeline:
         Returns:
             dict with 'answer', 'sources'
         """
-        # Retrieve relevant documents
-        retrieved_docs = self._retriever.search(query=query, top_n=top_n)
+        # Retrieve relevant documents with score filtering
+        retrieved_docs = self._retriever.search(
+            query=query,
+            top_n=top_n,
+            score_threshold=RERANK_SCORE_THRESHOLD,
+            min_docs=MIN_RETRIEVED_DOCS
+        )
 
         # Generate answer using LLM with retrieved context
         result = self._generator.generate(
@@ -273,7 +284,12 @@ class RAGPipeline:
             >>> for chunk in pipeline.query_stream("How do I set memory limits?"):
             >>>     print(chunk, end="", flush=True)
         """
-        retrieved_docs = self._retriever.search(query=query, top_n=top_n)
+        retrieved_docs = self._retriever.search(
+            query=query,
+            top_n=top_n,
+            score_threshold=RERANK_SCORE_THRESHOLD,
+            min_docs=MIN_RETRIEVED_DOCS
+        )
 
         return retrieved_docs, self._generator.generate_stream(
             query=query,
@@ -313,8 +329,13 @@ class RAGPipeline:
             >>> print(result["answer"])
             >>> print(result["contexts"])  # Full context texts for evaluation
         """
-        # Retrieve relevant documents
-        retrieved_docs = self._retriever.search(query=query, top_n=top_n)
+        # Retrieve relevant documents with score filtering
+        retrieved_docs = self._retriever.search(
+            query=query,
+            top_n=top_n,
+            score_threshold=RERANK_SCORE_THRESHOLD,
+            min_docs=MIN_RETRIEVED_DOCS
+        )
 
         # Generate answer using LLM with retrieved context
         result = self._generator.generate(
