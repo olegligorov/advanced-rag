@@ -12,7 +12,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from models.rag_pipeline import RAGPipeline
-from evaluation.metrics import compute_all_metrics
+from evaluation.metrics import compute_all_metrics, compute_precision_at_k, compute_recall_at_k
 from config import DATA_PATH
 import math
 
@@ -136,6 +136,16 @@ class RAGEvaluator:
                     contexts=result["contexts"]
                 )
 
+                # Compute retrieval metrics if expected contexts are provided
+                retrieved_sources = [src["source"] for src in result["sources"]]
+                expected_contexts = test_case.get("expected_contexts", [])
+
+                precision_at_k = None
+                recall_at_k = None
+                if expected_contexts:
+                    precision_at_k = compute_precision_at_k(retrieved_sources, expected_contexts)
+                    recall_at_k = compute_recall_at_k(retrieved_sources, expected_contexts)
+
                 # Store result
                 per_question_result = {
                     "question_id": question_id,
@@ -144,7 +154,10 @@ class RAGEvaluator:
                     "ground_truth": ground_truth,
                     "faithfulness": metrics["faithfulness"],
                     "answer_relevancy": metrics["answer_relevancy"],
-                    "retrieved_sources": [src["source"] for src in result["sources"]],
+                    "retrieved_sources": retrieved_sources,
+                    "expected_sources": expected_contexts,
+                    "precision_at_k": precision_at_k,
+                    "recall_at_k": recall_at_k,
                     "category": test_case.get("category", "general")
                 }
 
@@ -173,12 +186,19 @@ class RAGEvaluator:
         if len(valid_results) == 0:
             raise RuntimeError("No valid results to aggregate")
 
-        # Filter out NaN values for faithfulness
+        # Filter out NaN values for faithfulness and answer relevancy
         valid_faithfulness = [r["faithfulness"] for r in valid_results if not math.isnan(r["faithfulness"])]
         valid_relevancy = [r["answer_relevancy"] for r in valid_results if not math.isnan(r["answer_relevancy"])]
 
         avg_faithfulness = sum(valid_faithfulness) / len(valid_faithfulness) if valid_faithfulness else 0.0
         avg_relevancy = sum(valid_relevancy) / len(valid_relevancy) if valid_relevancy else 0.0
+
+        # Compute retrieval metrics (precision and recall)
+        valid_precision = [r["precision_at_k"] for r in valid_results if r.get("precision_at_k") is not None]
+        valid_recall = [r["recall_at_k"] for r in valid_results if r.get("recall_at_k") is not None]
+
+        avg_precision = sum(valid_precision) / len(valid_precision) if valid_precision else None
+        avg_recall = sum(valid_recall) / len(valid_recall) if valid_recall else None
 
         # Generate evaluation report
         evaluation_report = {
@@ -191,7 +211,9 @@ class RAGEvaluator:
             },
             "aggregate_metrics": {
                 "faithfulness": round(avg_faithfulness, 3),
-                "answer_relevancy": round(avg_relevancy, 3)
+                "answer_relevancy": round(avg_relevancy, 3),
+                "precision_at_k": round(avg_precision, 3) if avg_precision is not None else None,
+                "recall_at_k": round(avg_recall, 3) if avg_recall is not None else None
             },
             "per_question_results": per_question_results,
             "failure_cases": failure_cases
@@ -207,12 +229,28 @@ class RAGEvaluator:
         print(f"Total Test Cases: {len(test_cases)}")
         print(f"Successful: {len(valid_results)}")
         print(f"Failed: {len(test_cases) - len(valid_results)}")
-        print(f"\nAverage Faithfulness: {avg_faithfulness:.3f} ({len(valid_faithfulness)}/{len(valid_results)} valid)")
+
+        print(f"\n--- Answer Quality Metrics ---")
+        print(f"Average Faithfulness: {avg_faithfulness:.3f} ({len(valid_faithfulness)}/{len(valid_results)} valid)")
         if num_nan_faithfulness > 0:
             print(f"  Note: {num_nan_faithfulness} questions had NaN faithfulness (RAGAS parsing errors)")
+        print(f"Average Answer Relevancy: {avg_relevancy:.3f}")
         if num_nan_relevancy > 0:
             print(f"  Note: {num_nan_relevancy} questions had NaN answer relevancy (RAGAS parsing errors)")
-        print(f"Average Answer Relevancy: {avg_relevancy:.3f}")
+
+        print(f"\n--- Retrieval Quality Metrics ---")
+        if avg_precision is not None:
+            print(f"Average Precision@K: {avg_precision:.3f} ({len(valid_precision)}/{len(valid_results)} questions)")
+            print(f"  → {avg_precision*100:.1f}% of retrieved documents were relevant")
+        else:
+            print("Precision@K: N/A (no expected_contexts in dataset)")
+
+        if avg_recall is not None:
+            print(f"Average Recall@K: {avg_recall:.3f} ({len(valid_recall)}/{len(valid_results)} questions)")
+            print(f"  → Retrieved {avg_recall*100:.1f}% of all relevant documents")
+        else:
+            print("Recall@K: N/A (no expected_contexts in dataset)")
+
         print(f"\nFailure Cases (faithfulness < 0.7): {len(failure_cases)}")
         print("=" * 60)
 

@@ -4,9 +4,11 @@ RAGAS-based evaluation metrics for RAG system.
 This module provides wrappers around RAGAS metrics for computing:
 - Faithfulness: Measures if the answer is grounded in retrieved contexts (hallucination detection)
 - Answer Relevance: Measures if the answer addresses the question
+- Precision@K: Measures retrieval quality (how many retrieved docs are relevant)
+- Recall@K: Measures retrieval completeness (how many relevant docs were retrieved)
 """
 
-from typing import List, Dict
+from typing import List, Dict, Set
 from ragas import evaluate
 from ragas.metrics import faithfulness, answer_relevancy
 from datasets import Dataset
@@ -14,6 +16,7 @@ from langchain_community.llms import Ollama
 from langchain_huggingface import HuggingFaceEmbeddings
 from config import LLM_MODEL, OLLAMA_HOST, EMBEDDING_MODEL, PROXY_API_KEY, PROXY_SONNET_MODEL, PROXY_URL, USE_PROXY
 from langchain_anthropic import ChatAnthropic
+from pathlib import Path
 
 def _init_ragas_llm():
     """Initialize LLM for RAGAS metric computation."""
@@ -193,3 +196,111 @@ def compute_all_metrics(question: str, answer: str, contexts: List[str]) -> Dict
             "faithfulness": 0.0,
             "answer_relevancy": 0.0,
         }
+
+def compute_precision_at_k(retrieved_sources: List[str], expected_sources: List[str], k: int = None) -> float:
+    """
+    Compute Precision@K for retrieval quality evaluation.
+
+    Precision@K measures what fraction of the top-K retrieved documents are relevant.
+    A document is considered relevant if its source file matches one of the expected sources.
+
+    Formula: Precision@K = (# of relevant docs in top-K) / K
+
+    Args:
+        retrieved_sources: List of source file paths retrieved by the system (in rank order)
+        expected_sources: List of expected/ground-truth source file paths or filenames
+        k: Number of top results to consider. If None, uses len(retrieved_sources)
+
+    Returns:
+        float: Precision score between 0.0 and 1.0
+               - 1.0: All retrieved docs are relevant
+               - 0.5: Half of retrieved docs are relevant
+               - 0.0: No retrieved docs are relevant
+
+    Example:
+        >>> retrieved = ["/path/to/pods.md", "/path/to/services.md", "/path/to/volumes.md"]
+        >>> expected = ["pods.md", "containers.md"]
+        >>> compute_precision_at_k(retrieved, expected, k=3)
+        0.333  # Only 1 out of 3 retrieved docs (pods.md) is relevant
+
+    Notes:
+        - Matching is done by filename (basename) to handle different path formats
+        - Case-insensitive matching
+        - If k is larger than retrieved_sources, uses actual length
+    """
+    if not retrieved_sources:
+        return 0.0
+
+    # Use actual length if k not specified or exceeds available docs
+    if k is None:
+        k = len(retrieved_sources)
+    else:
+        k = min(k, len(retrieved_sources))
+
+    # Extract filenames from paths for matching (handle both full paths and filenames)
+    retrieved_filenames: Set[str] = {
+        Path(src).name.lower() for src in retrieved_sources[:k]
+    }
+
+    expected_filenames: Set[str] = {
+        Path(src).name.lower() for src in expected_sources
+    }
+
+    # Count how many retrieved docs are in the expected set
+    relevant_count = len(retrieved_filenames.intersection(expected_filenames))
+
+    precision = relevant_count / k
+    return precision
+
+
+def compute_recall_at_k(retrieved_sources: List[str], expected_sources: List[str], k: int = None) -> float:
+    """
+    Compute Recall@K for retrieval quality evaluation.
+
+    Recall@K measures what fraction of all relevant documents were retrieved in top-K.
+
+    Formula: Recall@K = (# of relevant docs in top-K) / (total # of relevant docs)
+
+    Args:
+        retrieved_sources: List of source file paths retrieved by the system (in rank order)
+        expected_sources: List of expected/ground-truth source file paths or filenames
+        k: Number of top results to consider. If None, uses len(retrieved_sources)
+
+    Returns:
+        float: Recall score between 0.0 and 1.0
+               - 1.0: All relevant docs were retrieved
+               - 0.5: Half of relevant docs were retrieved
+               - 0.0: No relevant docs were retrieved
+
+    Example:
+        >>> retrieved = ["/path/to/pods.md", "/path/to/services.md"]
+        >>> expected = ["pods.md", "containers.md", "volumes.md"]  # 3 relevant docs
+        >>> compute_recall_at_k(retrieved, expected, k=2)
+        0.333  # Only 1 out of 3 relevant docs (pods.md) was retrieved
+    """
+    if not expected_sources:
+        return 0.0
+
+    if not retrieved_sources:
+        return 0.0
+
+    # Use actual length if k not specified or exceeds available docs
+    if k is None:
+        k = len(retrieved_sources)
+    else:
+        k = min(k, len(retrieved_sources))
+
+    # Extract filenames from paths for matching
+    retrieved_filenames: Set[str] = {
+        Path(src).name.lower() for src in retrieved_sources[:k]
+    }
+
+    expected_filenames: Set[str] = {
+        Path(src).name.lower() for src in expected_sources
+    }
+
+    # Count how many expected docs were retrieved
+    relevant_retrieved = len(retrieved_filenames.intersection(expected_filenames))
+
+    recall = relevant_retrieved / len(expected_filenames)
+    return recall
