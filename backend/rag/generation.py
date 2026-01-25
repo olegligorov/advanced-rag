@@ -5,14 +5,13 @@ Handles answer generation using retrieved context documents and Ollama LLM.
 """
 
 from langchain_community.llms import Ollama
+from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import PromptTemplate, ChatPromptTemplate
-try:
-    from langchain_classic.chains.combine_documents import create_stuff_documents_chain
-except ImportError:
-    from langchain.chains.combine_documents import create_stuff_documents_chain
+
+from langchain_classic.chains.combine_documents import create_stuff_documents_chain
 from typing import List, Dict
 from templates import SYSTEM_TEXT_TEMPLATE
-from config import LLM_MODEL, OLLAMA_HOST, OLLAMA_TEMPERATURE
+from config import LLM_MODEL, OLLAMA_HOST, OLLAMA_TEMPERATURE, PROXY_URL, PROXY_API_KEY, PROXY_SONNET_MODEL, USE_PROXY
 
 
 class Generator:
@@ -31,11 +30,21 @@ class Generator:
             model_name (str): Name of the Ollama model (e.g., "llama3", "mistral")
             temperature (float): Sampling temperature (0.0 = deterministic, 1.0 = creative)
         """
-        self.llm = Ollama(
-            model=model_name,
-            base_url=OLLAMA_HOST,
-            temperature=temperature
-        )
+        
+        if USE_PROXY == False:
+            self.llm = Ollama(
+                model=model_name,
+                base_url=OLLAMA_HOST,
+                temperature=temperature
+            )
+        else:
+            self.llm = ChatAnthropic(
+                model=PROXY_SONNET_MODEL,
+                base_url=PROXY_URL,
+                api_key=PROXY_API_KEY,
+                temperature=temperature,
+                max_tokens=4096
+            )
 
         self.system_template =  SYSTEM_TEXT_TEMPLATE
         self.doc_prompt = PromptTemplate.from_template(
@@ -53,7 +62,8 @@ class Generator:
             document_prompt=self.doc_prompt
         )
 
-        print(f"Generator initialized: {model_name} (temperature={temperature})")
+        model = "Ollama" if USE_PROXY == False else "proxy-claude-sonnet"
+        print(f"Generator initialized: {model} (temperature={temperature})")
 
     def generate(self, query: str, documents: List, include_sources: bool = True) -> Dict:
         """

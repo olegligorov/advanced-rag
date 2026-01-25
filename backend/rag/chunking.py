@@ -6,10 +6,9 @@ from langchain_core.documents import Document
 
 from config import EMBEDDING_MODEL, CHUNK_PERCENTILE
 
-# Chunking constraints
-MAX_UNITS_PER_SECTION = 100  # Split sections larger than this to avoid expensive embedding operations
-MIN_CHUNK_SIZE = 100  # Minimum characters per chunk
-MAX_CHUNK_SIZE = 2000  # Maximum characters per chunk
+MAX_UNITS_PER_SECTION = 100
+MIN_CHUNK_SIZE = 100
+MAX_CHUNK_SIZE = 2000
 
 class SemanticChunker:
     """

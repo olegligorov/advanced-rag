@@ -14,6 +14,7 @@ from tqdm import tqdm
 from models.rag_pipeline import RAGPipeline
 from evaluation.metrics import compute_all_metrics
 from config import DATA_PATH
+import math
 
 
 class RAGEvaluator:
@@ -167,7 +168,6 @@ class RAGEvaluator:
                 })
 
         # Compute aggregate metrics
-        import math
         valid_results = [r for r in per_question_results if "error" not in r]
 
         if len(valid_results) == 0:
@@ -210,6 +210,8 @@ class RAGEvaluator:
         print(f"\nAverage Faithfulness: {avg_faithfulness:.3f} ({len(valid_faithfulness)}/{len(valid_results)} valid)")
         if num_nan_faithfulness > 0:
             print(f"  Note: {num_nan_faithfulness} questions had NaN faithfulness (RAGAS parsing errors)")
+        if num_nan_relevancy > 0:
+            print(f"  Note: {num_nan_relevancy} questions had NaN answer relevancy (RAGAS parsing errors)")
         print(f"Average Answer Relevancy: {avg_relevancy:.3f}")
         print(f"\nFailure Cases (faithfulness < 0.7): {len(failure_cases)}")
         print("=" * 60)

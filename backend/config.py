@@ -3,6 +3,10 @@ Configuration file for RAG system
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Base paths
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,3 +41,10 @@ LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 EVALUATION_LLM = LLM_MODEL  # Reuse same LLM for evaluation
 TEST_DATASET_PATH = os.path.join(BASE_DIR, "backend", "datasets", "k8s_qa_test_set.json")
 EVALUATION_RESULTS_DIR = os.path.join(BASE_DIR, "backend", "results")
+
+# Change to false, then it will use ollama model
+USE_PROXY=True
+PROXY_SONNET_MODEL=os.getenv("PROXY_SONNET_MODEL", "claude-sonnet-4-5-20250929")
+PROXY_URL=os.getenv("PROXY_URL", "http://localhost:3030")
+PROXY_API_KEY=os.getenv("PROXY_API_KEY")
+ 

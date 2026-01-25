@@ -13,9 +13,6 @@ from pathlib import Path
 # Add parent directory to path to import modules
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Apply langchain patch before importing
-import langchain_patch
-
 from models.rag_pipeline import RAGPipeline
 from evaluation.dataset_generator import DatasetGenerator
 from config import DATA_PATH
@@ -51,7 +48,7 @@ def main():
     random.seed(args.seed)
 
     print("=" * 60)
-    print("KUBERNETES RAG - TEST DATASET GENERATOR")
+    print("RAG - TEST DATASET GENERATOR")
     print("=" * 60)
     print(f"Samples to generate: {args.num_samples}")
     print(f"Output path: {args.output}")

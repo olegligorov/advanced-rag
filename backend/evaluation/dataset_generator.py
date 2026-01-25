@@ -9,8 +9,8 @@ import random
 from typing import List, Dict
 from langchain_core.documents import Document
 from langchain_community.llms import Ollama
-from config import LLM_MODEL, OLLAMA_HOST
-
+from config import LLM_MODEL, OLLAMA_HOST, PROXY_API_KEY, PROXY_SONNET_MODEL, PROXY_URL, USE_PROXY
+from langchain_anthropic import ChatAnthropic
 
 class DatasetGenerator:
     """
@@ -22,11 +22,30 @@ class DatasetGenerator:
 
     def __init__(self):
         """Initialize the dataset generator with an LLM."""
-        self.llm = Ollama(
-            model=LLM_MODEL,
-            base_url=OLLAMA_HOST,
-            temperature=0.7  # Slightly higher for diverse question generation
-        )
+        if USE_PROXY == False:
+            self.llm = Ollama(
+                model=LLM_MODEL,
+                base_url=OLLAMA_HOST,
+                temperature=0.7
+            )
+        else:
+            self.llm = ChatAnthropic(
+                model=PROXY_SONNET_MODEL,
+                base_url=PROXY_URL,
+                api_key=PROXY_API_KEY,
+                temperature=0.7,
+                max_tokens=4096
+            )
+
+    def _get_llm_response(self, prompt: str) -> str:
+        """
+        Get response from LLM and normalize to string.
+
+        Handles both Ollama (returns string) and ChatAnthropic (returns AIMessage).
+        """
+        response = self.llm.invoke(prompt)
+        # Handle both string (Ollama) and AIMessage (ChatAnthropic) responses
+        return response.content if hasattr(response, 'content') else response
 
     def generate_qa_pair(self, document: Document, question_id: str) -> Dict:
         """
@@ -43,6 +62,10 @@ class DatasetGenerator:
         context = document.page_content
         source = document.metadata.get("source", "unknown")
 
+        # Skip chunks that are too short or just headings
+        if len(context.strip()) < 200:
+            raise ValueError(f"Document chunk too short ({len(context)} chars) - likely just a heading")
+
         # Truncate very long contexts to avoid token limits
         if len(context) > 2000:
             context = context[:2000] + "..."
@@ -55,14 +78,16 @@ Text:
 
 Generate a clear, technical question that:
 1. Can be definitively answered from the text above
-2. Is specific to Kubernetes concepts
-3. Would be useful for testing a RAG system
+2. Is specific and unambiguous (not vague like "what is mentioned here?")
+3. Focuses on concrete facts, concepts, or procedures in Kubernetes
+4. Would be useful for testing a RAG system
+
+Output ONLY the question, no preamble or meta-commentary.
 
 Question:"""
 
         # Generate question
-        question = self.llm.invoke(question_prompt).strip()
-
+        question = self._get_llm_response(question_prompt).strip()
         # Clean up question (remove quotes, extra whitespace)
         question = question.strip('"\'').strip()
 
@@ -79,7 +104,7 @@ Provide a direct, factual answer (2-3 sentences maximum) using only the informat
 Answer:"""
 
         # Generate ground truth answer
-        ground_truth = self.llm.invoke(answer_prompt).strip()
+        ground_truth = self._get_llm_response(answer_prompt).strip()
         ground_truth = ground_truth.strip('"\'').strip()
 
         # Determine category based on source filename
@@ -120,26 +145,41 @@ Answer:"""
             print(f"Generating {len(documents)} samples instead.")
             num_samples = len(documents)
 
-        # Randomly sample documents to ensure diversity
-        sampled_docs = random.sample(documents, num_samples)
-
         test_cases = []
+        available_docs = documents.copy()
+        random.shuffle(available_docs)
 
         print(f"\nGenerating {num_samples} Q&A pairs from documents...")
 
-        for i, doc in enumerate(sampled_docs, 1):
+        doc_index = 0
+        attempts = 0
+        max_attempts = num_samples * 3  # Try up to 3x to avoid infinite loops
+
+        while len(test_cases) < num_samples and attempts < max_attempts:
+            if doc_index >= len(available_docs):
+                print(f"\nWarning: Ran out of documents. Only generated {len(test_cases)} Q&A pairs.")
+                break
+
+            doc = available_docs[doc_index]
+            doc_index += 1
+            attempts += 1
+
             try:
-                question_id = f"k8s_{i:03d}"
+                question_id = f"k8s_{len(test_cases) + 1:03d}"
                 test_case = self.generate_qa_pair(doc, question_id)
                 test_cases.append(test_case)
 
-                print(f"[{i}/{num_samples}] Generated: {test_case['question'][:60]}...")
+                print(f"[{len(test_cases)}/{num_samples}] Generated: {test_case['question'][:60]}...")
 
+            except ValueError as e:
+                # Skip chunks that are too short
+                print(f"[Attempt {attempts}] Skipped: {str(e)}")
+                continue
             except Exception as e:
-                print(f"[{i}/{num_samples}] Error generating Q&A pair: {e}")
+                print(f"[Attempt {attempts}] Error generating Q&A pair: {e}")
                 continue
 
-        print(f"\nSuccessfully generated {len(test_cases)} Q&A pairs.")
+        print(f"\nSuccessfully generated {len(test_cases)} Q&A pairs (attempted {attempts} documents).")
 
         return test_cases
 

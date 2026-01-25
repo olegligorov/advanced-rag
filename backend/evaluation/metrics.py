@@ -12,16 +12,31 @@ from ragas.metrics import faithfulness, answer_relevancy
 from datasets import Dataset
 from langchain_community.llms import Ollama
 from langchain_huggingface import HuggingFaceEmbeddings
-from config import LLM_MODEL, OLLAMA_HOST, EMBEDDING_MODEL
-
+from config import LLM_MODEL, OLLAMA_HOST, EMBEDDING_MODEL, PROXY_API_KEY, PROXY_SONNET_MODEL, PROXY_URL, USE_PROXY
+from langchain_anthropic import ChatAnthropic
 
 def _init_ragas_llm():
     """Initialize LLM for RAGAS metric computation."""
-    return Ollama(
-        model=LLM_MODEL,
-        base_url=OLLAMA_HOST,
-        temperature=0.0  # Use 0 for evaluation consistency
-    )
+    # return Ollama(
+    #     model=LLM_MODEL,
+    #     base_url=OLLAMA_HOST,
+    #     temperature=0.0  # Use 0 for evaluation consistency
+    # )
+    
+    if USE_PROXY == False:
+        return Ollama(
+            model=LLM_MODEL,
+            base_url=OLLAMA_HOST,
+            temperature=0.0
+        )
+    else:
+        return ChatAnthropic(
+            model=PROXY_SONNET_MODEL,
+            base_url=PROXY_URL,
+            api_key=PROXY_API_KEY,
+            temperature=0.0,
+            max_tokens=4096
+        )
 
 
 def _init_ragas_embeddings():

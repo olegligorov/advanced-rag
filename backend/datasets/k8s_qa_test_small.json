@@ -8,102 +8,102 @@
   "test_cases": [
     {
       "question_id": "k8s_001",
-      "question": "Here's a specific technical question that can be answered using only the information in the provided text:\n\nWhat is the effect of a terminating pod on running pods in a Kubernetes cluster, according to the NoExecute policy?",
-      "ground_truth": "According to the NoExecute policy, when a terminating pod exists in a Kubernetes cluster, the effect is that running pods are terminated.",
+      "question": "How are Kubernetes Secrets stored by default in the API server's underlying data store?",
+      "ground_truth": "By default, Kubernetes Secrets are stored unencrypted in the API server's underlying data store (etcd).",
       "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md"
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md"
       ],
-      "category": "resource-management",
+      "category": "configuration",
       "difficulty": "medium"
     },
     {
       "question_id": "k8s_002",
-      "question": "Here's a specific technical question that can be answered using only the information in the provided text:\n\nWhat is the command used to configure access to multiple clusters with kubectl config, according to the Kubernetes documentation?\n\nThis question meets the criteria because it:\n\n1. Can be definitively answered from the text above (the answer is not explicitly stated, but the relevant information is present).\n2. Is specific to Kubernetes concepts (kubectl config and configuring access to multiple clusters).\n3. Would be useful for testing a RAG system (assuming RAG stands for \"Reference Architecture Guidance\", this question would help test an individual's understanding of Kubernetes configuration options).",
-      "ground_truth": "According to the text, the command used to configure access to multiple clusters with kubectl config is not explicitly stated. However, based on the provided text, it can be inferred that you can achieve this by creating a new context for each cluster and then switching between contexts using `kubectl config use-context`.",
+      "question": "What does the node controller do when a node becomes unresponsive in the Kubernetes cluster?",
+      "ground_truth": "When a node becomes unresponsive, the node controller checks with the cloud provider's API to see if the server has been deactivated, deleted, or terminated. If the node has been deleted from the cloud, the controller deletes the Node object from the Kubernetes cluster.",
       "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/organize-cluster-access-kubeconfig.md"
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md"
       ],
       "category": "general",
       "difficulty": "medium"
     },
     {
       "question_id": "k8s_003",
-      "question": "Here is a specific technical question that can be answered using only the information in the provided text:\n\nWhat are the two parts that make up the Konnectivity service in a Kubernetes cluster, and what is their respective network location?\n\nThis question requires the answerer to understand the structure of the Konnectivity service as described in the text, and can be definitively answered from the provided information.",
-      "ground_truth": "The two parts that make up the Konnectivity service are the Konnectivity server and the Konnectivity agents. The Konnectivity server is located in the control plane network, while the Konnectivity agents are located in the nodes network.",
+      "question": "What happens to the nominatedNodeName field of Pod P when a higher priority Pod arrives and is given Node N instead?",
+      "ground_truth": "When a higher priority Pod than Pod P arrives and is given Node N, the scheduler clears the nominatedNodeName of Pod P. By doing this, the scheduler makes Pod P eligible to preempt Pods on another Node.",
       "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/control-plane-node-communication.md"
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md"
+      ],
+      "category": "workloads",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_004",
+      "question": "Can you join a Windows server as a worker node to a Kubernetes cluster?",
+      "ground_truth": "Yes, it is possible to join your Windows server as a worker node to a Kubernetes cluster. According to the text, the CNCF and Linux Foundation take a vendor-neutral approach towards compatibility, which enables this functionality.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md"
       ],
       "category": "general",
       "difficulty": "medium"
     },
     {
-      "question_id": "k8s_004",
-      "question": "Here is a specific technical question that can be answered using only the information in the provided text:\n\nWhat is the flexible option for traffic routing within Kubernetes that is closely related to the service.kubernetes.io/topology-mode annotation?\n\nThis question meets the criteria because it:\n\n1. Can be definitively answered from the text above (the answer is \"trafficDistribution\" field).\n2. Is specific to Kubernetes concepts (it refers to a specific feature of Kubernetes services).\n3. Would be useful for testing a RAG system (as it requires knowledge of Kubernetes features and annotations).",
-      "ground_truth": "According to the text, the flexible option for traffic routing within Kubernetes that is closely related to the service.kubernetes.io/topology-mode annotation is the \"trafficDistribution\" field.",
-      "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/topology-aware-routing.md"
-      ],
-      "category": "networking",
-      "difficulty": "medium"
-    },
-    {
       "question_id": "k8s_005",
-      "question": "Here is a specific technical question that can be answered using ONLY the information in the provided text:\n\n**Question:** How do I enable dual-stack networking using kubeadm in my Kubernetes cluster?\n\nThis question meets all three criteria:\n\n1. It can be definitively answered from the text above, which mentions \"Enable dual-stack networking using kubeadm\".\n2. It is specific to Kubernetes concepts (kubeadm and dual-stack networking).\n3. It would be useful for testing a RAG (Redundant Array of Genomes) system, as it involves configuring network settings in a Kubernetes cluster, which may be relevant for RAG systems that require reliable and fault-tolerant networking.",
-      "ground_truth": "According to the text, you can enable dual-stack networking using kubeadm in your Kubernetes cluster.",
+      "question": "What formula should you use to determine if your container needs a startup probe instead of relying solely on a liveness probe?",
+      "ground_truth": "According to the text, if your container usually starts in more than `initialDelaySeconds + failureThreshold \u00d7 periodSeconds`, you should specify a startup probe. This formula helps determine when the standard liveness probe configuration would not allow enough time for container startup.",
       "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/dual-stack.md"
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md"
       ],
-      "category": "networking",
+      "category": "workloads",
       "difficulty": "medium"
     },
     {
       "question_id": "k8s_006",
-      "question": "Here's a technical question that can be answered using only the information in the provided text:\n\nWhat is the effect on Pod distribution if you set podAntiAffinity to requiredDuringSchedulingIgnoredDuringExecution mode?\n\nThis question requires knowledge of Kubernetes concepts, specifically the behavior of podAntiAffinity, and can be definitively answered based on the text.",
-      "ground_truth": "According to the provided text, if you set podAntiAffinity to requiredDuringSchedulingIgnoredDuringExecution mode, then only a single Pod can be scheduled into a single topology domain. This means that the Pods will be repelled from each other and distributed across different topology domains in order to satisfy this constraint.",
+      "question": "What happens to a pod with a NoExecute toleration that specifies tolerationSeconds: 3600 when a matching taint is added to the node it's running on?",
+      "ground_truth": "When a matching NoExecute taint is added to the node, the pod will stay bound to the node for 3600 seconds, and then be evicted. If the taint is removed before that time, the pod will not be evicted.",
       "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/topology-spread-constraints.md"
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md"
       ],
       "category": "general",
       "difficulty": "medium"
     },
     {
       "question_id": "k8s_007",
-      "question": "Here's a specific technical question that can be answered using only the information in the provided text:\n\nWhat is the technology used by Kubernetes Dynamic Resource Allocation (DRA) for performing fine-grained filtering of devices based on specific attributes?\n\nAnswer: Common Expression Language (CEL).",
-      "ground_truth": "The technology used by Kubernetes Dynamic Resource Allocation (DRA) for performing fine-grained filtering of devices based on specific attributes is the Common Expression Language (CEL).",
+      "question": "In what order does Kubernetes evict Pods from a Node when it runs out of resources?",
+      "ground_truth": "When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.",
       "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md"
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-qos.md"
       ],
-      "category": "resource-management",
+      "category": "workloads",
       "difficulty": "medium"
     },
     {
       "question_id": "k8s_008",
-      "question": "Here is a technical question based on the provided text:\n\nWhat happens when a StatefulSet's update strategy is set to RollingUpdate and .spec.minReadySeconds is not specified?\n\nAnswer: The Kubernetes control plane waits until an updated Pod is Running and Ready prior to updating its predecessor.",
-      "ground_truth": "When a StatefulSet's update strategy is set to RollingUpdate and .spec.minReadySeconds is not specified, the Kubernetes control plane waits until an updated Pod is Running and Ready prior to updating its predecessor.",
+      "question": "What parameter is required when configuring a gang policy for a pod group in a Kubernetes Workload?",
+      "ground_truth": "When configuring a gang policy for a pod group in a Kubernetes Workload, the `minCount` parameter is required. This parameter specifies the number of Pods that must be schedulable simultaneously for the group to be admitted.",
       "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md"
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md"
       ],
       "category": "general",
       "difficulty": "medium"
     },
     {
       "question_id": "k8s_009",
-      "question": "Here is a specific technical question that can be answered using only the information in the provided text:\n\n**Question:** What is the default state of most scheduling plugins in Kubernetes v1.18 or later?\n\nThis question meets the criteria you specified:\n\n1. Can be definitively answered from the text above: Yes, the answer can be found in the first sentence of the text.\n2. Is specific to Kubernetes concepts: Yes, it references a specific version of Kubernetes and a concept within that version (scheduling plugins).\n3. Would be useful for testing a RAG system: Yes, this question is concise and precise, making it suitable for use in a Rapid Application Group (RAG) system, which aims to quickly test and validate knowledge against specific technical requirements.",
-      "ground_truth": "According to the text, most scheduling plugins are \"in use and enabled by default\" in Kubernetes v1.18 or later. This means that the default state of most scheduling plugins is enabled.",
+      "question": "What happens to the node selection when a CSI storage driver cannot create a volume on the initially selected node for a Pod with WaitForFirstConsumer volumes?",
+      "ground_truth": "When the CSI storage driver cannot create the volume on the initially selected node, the node selection is reset. The Kubernetes scheduler then tries again to find a node for the Pod.",
       "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/scheduling-framework.md"
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md"
       ],
       "category": "general",
       "difficulty": "medium"
     },
     {
       "question_id": "k8s_010",
-      "question": "Here's a specific technical question based on the provided text:\n\nWhat is the purpose of automatic labelling in Kubernetes?\n\nThis question can be definitively answered by referring to the text, which states that \"Automatic labelling generates labels for objects in your cluster.\" Therefore, this question meets criteria 1.",
-      "ground_truth": "According to the text, automatic labelling in Kubernetes \"generates labels for objects in your cluster\". Its purpose is to assign labels to objects in the cluster.",
+      "question": "What happens to the PersistentVolumeClaim created for a generic ephemeral volume when the Pod that uses it gets deleted?",
+      "ground_truth": "When a Pod that uses a generic ephemeral volume gets deleted, the ephemeral volume controller ensures that the PersistentVolumeClaim gets deleted as well. The controller creates the PersistentVolumeClaim when the Pod is created and automatically deletes it when the Pod is deleted.",
       "expected_contexts": [
-        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/namespaces.md"
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md"
       ],
-      "category": "general",
+      "category": "configuration",
       "difficulty": "medium"
     }
   ]

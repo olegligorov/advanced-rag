@@ -1,0 +1,176 @@
+{
+  "metadata": {
+    "timestamp": "2026-01-25T15:55:37.295355",
+    "dataset": "datasets/k8s_qa_test_small.json",
+    "num_samples": 10,
+    "num_successful": 10,
+    "num_failed": 0
+  },
+  "aggregate_metrics": {
+    "faithfulness": 0.986,
+    "answer_relevancy": 0.931
+  },
+  "per_question_results": [
+    {
+      "question_id": "k8s_001",
+      "question": "How are Kubernetes Secrets stored by default in the API server's underlying data store?",
+      "generated_answer": "Kubernetes Secrets are, by default, stored **unencrypted** in the API server's underlying data store (etcd) [Source: secret.md #Secrets].\n\nThis means that anyone with API access can retrieve or modify a Secret, and anyone with access to etcd can also access the Secret data [Source: secret.md #Secrets]. To safely use Secrets, it is recommended to enable Encryption at Rest for Secrets [Source: secret.md #Secrets].",
+      "ground_truth": "By default, Kubernetes Secrets are stored unencrypted in the API server's underlying data store (etcd).",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9993402780359291,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/service-accounts.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/controlling-access.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/storage-version.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md"
+      ],
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_002",
+      "question": "What does the node controller do when a node becomes unresponsive in the Kubernetes cluster?",
+      "generated_answer": "When a node becomes unresponsive in a Kubernetes cluster, the node controller takes the following actions:\n\n1. **Updates the Node Status**: The node controller updates the Ready condition in the Node's `.status` field, setting it to `Unknown` [Source: nodes.md #Node controller].\n\n2. **Triggers Pod Eviction**: If a node remains unreachable, the node controller triggers API-initiated eviction for all Pods on the unreachable node. By default, it waits 5 minutes between marking the node as `Unknown` and submitting the first eviction request [Source: nodes.md #Node controller].\n\n3. **Verifies with Cloud Provider**: The node controller checks with the cloud provider's API to see if the server has been deactivated, deleted, or terminated. If the node has been deleted from the cloud, the controller deletes the Node object from the Kubernetes cluster [Source: cloud-controller.md #Node controller].\n\n4. **Applies Rate Limiting**: The eviction process follows rate limits - by default, the node controller won't evict pods from more than 1 node per 10 seconds (rate of 0.1 per second). These rates can be adjusted based on the health of the availability zone [Source: nodes.md #Rate limits on eviction].\n\n5. **Adds Taints**: The node controller adds taints corresponding to node problems like \"node unreachable\" or \"not ready,\" which prevents the scheduler from placing new Pods onto unhealthy nodes [Source: nodes.md #Node controller].",
+      "ground_truth": "When a node becomes unresponsive, the node controller checks with the cloud provider's API to see if the server has been deactivated, deleted, or terminated. If the node has been deleted from the cloud, the controller deletes the Node object from the Kubernetes cluster.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9711742385525817,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/self-healing.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/nodes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/_index.md"
+      ],
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_003",
+      "question": "What happens to the nominatedNodeName field of Pod P when a higher priority Pod arrives and is given Node N instead?",
+      "generated_answer": "When a higher priority Pod arrives and is given Node N instead of Pod P, **the scheduler clears the nominatedNodeName of Pod P** [Source: pod-priority-preemption.md #Pod Priority and Preemption]. \n\nBy doing this, the scheduler makes Pod P eligible to preempt Pods on another Node [Source: pod-priority-preemption.md #Pod Priority and Preemption].",
+      "ground_truth": "When a higher priority Pod than Pod P arrives and is given Node N, the scheduler clears the nominatedNodeName of Pod P. By doing this, the scheduler makes Pod P eligible to preempt Pods on another Node.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.824107377144388,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md"
+      ],
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_004",
+      "question": "Can you join a Windows server as a worker node to a Kubernetes cluster?",
+      "generated_answer": "Yes, it is possible to join a Windows server as a worker node to a Kubernetes cluster [Source: _index.md #Windows in Kubernetes]. \n\nKubernetes supports worker nodes running either Linux or Microsoft Windows [Source: _index.md #Windows in Kubernetes]. The CNCF and its parent the Linux Foundation take a vendor-neutral approach towards compatibility, which enables this capability [Source: _index.md #Windows in Kubernetes].",
+      "ground_truth": "Yes, it is possible to join your Windows server as a worker node to a Kubernetes cluster. According to the text, the CNCF and Linux Foundation take a vendor-neutral approach towards compatibility, which enables this functionality.",
+      "faithfulness": 0.8571428571428571,
+      "answer_relevancy": 0.9914007570281805,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md"
+      ],
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_005",
+      "question": "What formula should you use to determine if your container needs a startup probe instead of relying solely on a liveness probe?",
+      "generated_answer": "According to the Kubernetes documentation, you should use a startup probe if your container usually starts in more than **initialDelaySeconds + failureThreshold \u00d7 periodSeconds** [Source: pod-lifecycle.md #When should you use a startup probe?].\n\nThis formula represents the maximum time a liveness probe would allow before considering the container unhealthy. If your container's startup time exceeds this duration, you should configure a startup probe that checks the same endpoint as the liveness probe, with a higher failureThreshold to allow sufficient time for the container to start [Source: pod-lifecycle.md #When should you use a startup probe?].",
+      "ground_truth": "According to the text, if your container usually starts in more than `initialDelaySeconds + failureThreshold \u00d7 periodSeconds`, you should specify a startup probe. This formula helps determine when the standard liveness probe configuration would not allow enough time for container startup.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.6038010725453753,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/liveness-readiness-startup-probes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/sidecar-containers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/sidecar-containers.md"
+      ],
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_006",
+      "question": "What happens to a pod with a NoExecute toleration that specifies tolerationSeconds: 3600 when a matching taint is added to the node it's running on?",
+      "generated_answer": "When a pod with a NoExecute toleration that specifies `tolerationSeconds: 3600` is running and a matching taint is added to the node, the pod will stay bound to the node for 3600 seconds, and then be evicted [Source: taint-and-toleration.md #Tolerations]. If the taint is removed before that time elapses, the pod will not be evicted [Source: taint-and-toleration.md #Tolerations].\n\nThis behavior differs from the default NoExecute behavior, where pods that do not tolerate the taint are evicted immediately [Source: taint-and-toleration.md #Effects]. The `tolerationSeconds` field provides a grace period before eviction occurs.",
+      "ground_truth": "When a matching NoExecute taint is added to the node, the pod will stay bound to the node for 3600 seconds, and then be evicted. If the taint is removed before that time, the pod will not be evicted.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9892275530924669,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md"
+      ],
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_007",
+      "question": "In what order does Kubernetes evict Pods from a Node when it runs out of resources?",
+      "generated_answer": "When a Node runs out of resources, Kubernetes evicts Pods in the following order based on their QoS class [Source: pod-qos.md #Quality of Service classes]:\n\n1. **BestEffort Pods** - evicted first\n2. **Burstable Pods** - evicted second\n3. **Guaranteed Pods** - evicted last\n\nWhen eviction occurs due to resource pressure, only Pods exceeding their resource requests are candidates for eviction [Source: pod-qos.md #Quality of Service classes].\n\nGuaranteed Pods have the strictest resource limits and are least likely to face eviction. They are guaranteed not to be killed until they exceed their limits or there are no lower-priority Pods that can be preempted from the Node [Source: pod-qos.md #Quality of Service classes].",
+      "ground_truth": "When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9843074521903966,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-qos.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-qos.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/node-pressure-eviction.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/disruptions.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-storage.md"
+      ],
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_008",
+      "question": "What parameter is required when configuring a gang policy for a pod group in a Kubernetes Workload?",
+      "generated_answer": "When configuring a gang policy for a pod group in a Kubernetes Workload, the required parameter is **minCount** [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md #Gang policy].\n\nThe minCount parameter specifies the number of Pods that must be schedulable simultaneously for the group to be admitted [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md #Gang policy].",
+      "ground_truth": "When configuring a gang policy for a pod group in a Kubernetes Workload, the `minCount` parameter is required. This parameter specifies the number of Pods that must be schedulable simultaneously for the group to be admitted.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9977493045845963,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/workload-reference.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/gang-scheduling.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/pod-security-standards.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/logging.md"
+      ],
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_009",
+      "question": "What happens to the node selection when a CSI storage driver cannot create a volume on the initially selected node for a Pod with WaitForFirstConsumer volumes?",
+      "generated_answer": "When a CSI storage driver cannot create a volume on the initially selected node for a Pod with WaitForFirstConsumer volumes, the node selection is reset and the Kubernetes scheduler tries again to find a node for the Pod [Source: storage-capacity.md #Rescheduling].\n\nThis rescheduling occurs because:\n\n1. The initial node selection for a Pod with WaitForFirstConsumer volumes is tentative [Source: storage-capacity.md #Rescheduling]\n2. After node selection, the CSI storage driver is asked to create the volume with a hint that it should be available on the selected node [Source: storage-capacity.md #Rescheduling]\n3. Kubernetes might have chosen a node based on out-dated capacity information, making it possible that the volume cannot actually be created [Source: storage-capacity.md #Rescheduling]",
+      "ground_truth": "When the CSI storage driver cannot create the volume on the initially selected node, the node selection is reset. The Kubernetes scheduler then tries again to find a node for the Pod.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9615123900467762,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-classes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-limits.md"
+      ],
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_010",
+      "question": "What happens to the PersistentVolumeClaim created for a generic ephemeral volume when the Pod that uses it gets deleted?",
+      "generated_answer": "When a Pod that uses a generic ephemeral volume gets deleted, the PersistentVolumeClaim (PVC) created for that ephemeral volume is also deleted [Source: ephemeral-volumes.md #Lifecycle and PersistentVolumeClaim].\n\nSpecifically, the ephemeral volume controller ensures that the PersistentVolumeClaim gets deleted when the Pod gets deleted [Source: ephemeral-volumes.md #Lifecycle and PersistentVolumeClaim]. The Pod is the owner of the PersistentVolumeClaim(s) that provide the ephemeral storage [Source: ephemeral-volumes.md #Lifecycle and PersistentVolumeClaim].\n\nWhen the Pod is deleted, the Kubernetes garbage collector deletes the PVC, which then usually triggers deletion of the volume because the default reclaim policy of storage classes is to delete volumes [Source: ephemeral-volumes.md #Lifecycle and PersistentVolumeClaim].",
+      "ground_truth": "When a Pod that uses a generic ephemeral volume gets deleted, the ephemeral volume controller ensures that the PersistentVolumeClaim gets deleted as well. The controller creates the PersistentVolumeClaim when the Pod is created and automatically deletes it when the Pod is deleted.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9892548989249809,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/persistent-volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volume-snapshots.md"
+      ],
+      "category": "configuration"
+    }
+  ],
+  "failure_cases": []
+}

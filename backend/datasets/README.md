@@ -113,3 +113,10 @@ Organize test cases by category to analyze system performance across different K
 - **resource-management**: Resource quotas, limits, scheduling
 - **security**: Security policies, RBAC, authentication
 - **general**: Cross-cutting concerns or other topics
+
+
+Average Faithfulness: 0.986 (10/10 valid)
+Average Answer Relevancy: 0.931
+
+with k8s_qa_test_small.json (10 samples)
+results/eval_20260125_155222.json

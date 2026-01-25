@@ -13,9 +13,6 @@ from datetime import datetime
 # Add parent directory to path to import modules
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Apply langchain patch before importing
-import langchain_patch
-
 from models.rag_pipeline import RAGPipeline
 from evaluation.evaluator import RAGEvaluator
 from config import DATA_PATH
@@ -52,7 +49,7 @@ def main():
         sys.exit(1)
 
     print("=" * 60)
-    print("KUBERNETES RAG - EVALUATION")
+    print("RAG - EVALUATION")
     print("=" * 60)
     print(f"Dataset: {dataset_path}")
     print(f"Output directory: {args.output}")
@@ -100,7 +97,7 @@ def main():
         print(f"\nFailure Cases ({len(report['failure_cases'])} total):")
         print("(Questions with faithfulness < 0.7 may indicate hallucinations)")
         print()
-        for i, failure in enumerate(report["failure_cases"][:5], 1):  # Show first 5
+        for i, failure in enumerate(report["failure_cases"][:5], 1):
             print(f"{i}. {failure['question']}")
             print(f"   Faithfulness: {failure['faithfulness']:.3f}")
             print(f"   Issue: {failure['issue']}")
