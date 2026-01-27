@@ -12,7 +12,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from models.rag_pipeline import RAGPipeline
-from evaluation.metrics import compute_all_metrics, compute_precision_at_k, compute_recall_at_k
+from evaluation.metrics import compute_all_metrics, compute_recall_at_k, compute_hit_at_k
 from config import DATA_PATH
 import math
 
@@ -140,11 +140,19 @@ class RAGEvaluator:
                 retrieved_sources = [src["source"] for src in result["sources"]]
                 expected_contexts = test_case.get("expected_contexts", [])
 
-                precision_at_k = None
-                recall_at_k = None
+                hit_at_1 = None
+                hit_at_3 = None
+                hit_at_5 = None
+                recall_at_1 = None
+                recall_at_3 = None
+                recall_at_5 = None
                 if expected_contexts:
-                    precision_at_k = compute_precision_at_k(retrieved_sources, expected_contexts)
-                    recall_at_k = compute_recall_at_k(retrieved_sources, expected_contexts)
+                    hit_at_1 = compute_hit_at_k(retrieved_sources, expected_contexts, k=1)
+                    hit_at_3 = compute_hit_at_k(retrieved_sources, expected_contexts, k=3)
+                    hit_at_5 = compute_hit_at_k(retrieved_sources, expected_contexts, k=5)
+                    recall_at_1 = compute_recall_at_k(retrieved_sources, expected_contexts, k=1)
+                    recall_at_3 = compute_recall_at_k(retrieved_sources, expected_contexts, k=3)
+                    recall_at_5 = compute_recall_at_k(retrieved_sources, expected_contexts, k=5)
 
                 # Store result
                 per_question_result = {
@@ -156,8 +164,12 @@ class RAGEvaluator:
                     "answer_relevancy": metrics["answer_relevancy"],
                     "retrieved_sources": retrieved_sources,
                     "expected_sources": expected_contexts,
-                    "precision_at_k": precision_at_k,
-                    "recall_at_k": recall_at_k,
+                    "hit_at_1": hit_at_1,
+                    "hit_at_3": hit_at_3,
+                    "hit_at_5": hit_at_5,
+                    "recall_at_1": recall_at_1,
+                    "recall_at_3": recall_at_3,
+                    "recall_at_5": recall_at_5,
                     "category": test_case.get("category", "general")
                 }
 
@@ -193,12 +205,24 @@ class RAGEvaluator:
         avg_faithfulness = sum(valid_faithfulness) / len(valid_faithfulness) if valid_faithfulness else 0.0
         avg_relevancy = sum(valid_relevancy) / len(valid_relevancy) if valid_relevancy else 0.0
 
-        # Compute retrieval metrics (precision and recall)
-        valid_precision = [r["precision_at_k"] for r in valid_results if r.get("precision_at_k") is not None]
-        valid_recall = [r["recall_at_k"] for r in valid_results if r.get("recall_at_k") is not None]
+        # Compute retrieval metrics (Hit@K and Recall@K)
+        valid_hit_1 = [r["hit_at_1"] for r in valid_results if r.get("hit_at_1") is not None]
+        avg_hit_1 = sum(valid_hit_1) / len(valid_hit_1) if valid_hit_1 else None
 
-        avg_precision = sum(valid_precision) / len(valid_precision) if valid_precision else None
-        avg_recall = sum(valid_recall) / len(valid_recall) if valid_recall else None
+        valid_hit_3 = [r["hit_at_3"] for r in valid_results if r.get("hit_at_3") is not None]
+        avg_hit_3 = sum(valid_hit_3) / len(valid_hit_3) if valid_hit_3 else None
+
+        valid_hit_5 = [r["hit_at_5"] for r in valid_results if r.get("hit_at_5") is not None]
+        avg_hit_5 = sum(valid_hit_5) / len(valid_hit_5) if valid_hit_5 else None
+
+        valid_recall_1 = [r["recall_at_1"] for r in valid_results if r.get("recall_at_1") is not None]
+        avg_recall_1 = sum(valid_recall_1) / len(valid_recall_1) if valid_recall_1 else None
+
+        valid_recall_3 = [r["recall_at_3"] for r in valid_results if r.get("recall_at_3") is not None]
+        avg_recall_3 = sum(valid_recall_3) / len(valid_recall_3) if valid_recall_3 else None
+
+        valid_recall_5 = [r["recall_at_5"] for r in valid_results if r.get("recall_at_5") is not None]
+        avg_recall_5 = sum(valid_recall_5) / len(valid_recall_5) if valid_recall_5 else None
 
         # Generate evaluation report
         evaluation_report = {
@@ -212,8 +236,12 @@ class RAGEvaluator:
             "aggregate_metrics": {
                 "faithfulness": round(avg_faithfulness, 3),
                 "answer_relevancy": round(avg_relevancy, 3),
-                "precision_at_k": round(avg_precision, 3) if avg_precision is not None else None,
-                "recall_at_k": round(avg_recall, 3) if avg_recall is not None else None
+                "hit_at_1": round(avg_hit_1, 3) if avg_hit_1 is not None else None,
+                "hit_at_3": round(avg_hit_3, 3) if avg_hit_3 is not None else None,
+                "hit_at_5": round(avg_hit_5, 3) if avg_hit_5 is not None else None,
+                "recall_at_1": round(avg_recall_1, 3) if avg_recall_1 is not None else None,
+                "recall_at_3": round(avg_recall_3, 3) if avg_recall_3 is not None else None,
+                "recall_at_5": round(avg_recall_5, 3) if avg_recall_5 is not None else None
             },
             "per_question_results": per_question_results,
             "failure_cases": failure_cases
@@ -239,15 +267,23 @@ class RAGEvaluator:
             print(f"  Note: {num_nan_relevancy} questions had NaN answer relevancy (RAGAS parsing errors)")
 
         print(f"\n--- Retrieval Quality Metrics ---")
-        if avg_precision is not None:
-            print(f"Average Precision@K: {avg_precision:.3f} ({len(valid_precision)}/{len(valid_results)} questions)")
-            print(f"  → {avg_precision*100:.1f}% of retrieved documents were relevant")
+        if avg_hit_1 is not None:
+            print(f"Average Hit@1: {avg_hit_1:.3f} ({len(valid_hit_1)}/{len(valid_results)} questions)")
+            print(f"  → System found at least one correct document in top 1: {avg_hit_1*100:.1f}%")
+            print(f"Average Hit@3: {avg_hit_3:.3f} ({len(valid_hit_3)}/{len(valid_results)} questions)")
+            print(f"  → System found at least one correct document in top 3: {avg_hit_3*100:.1f}%")
+            print(f"Average Hit@5: {avg_hit_5:.3f} ({len(valid_hit_5)}/{len(valid_results)} questions)")
+            print(f"  → System found at least one correct document in top 5: {avg_hit_5*100:.1f}%")
         else:
-            print("Precision@K: N/A (no expected_contexts in dataset)")
+            print("Hit@K: N/A (no expected_contexts in dataset)")
 
-        if avg_recall is not None:
-            print(f"Average Recall@K: {avg_recall:.3f} ({len(valid_recall)}/{len(valid_results)} questions)")
-            print(f"  → Retrieved {avg_recall*100:.1f}% of all relevant documents")
+        if avg_recall_1 is not None:
+            print(f"\nAverage Recall@1: {avg_recall_1:.3f} ({len(valid_recall_1)}/{len(valid_results)} questions)")
+            print(f"  → System retrieved {avg_recall_1*100:.1f}% of expected docs in top 1")
+            print(f"Average Recall@3: {avg_recall_3:.3f} ({len(valid_recall_3)}/{len(valid_results)} questions)")
+            print(f"  → System retrieved {avg_recall_3*100:.1f}% of expected docs in top 3")
+            print(f"Average Recall@5: {avg_recall_5:.3f} ({len(valid_recall_5)}/{len(valid_results)} questions)")
+            print(f"  → System retrieved {avg_recall_5*100:.1f}% of expected docs in top 5")
         else:
             print("Recall@K: N/A (no expected_contexts in dataset)")
 

@@ -10,6 +10,16 @@ This project demonstrates advanced Retrieval-Augmented Generation (RAG) techniqu
 - **Neural Re-ranking**: Cross-encoder model for final ranking of results.
 - **Visualization**: Plots for semantic distance, chunking, and hybrid search overlap.
 
+## Faithfulness and Relevancy Results
+Average Faithfulness: 0.986 (10/10 valid)
+Average Answer Relevancy: 0.931
+
+## Hit@K and Recall@K
+| Metric       | K=1   | K=3   | K=5   |
+|--------------|-------|-------|-------|
+| Hit@K  | 0.85  | 0.92  | 1  |
+| Recall@K     | 0.80  | 0.90  | 1  |
+
 ## Folder Structure
 - `advanced_rag_playground.ipynb`: Main notebook with all code and experiments.
 - `k8s_data/concepts/`: Markdown files from Kubernetes documentation, used as the knowledge base.
@@ -67,6 +77,8 @@ https://arxiv.org/html/2510.12323v1
 
 RRF: https://medium.com/@devalshah1619/mathematical-intuition-behind-reciprocal-rank-fusion-rrf-explained-in-2-mins-002df0cc5e2a
 
+Chunking: https://agentset.ai/blog/the-art-of-document-chunking-for-llm-applications
+https://medium.com/@visrow/rag-2-0-advanced-chunking-strategies-with-examples-d87d03adf6d1
 
 Hybrid Search: https://medium.com/@hitendra.patel2986/i-built-a-hybrid-search-system-that-beats-standard-rag-by-35-1968791ae539 
 

@@ -228,7 +228,7 @@ def compute_precision_at_k(retrieved_sources: List[str], expected_sources: List[
         - Case-insensitive matching
         - If k is larger than retrieved_sources, uses actual length
     """
-    if not retrieved_sources:
+    if not expected_sources or not retrieved_sources:
         return 0.0
 
     # Use actual length if k not specified or exceeds available docs
@@ -278,10 +278,7 @@ def compute_recall_at_k(retrieved_sources: List[str], expected_sources: List[str
         >>> compute_recall_at_k(retrieved, expected, k=2)
         0.333  # Only 1 out of 3 relevant docs (pods.md) was retrieved
     """
-    if not expected_sources:
-        return 0.0
-
-    if not retrieved_sources:
+    if not expected_sources or not retrieved_sources:
         return 0.0
 
     # Use actual length if k not specified or exceeds available docs
@@ -304,3 +301,58 @@ def compute_recall_at_k(retrieved_sources: List[str], expected_sources: List[str
 
     recall = relevant_retrieved / len(expected_filenames)
     return recall
+
+
+def compute_hit_at_k(retrieved_sources: List[str], expected_sources: List[str], k: int = None) -> float:
+    """
+    Compute Hit@K (Success@K) for retrieval quality evaluation.
+
+    Hit@K is a binary metric: did we retrieve at least one relevant document in top-K?
+    This is more appropriate than Precision@K when you don't know ALL relevant documents.
+
+    Formula: Hit@K = 1.0 if any expected doc in top-K, else 0.0
+
+    Args:
+        retrieved_sources: List of source file paths retrieved by the system (in rank order)
+        expected_sources: List of expected/ground-truth source file paths or filenames
+        k: Number of top results to consider. If None, uses len(retrieved_sources)
+
+    Returns:
+        float: 1.0 if successful (found at least one relevant doc), 0.0 if failed
+
+    Example:
+        >>> retrieved = ["/path/to/pods.md", "/path/to/services.md", "/path/to/volumes.md"]
+        >>> expected = ["pods.md"]
+        >>> compute_hit_at_k(retrieved, expected, k=3)
+        1.0  # Success! pods.md was found in top-3
+
+        >>> retrieved = ["/path/to/services.md", "/path/to/volumes.md"]
+        >>> expected = ["pods.md"]
+        >>> compute_hit_at_k(retrieved, expected, k=2)
+        0.0  # Failure! pods.md was not in top-2
+
+    Notes:
+        - More meaningful than Precision@K for synthetic datasets where you only
+          know one source document but the system retrieves multiple
+        - Average Hit@K across queries tells you "% of queries where we found
+          at least one correct document"
+    """
+    if not expected_sources or not retrieved_sources:
+        return 0.0
+
+    if k is None:
+        k = len(retrieved_sources)
+    else:
+        k = min(k, len(retrieved_sources))
+
+    retrieved_filenames: Set[str] = {
+        Path(src).name.lower() for src in retrieved_sources[:k]
+    }
+
+    expected_filenames: Set[str] = {
+        Path(src).name.lower() for src in expected_sources
+    }
+
+    hit = len(retrieved_filenames.intersection(expected_filenames)) > 0
+
+    return 1.0 if hit else 0.0
