@@ -55,17 +55,14 @@ class RAGEvaluator:
         """
         print(f"\nEvaluating: {question}")
 
-        # Run query through RAG pipeline with full contexts
         result = self.rag_pipeline.query_with_contexts(question, top_n=5)
 
-        # Compute metrics
         metrics = compute_all_metrics(
             question=result["question"],
             answer=result["answer"],
             contexts=result["contexts"]
         )
 
-        # Compile results
         evaluation_result = {
             "question": question,
             "generated_answer": result["answer"],
@@ -105,7 +102,6 @@ class RAGEvaluator:
         """
         print(f"\nLoading test dataset from: {dataset_path}")
 
-        # Load dataset
         with open(dataset_path, 'r') as f:
             dataset = json.load(f)
 
@@ -115,7 +111,6 @@ class RAGEvaluator:
         if len(test_cases) == 0:
             raise ValueError("Dataset contains no test cases")
 
-        # Evaluate each test case
         per_question_results = []
         failure_cases = []
 
@@ -126,17 +121,14 @@ class RAGEvaluator:
             ground_truth = test_case.get("ground_truth", "")
 
             try:
-                # Run query through RAG pipeline
                 result = self.rag_pipeline.query_with_contexts(question, top_n=5)
 
-                # Compute metrics
                 metrics = compute_all_metrics(
                     question=result["question"],
                     answer=result["answer"],
                     contexts=result["contexts"]
                 )
 
-                # Compute retrieval metrics if expected contexts are provided
                 retrieved_sources = [src["source"] for src in result["sources"]]
                 expected_contexts = test_case.get("expected_contexts", [])
 
@@ -154,7 +146,6 @@ class RAGEvaluator:
                     recall_at_3 = compute_recall_at_k(retrieved_sources, expected_contexts, k=3)
                     recall_at_5 = compute_recall_at_k(retrieved_sources, expected_contexts, k=5)
 
-                # Store result
                 per_question_result = {
                     "question_id": question_id,
                     "question": question,
@@ -192,7 +183,6 @@ class RAGEvaluator:
                     "error": str(e)
                 })
 
-        # Compute aggregate metrics
         valid_results = [r for r in per_question_results if "error" not in r]
 
         if len(valid_results) == 0:
@@ -205,7 +195,6 @@ class RAGEvaluator:
         avg_faithfulness = sum(valid_faithfulness) / len(valid_faithfulness) if valid_faithfulness else 0.0
         avg_relevancy = sum(valid_relevancy) / len(valid_relevancy) if valid_relevancy else 0.0
 
-        # Compute retrieval metrics (Hit@K and Recall@K)
         valid_hit_1 = [r["hit_at_1"] for r in valid_results if r.get("hit_at_1") is not None]
         avg_hit_1 = sum(valid_hit_1) / len(valid_hit_1) if valid_hit_1 else None
 
@@ -224,7 +213,6 @@ class RAGEvaluator:
         valid_recall_5 = [r["recall_at_5"] for r in valid_results if r.get("recall_at_5") is not None]
         avg_recall_5 = sum(valid_recall_5) / len(valid_recall_5) if valid_recall_5 else None
 
-        # Generate evaluation report
         evaluation_report = {
             "metadata": {
                 "timestamp": datetime.now().isoformat(),
@@ -247,7 +235,6 @@ class RAGEvaluator:
             "failure_cases": failure_cases
         }
 
-        # Print summary
         num_nan_faithfulness = len(valid_results) - len(valid_faithfulness)
         num_nan_relevancy = len(valid_results) - len(valid_relevancy)
 
@@ -290,7 +277,6 @@ class RAGEvaluator:
         print(f"\nFailure Cases (faithfulness < 0.7): {len(failure_cases)}")
         print("=" * 60)
 
-        # Save results if output path provided
         if output_path:
             output_file = Path(output_path)
             output_file.parent.mkdir(parents=True, exist_ok=True)

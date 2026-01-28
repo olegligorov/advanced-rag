@@ -58,7 +58,6 @@ class DatasetGenerator:
         Returns:
             dict: Test case with question, ground_truth, and metadata
         """
-        # Extract context from document
         context = document.page_content
         source = document.metadata.get("source", "unknown")
 
@@ -66,11 +65,9 @@ class DatasetGenerator:
         if len(context.strip()) < 200:
             raise ValueError(f"Document chunk too short ({len(context)} chars) - likely just a heading")
 
-        # Truncate very long contexts to avoid token limits
         if len(context) > 2000:
             context = context[:2000] + "..."
 
-        # Prompt to generate question
         question_prompt = f"""Based on the following text from Kubernetes documentation, generate ONE specific technical question that can be answered using ONLY the information in this text.
 
 Text:
@@ -86,12 +83,9 @@ Output ONLY the question, no preamble or meta-commentary.
 
 Question:"""
 
-        # Generate question
         question = self._get_llm_response(question_prompt).strip()
-        # Clean up question (remove quotes, extra whitespace)
         question = question.strip('"\'').strip()
 
-        # Prompt to extract ground truth answer
         answer_prompt = f"""Based on the following text from Kubernetes documentation, provide a concise answer to this question using ONLY information from the text.
 
 Text:
@@ -103,21 +97,18 @@ Provide a direct, factual answer (2-3 sentences maximum) using only the informat
 
 Answer:"""
 
-        # Generate ground truth answer
         ground_truth = self._get_llm_response(answer_prompt).strip()
         ground_truth = ground_truth.strip('"\'').strip()
 
-        # Determine category based on source filename
         category = self._categorize_source(source)
 
-        # Create test case
         test_case = {
             "question_id": question_id,
             "question": question,
             "ground_truth": ground_truth,
             "expected_contexts": [source],
             "category": category,
-            "difficulty": "medium"  # Default difficulty
+            "difficulty": "medium"  # Default difficulty, change later maybe
         }
 
         return test_case
@@ -153,7 +144,7 @@ Answer:"""
 
         doc_index = 0
         attempts = 0
-        max_attempts = num_samples * 3  # Try up to 3x to avoid infinite loops
+        max_attempts = num_samples * 3
 
         while len(test_cases) < num_samples and attempts < max_attempts:
             if doc_index >= len(available_docs):
@@ -172,7 +163,6 @@ Answer:"""
                 print(f"[{len(test_cases)}/{num_samples}] Generated: {test_case['question'][:60]}...")
 
             except ValueError as e:
-                # Skip chunks that are too short
                 print(f"[Attempt {attempts}] Skipped: {str(e)}")
                 continue
             except Exception as e:

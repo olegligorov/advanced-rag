@@ -4,8 +4,10 @@ import os
 import pickle
 from pathlib import Path
 
+from langchain_community.vectorstores import FAISS
 from rag.chunking import SemanticChunker
 from rag.retrieval import HybridRetriever
+from rag.reranking import Reranker
 from rag.generation import Generator
 from config import EMBEDDING_MODEL, CHUNK_PERCENTILE, CACHE_DIR, RERANK_SCORE_THRESHOLD, MIN_RETRIEVED_DOCS
 
@@ -167,7 +169,6 @@ class RAGPipeline:
         This is much faster than rebuilding indices from scratch.
         Typically reduces startup time from ~30 seconds to ~2-3 seconds.
         """
-        from langchain_community.vectorstores import FAISS
 
         # Load semantic chunks
         with open(self.chunks_cache_path, 'rb') as f:
@@ -187,14 +188,10 @@ class RAGPipeline:
         with open(self.bm25_cache_path, 'rb') as f:
             bm25_retriever = pickle.load(f)
 
-        # Create HybridRetriever with cached components
-        from rag.retrieval import HybridRetriever
         self._retriever = HybridRetriever.__new__(HybridRetriever)
         self._retriever.vector_retriever = vector_db.as_retriever(search_kwargs={"k": 25})
         self._retriever.bm25_retriever = bm25_retriever
 
-        # Initialize reranker (this is fast, doesn't need caching)
-        from rag.reranking import Reranker
         self._retriever.reranker = Reranker()
 
     def retrieve(self, query: str, top_n: int = 5):
@@ -245,7 +242,6 @@ class RAGPipeline:
         Returns:
             dict with 'answer', 'sources'
         """
-        # Retrieve relevant documents with score filtering
         retrieved_docs = self._retriever.search(
             query=query,
             top_n=top_n,
@@ -253,7 +249,6 @@ class RAGPipeline:
             min_docs=MIN_RETRIEVED_DOCS
         )
 
-        # Generate answer using LLM with retrieved context
         result = self._generator.generate(
             query=query,
             documents=retrieved_docs,
@@ -329,7 +324,6 @@ class RAGPipeline:
             >>> print(result["answer"])
             >>> print(result["contexts"])  # Full context texts for evaluation
         """
-        # Retrieve relevant documents with score filtering
         retrieved_docs = self._retriever.search(
             query=query,
             top_n=top_n,
@@ -337,17 +331,14 @@ class RAGPipeline:
             min_docs=MIN_RETRIEVED_DOCS
         )
 
-        # Generate answer using LLM with retrieved context
         result = self._generator.generate(
             query=query,
             documents=retrieved_docs,
             include_sources=True
         )
 
-        # Extract full contexts from retrieved documents
         contexts = [doc.page_content for doc in retrieved_docs]
 
-        # Return result with full contexts for evaluation
         return {
             "question": query,
             "answer": result["answer"],

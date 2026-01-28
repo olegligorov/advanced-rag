@@ -45,7 +45,6 @@ class HybridRetriever:
         self.bm25_retriever = BM25Retriever.from_documents(documents=semantic_docs)
         self.bm25_retriever.k = BM25_RETRIEVAL_K
         
-        # Reranked
         self.reranker = Reranker()
         
     def rrf(self, vector_results, bm25_results, k=60):

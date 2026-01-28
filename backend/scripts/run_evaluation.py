@@ -10,7 +10,6 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
-# Add parent directory to path to import modules
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from models.rag_pipeline import RAGPipeline
@@ -88,7 +87,6 @@ def main():
         traceback.print_exc()
         sys.exit(1)
 
-    # Print detailed summary
     print("\n" + "=" * 60)
     print("DETAILED RESULTS")
     print("=" * 60)

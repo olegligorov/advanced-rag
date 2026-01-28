@@ -9,8 +9,8 @@ import argparse
 import json
 import sys
 from pathlib import Path
+import random
 
-# Add parent directory to path to import modules
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from models.rag_pipeline import RAGPipeline
@@ -44,7 +44,6 @@ def main():
     args = parser.parse_args()
 
     # Set random seed for reproducibility
-    import random
     random.seed(args.seed)
 
     print("=" * 60)

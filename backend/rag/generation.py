@@ -95,7 +95,6 @@ class Generator:
             "answer": answer.strip(),
         }
 
-        # Add sources if requested
         if include_sources:
             response["sources"] = self._format_sources(documents)
 

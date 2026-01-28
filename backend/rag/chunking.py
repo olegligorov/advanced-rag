@@ -153,7 +153,6 @@ class SemanticChunker:
                                 )
                                 final_chunks.extend(chunks)
                     else:
-                        # No deeper headers found, process as-is but warn
                         print(f"Warning: Large section with {len(semantic_units)} units (no subsections found)")
                         chunks = self._process_section_with_size_constraints(
                             semantic_units, doc.metadata, percentile_threshold,

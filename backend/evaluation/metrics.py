@@ -20,11 +20,6 @@ from pathlib import Path
 
 def _init_ragas_llm():
     """Initialize LLM for RAGAS metric computation."""
-    # return Ollama(
-    #     model=LLM_MODEL,
-    #     base_url=OLLAMA_HOST,
-    #     temperature=0.0  # Use 0 for evaluation consistency
-    # )
     
     if USE_PROXY == False:
         return Ollama(
@@ -114,7 +109,7 @@ def compute_answer_relevance(question: str, answer: str) -> float:
     dataset = Dataset.from_dict({
         "question": [question],
         "answer": [answer],
-        "contexts": [[""]],  # Dummy contexts, not needed for answer_relevancy
+        "contexts": [[""]],
     })
 
     llm = _init_ragas_llm()
@@ -179,7 +174,6 @@ def compute_all_metrics(question: str, answer: str, contexts: List[str]) -> Dict
         rel_val = result["answer_relevancy"]
         print(f"faith_val: {faith_val}, rel_val: {rel_val}")
 
-        # Convert to float, handling both list and scalar returns
         faithfulness_score = float(faith_val[0]) if isinstance(faith_val, list) else float(faith_val)
         relevancy_score = float(rel_val[0]) if isinstance(rel_val, list) else float(rel_val)
 
@@ -191,7 +185,6 @@ def compute_all_metrics(question: str, answer: str, contexts: List[str]) -> Dict
         print(f"Error in compute_all_metrics: {e}")
         import traceback
         traceback.print_exc()
-        # Return default low scores on error
         return {
             "faithfulness": 0.0,
             "answer_relevancy": 0.0,
@@ -231,13 +224,11 @@ def compute_precision_at_k(retrieved_sources: List[str], expected_sources: List[
     if not expected_sources or not retrieved_sources:
         return 0.0
 
-    # Use actual length if k not specified or exceeds available docs
     if k is None:
         k = len(retrieved_sources)
     else:
         k = min(k, len(retrieved_sources))
 
-    # Extract filenames from paths for matching (handle both full paths and filenames)
     retrieved_filenames: Set[str] = {
         Path(src).name.lower() for src in retrieved_sources[:k]
     }
@@ -246,7 +237,6 @@ def compute_precision_at_k(retrieved_sources: List[str], expected_sources: List[
         Path(src).name.lower() for src in expected_sources
     }
 
-    # Count how many retrieved docs are in the expected set
     relevant_count = len(retrieved_filenames.intersection(expected_filenames))
 
     precision = relevant_count / k
@@ -281,13 +271,11 @@ def compute_recall_at_k(retrieved_sources: List[str], expected_sources: List[str
     if not expected_sources or not retrieved_sources:
         return 0.0
 
-    # Use actual length if k not specified or exceeds available docs
     if k is None:
         k = len(retrieved_sources)
     else:
         k = min(k, len(retrieved_sources))
 
-    # Extract filenames from paths for matching
     retrieved_filenames: Set[str] = {
         Path(src).name.lower() for src in retrieved_sources[:k]
     }
@@ -296,7 +284,6 @@ def compute_recall_at_k(retrieved_sources: List[str], expected_sources: List[str
         Path(src).name.lower() for src in expected_sources
     }
 
-    # Count how many expected docs were retrieved
     relevant_retrieved = len(retrieved_filenames.intersection(expected_filenames))
 
     recall = relevant_retrieved / len(expected_filenames)
