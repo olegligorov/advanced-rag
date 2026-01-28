@@ -1,4 +1,4 @@
-# Frontend-2 Architecture
+# Frontend Architecture
 
 A clean, modular React + Vite application with TypeScript and TanStack Query.
 

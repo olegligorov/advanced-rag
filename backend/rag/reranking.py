@@ -17,7 +17,6 @@ class Reranker:
         Args:
             model_name: HuggingFace cross-encoder model name
         """
-        # Auto detect best available device
         self.device = self._detect_device()
         
         self.model_name = model_name
@@ -56,8 +55,6 @@ class Reranker:
         
         pairs = [[query, doc.page_content] for doc in documents]
         scores = self.model.predict(pairs)
-        
-        # Sort by scores
         
         scored_docs = sorted(zip(scores, documents), key=lambda x: x[0], reverse=True)
         top_docs = [doc for score, doc in scored_docs[:top_n]]

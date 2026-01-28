@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "generated_by": "dataset_generator.py",
+    "num_samples": 10,
+    "source": "kubernetes documentation",
+    "random_seed": 42
+  },
+  "test_cases": [
+    {
+      "question_id": "k8s_001",
+      "question": "How are Kubernetes Secrets stored by default in the API server's underlying data store?",
+      "ground_truth": "By default, Kubernetes Secrets are stored unencrypted in the API server's underlying data store (etcd).",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md"
+      ],
+      "category": "configuration",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_002",
+      "question": "What does the node controller do when a node becomes unresponsive in the Kubernetes cluster?",
+      "ground_truth": "When a node becomes unresponsive, the node controller checks with the cloud provider's API to see if the server has been deactivated, deleted, or terminated. If the node has been deleted from the cloud, the controller deletes the Node object from the Kubernetes cluster.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_003",
+      "question": "What happens to the nominatedNodeName field of Pod P when a higher priority Pod arrives and is given Node N instead?",
+      "ground_truth": "When a higher priority Pod than Pod P arrives and is given Node N, the scheduler clears the nominatedNodeName of Pod P. By doing this, the scheduler makes Pod P eligible to preempt Pods on another Node.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md"
+      ],
+      "category": "workloads",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_004",
+      "question": "Can you join a Windows server as a worker node to a Kubernetes cluster?",
+      "ground_truth": "Yes, it is possible to join your Windows server as a worker node to a Kubernetes cluster. According to the text, the CNCF and Linux Foundation take a vendor-neutral approach towards compatibility, which enables this functionality.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_005",
+      "question": "What formula should you use to determine if your container needs a startup probe instead of relying solely on a liveness probe?",
+      "ground_truth": "According to the text, if your container usually starts in more than `initialDelaySeconds + failureThreshold \u00d7 periodSeconds`, you should specify a startup probe. This formula helps determine when the standard liveness probe configuration would not allow enough time for container startup.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md"
+      ],
+      "category": "workloads",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_006",
+      "question": "What happens to a pod with a NoExecute toleration that specifies tolerationSeconds: 3600 when a matching taint is added to the node it's running on?",
+      "ground_truth": "When a matching NoExecute taint is added to the node, the pod will stay bound to the node for 3600 seconds, and then be evicted. If the taint is removed before that time, the pod will not be evicted.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_007",
+      "question": "In what order does Kubernetes evict Pods from a Node when it runs out of resources?",
+      "ground_truth": "When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-qos.md"
+      ],
+      "category": "workloads",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_008",
+      "question": "What parameter is required when configuring a gang policy for a pod group in a Kubernetes Workload?",
+      "ground_truth": "When configuring a gang policy for a pod group in a Kubernetes Workload, the `minCount` parameter is required. This parameter specifies the number of Pods that must be schedulable simultaneously for the group to be admitted.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_009",
+      "question": "What happens to the node selection when a CSI storage driver cannot create a volume on the initially selected node for a Pod with WaitForFirstConsumer volumes?",
+      "ground_truth": "When the CSI storage driver cannot create the volume on the initially selected node, the node selection is reset. The Kubernetes scheduler then tries again to find a node for the Pod.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md"
+      ],
+      "category": "general",
+      "difficulty": "medium"
+    },
+    {
+      "question_id": "k8s_010",
+      "question": "What happens to the PersistentVolumeClaim created for a generic ephemeral volume when the Pod that uses it gets deleted?",
+      "ground_truth": "When a Pod that uses a generic ephemeral volume gets deleted, the ephemeral volume controller ensures that the PersistentVolumeClaim gets deleted as well. The controller creates the PersistentVolumeClaim when the Pod is created and automatically deletes it when the Pod is deleted.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md"
+      ],
+      "category": "configuration",
+      "difficulty": "medium"
+    }
+  ]
+}

@@ -1,13 +1,15 @@
-from langchain_community.document_loaders import DirectoryLoader, UnstructuredMarkdownLoader
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain_huggingface import HuggingFaceEmbeddings
 import os
 import pickle
 from pathlib import Path
 
+from langchain_community.vectorstores import FAISS
 from rag.chunking import SemanticChunker
 from rag.retrieval import HybridRetriever
+from rag.reranking import Reranker
 from rag.generation import Generator
-from config import EMBEDDING_MODEL, CHUNK_PERCENTILE, CACHE_DIR
+from config import EMBEDDING_MODEL, CHUNK_PERCENTILE, CACHE_DIR, RERANK_SCORE_THRESHOLD, MIN_RETRIEVED_DOCS
 
 class RAGPipeline:
     """
@@ -76,7 +78,7 @@ class RAGPipeline:
         self.__loader = DirectoryLoader(
             dataDirectory,
             glob="**/*.md",
-            loader_cls=UnstructuredMarkdownLoader)
+            loader_cls=TextLoader)
 
         self._raw_docs = self.load_documents(self.__loader)
 
@@ -105,7 +107,7 @@ class RAGPipeline:
         """
         Load raw documents using the configured document loader.
 
-        Uses LangChain's DirectoryLoader with UnstructuredMarkdownLoader to:
+        Uses LangChain's DirectoryLoader with TextLoader to:
         - Recursively find all .md files in the specified directory
         - Parse markdown formatting and structure
         - Extract metadata (source file path, etc.)
@@ -167,7 +169,6 @@ class RAGPipeline:
         This is much faster than rebuilding indices from scratch.
         Typically reduces startup time from ~30 seconds to ~2-3 seconds.
         """
-        from langchain_community.vectorstores import FAISS
 
         # Load semantic chunks
         with open(self.chunks_cache_path, 'rb') as f:
@@ -187,14 +188,10 @@ class RAGPipeline:
         with open(self.bm25_cache_path, 'rb') as f:
             bm25_retriever = pickle.load(f)
 
-        # Create HybridRetriever with cached components
-        from rag.retrieval import HybridRetriever
         self._retriever = HybridRetriever.__new__(HybridRetriever)
         self._retriever.vector_retriever = vector_db.as_retriever(search_kwargs={"k": 25})
         self._retriever.bm25_retriever = bm25_retriever
 
-        # Initialize reranker (this is fast, doesn't need caching)
-        from rag.reranking import Reranker
         self._retriever.reranker = Reranker()
 
     def retrieve(self, query: str, top_n: int = 5):
@@ -220,7 +217,12 @@ class RAGPipeline:
             >>> pipeline = RAGPipeline("./k8s_docs")
             >>> docs = pipeline.retrieve("How do I set memory limits?", top_n=3)
         """
-        return self._retriever.search(query=query, top_n=top_n)
+        return self._retriever.search(
+            query=query,
+            top_n=top_n,
+            score_threshold=RERANK_SCORE_THRESHOLD,
+            min_docs=MIN_RETRIEVED_DOCS
+        )
 
     def query(self, query: str, top_n: int = 5):
         """
@@ -229,7 +231,8 @@ class RAGPipeline:
         Full RAG workflow:
         1. Hybrid Retrieval: Retrieve relevant documents using vector + BM25 search
         2. Re-ranking: Re-rank results with cross-encoder for maximum relevance
-        3. Generation: Generate natural language answer using LLM with retrieved context
+        3. Score Filtering: Filter by relevance threshold (if configured)
+        4. Generation: Generate natural language answer using LLM with retrieved context
 
         Args:
             query (str): User's question or search query
@@ -239,10 +242,13 @@ class RAGPipeline:
         Returns:
             dict with 'answer', 'sources'
         """
-        # Retrieve relevant documents
-        retrieved_docs = self._retriever.search(query=query, top_n=top_n)
+        retrieved_docs = self._retriever.search(
+            query=query,
+            top_n=top_n,
+            score_threshold=RERANK_SCORE_THRESHOLD,
+            min_docs=MIN_RETRIEVED_DOCS
+        )
 
-        # Generate answer using LLM with retrieved context
         result = self._generator.generate(
             query=query,
             documents=retrieved_docs,
@@ -273,9 +279,69 @@ class RAGPipeline:
             >>> for chunk in pipeline.query_stream("How do I set memory limits?"):
             >>>     print(chunk, end="", flush=True)
         """
-        retrieved_docs = self._retriever.search(query=query, top_n=top_n)
+        retrieved_docs = self._retriever.search(
+            query=query,
+            top_n=top_n,
+            score_threshold=RERANK_SCORE_THRESHOLD,
+            min_docs=MIN_RETRIEVED_DOCS
+        )
 
         return retrieved_docs, self._generator.generate_stream(
             query=query,
             documents=retrieved_docs
         )
+
+    def query_with_contexts(self, query: str, top_n: int = 5):
+        """
+        Process a user query and return answer WITH full retrieved contexts.
+
+        This method is designed for evaluation purposes. Unlike query() which
+        returns only snippets, this returns complete context texts needed for
+        faithfulness evaluation.
+
+        Full RAG workflow:
+        1. Hybrid Retrieval: Retrieve relevant documents
+        2. Re-ranking: Re-rank for maximum relevance
+        3. Generation: Generate answer using LLM
+        4. Context Extraction: Extract full text of retrieved contexts
+
+        Args:
+            query (str): User's question or search query
+            top_n (int, optional): Number of top-ranked documents to retrieve.
+                Defaults to 5.
+
+        Returns:
+            dict: {
+                "question": str,
+                "answer": str,
+                "contexts": List[str],  # Full text of retrieved chunks
+                "sources": List[dict]   # Source metadata
+            }
+
+        Example:
+            >>> pipeline = RAGPipeline("./k8s_docs")
+            >>> result = pipeline.query_with_contexts("What is a Pod?", top_n=5)
+            >>> print(result["answer"])
+            >>> print(result["contexts"])  # Full context texts for evaluation
+        """
+        retrieved_docs = self._retriever.search(
+            query=query,
+            top_n=top_n,
+            score_threshold=RERANK_SCORE_THRESHOLD,
+            min_docs=MIN_RETRIEVED_DOCS
+        )
+
+        result = self._generator.generate(
+            query=query,
+            documents=retrieved_docs,
+            include_sources=True
+        )
+
+        contexts = [doc.page_content for doc in retrieved_docs]
+
+        return {
+            "question": query,
+            "answer": result["answer"],
+            "contexts": contexts,
+            "sources": result["sources"]
+        }
