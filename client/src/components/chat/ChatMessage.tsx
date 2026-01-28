@@ -1,5 +1,15 @@
-import { cn } from '@/lib/utils'
-import { Bot, User } from 'lucide-react'
+import {
+  Message,
+  MessageContent,
+  MessageResponse,
+} from '@/components/ai-elements/message'
+import {
+  Sources,
+  SourcesTrigger,
+  SourcesContent,
+  Source,
+} from '@/components/ai-elements/sources'
+import type { UIMessage } from 'ai'
 
 interface Source {
   title: string
@@ -7,7 +17,7 @@ interface Source {
 }
 
 interface ChatMessageProps {
-  role: 'user' | 'assistant'
+  role: UIMessage['role']
   content: string
   sources?: Source[]
   isStreaming?: boolean
@@ -15,48 +25,30 @@ interface ChatMessageProps {
 
 export function ChatMessage({ role, content, sources, isStreaming }: ChatMessageProps) {
   return (
-    <div
-      className={cn(
-        'flex gap-4 p-4 rounded-xl',
-        role === 'user' ? 'bg-secondary/50' : 'bg-card border border-border'
-      )}
-    >
-      <div
-        className={cn(
-          'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
-          role === 'user'
-            ? 'bg-muted text-muted-foreground'
-            : 'bg-primary text-primary-foreground'
-        )}
-      >
-        {role === 'user' ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
-      </div>
-      <div className="flex-1 space-y-4">
+    <Message from={role} className="mb-4">
+      <MessageContent>
         {sources && sources.length > 0 && (
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-              Sources
-            </p>
-            <div className="grid gap-2">
+          <Sources>
+            <SourcesTrigger count={sources.length} />
+            <SourcesContent>
               {sources.map((source, index) => (
-                <div key={index} className="p-3 rounded-lg bg-secondary/30 border border-border/50">
-                  <p className="text-xs font-medium text-foreground mb-1">{source.title}</p>
-                  <p className="text-xs text-muted-foreground line-clamp-2">
-                    {source.snippet}
-                  </p>
-                </div>
+                <Source key={index} href="#" title={source.title}>
+                  <div className="flex flex-col gap-1">
+                    <span className="font-medium text-xs">{source.title}</span>
+                    <span className="text-muted-foreground text-xs line-clamp-2">
+                      {source.snippet}
+                    </span>
+                  </div>
+                </Source>
               ))}
-            </div>
-          </div>
+            </SourcesContent>
+          </Sources>
         )}
-        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-          {role === 'user' ? 'Question' : 'Answer'}
-        </p>
-        <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
+        <MessageResponse>
           {content}
-          {isStreaming && <span className="inline-block w-0.5 h-4 ml-1 bg-primary animate-pulse align-middle" />}
-        </p>
-      </div>
-    </div>
+        </MessageResponse>
+        {isStreaming && <span className="inline-block w-0.5 h-4 ml-1 bg-primary animate-pulse align-middle" />}
+      </MessageContent>
+    </Message>
   )
 }
