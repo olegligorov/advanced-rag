@@ -5,7 +5,7 @@ import pickle
 from pathlib import Path
 
 from langchain_community.vectorstores import FAISS
-from rag.chunking import SemanticChunker
+from rag.chunking import Chunker
 from rag.retrieval import HybridRetriever
 from rag.reranking import Reranker
 from rag.generation import Generator
@@ -83,8 +83,8 @@ class RAGPipeline:
         self._raw_docs = self.load_documents(self.__loader)
 
         # 2. Chunk documents 
-        self.__chunker = SemanticChunker(embedding_model=self._hf_embeddings._client)
-        self.semantic_docs = self.__chunker.create_semantic_chunks(
+        self.__chunker = Chunker(embedding_model=self._hf_embeddings._client)
+        self.semantic_docs = self.__chunker.create_chunks(
             self._raw_docs,
             percentile_threshold=CHUNK_PERCENTILE
         )
