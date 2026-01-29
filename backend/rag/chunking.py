@@ -8,7 +8,10 @@ from config import EMBEDDING_MODEL, CHUNK_PERCENTILE
 
 MAX_UNITS_PER_SECTION = 100
 MIN_CHUNK_SIZE = 100
-MAX_CHUNK_SIZE = 2000
+# TODO until i change to openai model or something else,
+# all-MiniLM-L6-v2 is 256 tokens
+# 800 chars is roughly 150-200 tokens (4-5 chars per token)
+MAX_CHUNK_SIZE = 800
 
 class Chunker:
     """
