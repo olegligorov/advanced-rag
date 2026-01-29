@@ -108,7 +108,9 @@ kubernetes_advanced_rag/
 
 5. Check config.py and set up the needed values.
 
-6. Start the server:
+6. Run the LLM model
+
+7. Start the server:
    ```bash
    python main.py
    ```
@@ -135,7 +137,7 @@ API Documentation: `http://localhost:8000/docs`
 
 3. Start development server:
    ```bash
-   npm run dev
+   vite
    ```
 
 The application will be available at `http://localhost:3001`
