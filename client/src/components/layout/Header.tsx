@@ -26,6 +26,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             className="h-9 w-9 text-muted-foreground hover:text-foreground"
+            onClick={() => window.open('https://github.com/olegligorov/advanced-rag', '_blank')}
           >
             <Github className="h-5 w-5" />
             <span className="sr-only">GitHub</span>
