@@ -31,16 +31,22 @@ export function ChatMessage({ role, content, sources, isStreaming }: ChatMessage
           <Sources>
             <SourcesTrigger count={sources.length} />
             <SourcesContent>
-              {sources.map((source, index) => (
-                <Source key={index} href="#" title={source.title}>
-                  <div className="flex flex-col gap-1">
-                    <span className="font-medium text-xs">{source.title}</span>
-                    <span className="text-muted-foreground text-xs line-clamp-2">
-                      {source.snippet}
-                    </span>
-                  </div>
-                </Source>
-              ))}
+              {sources.map((source, index) => {
+                // Create URL to backend endpoint that serves the file
+                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+                const fileUrl = `${apiUrl}/api/file?path=${encodeURIComponent(source.title)}`
+
+                return (
+                  <Source key={index} href={fileUrl} title={source.title}>
+                    <div className="flex flex-col gap-1">
+                      <span className="font-medium text-xs">{source.title}</span>
+                      <span className="text-muted-foreground text-xs line-clamp-2">
+                        {source.snippet}
+                      </span>
+                    </div>
+                  </Source>
+                )
+              })}
             </SourcesContent>
           </Sources>
         )}
