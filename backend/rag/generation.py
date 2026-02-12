@@ -7,11 +7,10 @@ Handles answer generation using retrieved context documents and Ollama LLM.
 from langchain_community.llms import Ollama
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import PromptTemplate, ChatPromptTemplate
-
 from langchain_classic.chains.combine_documents import create_stuff_documents_chain
 from typing import List, Dict
 from templates import SYSTEM_TEXT_TEMPLATE
-from config import LLM_MODEL, OLLAMA_HOST, OLLAMA_TEMPERATURE, PROXY_URL, PROXY_API_KEY, PROXY_SONNET_MODEL, USE_PROXY
+from config import LLM_MODEL, OLLAMA_HOST, LLM_TEMPERATURE, PROXY_URL, PROXY_API_KEY, PROXY_SONNET_MODEL, USE_PROXY
 
 
 class Generator:
@@ -22,7 +21,7 @@ class Generator:
     a natural language answer using an LLM (via Ollama).
     """
 
-    def __init__(self, model_name: str = LLM_MODEL, temperature: float = OLLAMA_TEMPERATURE):
+    def __init__(self, model_name: str = LLM_MODEL, temperature: float = LLM_TEMPERATURE):
         """
         Initialize the generator with an Ollama LLM.
 
