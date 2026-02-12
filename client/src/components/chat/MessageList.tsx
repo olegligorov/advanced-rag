@@ -1,11 +1,17 @@
 import { useRef, useEffect } from 'react'
 import { ChatMessage } from './ChatMessage'
+import type { UIMessage } from 'ai'
+
+interface Source {
+  title: string
+  snippet: string
+}
 
 interface Message {
   id: string
-  role: 'user' | 'assistant'
+  role: UIMessage['role']
   content: string
-  sources?: { title: string; snippet: string }[]
+  sources?: Source[]
 }
 
 interface MessageListProps {
@@ -27,7 +33,7 @@ export function MessageList({ messages, isLoading }: MessageListProps) {
   return (
     <div className="flex-1 overflow-y-auto">
       <div className="container max-w-6xl mx-auto px-4 py-6">
-        <div className="space-y-4">
+        <div className="space-y-6">
           {messages.map((message) => (
             <ChatMessage
               key={message.id}

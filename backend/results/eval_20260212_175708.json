@@ -1,0 +1,322 @@
+{
+  "metadata": {
+    "timestamp": "2026-02-12T18:04:17.951497",
+    "dataset": "datasets/k8s_qa_test_multi_context.json",
+    "num_samples": 11,
+    "num_successful": 11,
+    "num_failed": 0
+  },
+  "aggregate_metrics": {
+    "faithfulness": 0.782,
+    "answer_relevancy": 0.934,
+    "hit_at_1": 1.0,
+    "hit_at_3": 1.0,
+    "hit_at_5": 1.0,
+    "recall_at_1": 0.727,
+    "recall_at_3": 0.909,
+    "recall_at_5": 0.909
+  },
+  "per_question_results": [
+    {
+      "question_id": "k8s_001",
+      "question": "What are Pods?",
+      "generated_answer": "# What are Pods in Kubernetes?\n\n## Definition and Core Concept\n\n**Pods** are the smallest deployable units of computing that you can create and manage in Kubernetes [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #Overview]. The term \"Pod\" derives from collective nouns like \"a pod of whales\" or \"pea pod,\" reflecting its nature as a grouping construct.\n\nA Pod is fundamentally **a group of one or more containers, with shared storage and network resources, and a specification for how to run the containers** [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #Overview]. The contents of a Pod are always co-located and co-scheduled, running in a shared context.\n\n## The \"Logical Host\" Model\n\nPods model an application-specific **\"logical host\"**: they contain one or more application containers that are relatively tightly coupled [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #Overview]. This design mirrors how, in non-cloud contexts, applications executed on the same physical or virtual machine work together\u2014cloud applications in the same Pod operate analogously on the same logical host [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #Overview].\n\n## Shared Context and Isolation\n\nThe shared context of a Pod consists of:\n- **Linux namespaces**\n- **cgroups**\n- **Potentially other facets of isolation** (the same mechanisms that isolate individual containers)\n\nWithin this shared Pod context, individual applications may have further sub-isolations applied [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #What is a Pod?]. Essentially, a Pod is similar to a set of containers with **shared namespaces and shared filesystem volumes** [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #What is a Pod?].\n\n## Common Usage Patterns\n\nPods in a Kubernetes cluster are used in two main ways:\n\n### 1. Single-Container Pods\n**Pods that run a single container** represent the \"one-container-per-Pod\" model, which is the most common Kubernetes use case. In this pattern, you can think of a Pod as a wrapper around a single container, with Kubernetes managing Pods rather than managing the containers directly [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #What is a Pod?].\n\n### 2. Multi-Container Pods\n**Pods that run multiple containers that need to work together** encapsulate an application composed of multiple co-located containers that are tightly coupled and need to share resources. These co-located containers form a single cohesive unit [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #What is a Pod?].\n\nThe containers in a multi-container Pod are:\n- **Automatically co-located and co-scheduled** on the same physical or virtual machine in the cluster\n- Able to **share resources and dependencies**\n- Able to **communicate with one another**\n- Able to **coordinate when and how they are terminated**\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #Pods with multiple containers]\n\n## Additional Container Types\n\nBeyond standard application containers, a Pod can contain:\n\n- **Init containers**: Special containers that run during Pod startup [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #Overview]\n- **Ephemeral containers**: Containers that can be injected for debugging a running Pod [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #Overview]\n\n## Pod Lifecycle Characteristics\n\nPods are considered **relatively ephemeral (rather than durable) entities** [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md #Overview]. They:\n\n- Are **created** and assigned a unique ID (UID)\n- Are **scheduled to run on nodes** where they remain until termination (according to restart policy) or deletion\n- Are **marked for deletion** if the node they're running on dies, with the control plane marking them for removal after a timeout period\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md #Pod lifetime]\n\n## Prerequisites\n\n{{< note >}}\nYou need to install a **container runtime** into each node in the cluster so that Pods can run there [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md #What is a Pod?].\n{{< /note >}}",
+      "ground_truth": "A Pod is the smallest and simplest Kubernetes object. It represents a set of running containers on your cluster.",
+      "faithfulness": 0.9111111111111111,
+      "answer_relevancy": 0.8784066779554344,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_002",
+      "question": "How are Kubernetes Secrets stored by default in the API server's underlying data store?",
+      "generated_answer": "## Default Storage of Kubernetes Secrets\n\n### Unencrypted Storage in etcd\n\nBy default, Kubernetes Secrets are **stored unencrypted** in the API server's underlying data store, which is **etcd**. This means that the sensitive data contained within Secrets is persisted in plain text format in etcd's storage backend [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md #Caution].\n\n### Security Implications\n\nThis default unencrypted storage creates several significant security risks:\n\n1. **API Access Risk**: Anyone with API access can retrieve or modify a Secret [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md #Caution].\n\n2. **Direct etcd Access**: Anyone with direct access to etcd can read the Secret data in plain text [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md #Caution].\n\n3. **Namespace-Level Exposure**: Anyone authorized to create a Pod in a namespace can use that access to read any Secret in that namespace. This includes indirect access methods, such as the ability to create a Deployment [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md #Caution].\n\n### Recommended Security Measures\n\nTo safely use Secrets in production environments, Kubernetes documentation recommends taking at least the following steps:\n\n1. **Enable Encryption at Rest** for Secrets to ensure data is encrypted when stored in etcd [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md #Caution].\n\n2. **Configure RBAC Rules** with least-privilege access to Secrets to limit who can read or modify them [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md #Caution].\n\n3. **Restrict Secret Access** to specific containers that actually need the sensitive data [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md #Caution].\n\n4. **Consider External Secret Store Providers** as an alternative to storing secrets directly in Kubernetes [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md #Caution].\n\nThe unencrypted default storage is a critical security consideration that cluster administrators must address when deploying Kubernetes in production environments where sensitive data protection is required.",
+      "ground_truth": "By default, Kubernetes Secrets are stored unencrypted in the API server's underlying data store (etcd).",
+      "faithfulness": 0.38461538461538464,
+      "answer_relevancy": 0.8955568392428542,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/control-plane-node-communication.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.5,
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_003",
+      "question": "What does the node controller do when a node becomes unresponsive in the Kubernetes cluster?",
+      "generated_answer": "# Node Controller Response to Unresponsive Nodes in Kubernetes\n\nWhen a node becomes unresponsive in a Kubernetes cluster, the node controller initiates a multi-faceted response involving health verification, taint management, and pod eviction. Here's a comprehensive breakdown of its behavior:\n\n## Health Verification and Cloud Provider Integration\n\nWhen a node becomes unresponsive, the node controller first verifies the node's health status. **Specifically, it checks with the cloud provider's API to determine if the server has been deactivated, deleted, or terminated** [Source: cloud-controller.md #Node Controller Functions]. If the node has been deleted from the cloud infrastructure, the controller proceeds to delete the corresponding Node object from the Kubernetes cluster [Source: cloud-controller.md #Node Controller Functions].\n\nThe node controller continuously monitors node health by **checking the state of each node every 5 seconds by default** (configurable via the `--node-monitor-period` flag on the `kube-controller-manager` component) [Source: nodes.md #Rate Limits on Eviction].\n\n## Automatic Taint Application\n\nWhen a node becomes unresponsive, the node controller automatically applies taints to mark the node's problematic state:\n\n- **`node.kubernetes.io/unreachable`**: Applied when the node is unreachable from the node controller, corresponding to the NodeCondition `Ready` being \"`Unknown`\" [Source: taint-and-toleration.md #Taint Types]\n- **`node.kubernetes.io/not-ready`**: Applied when the NodeCondition `Ready` is \"`False`\" [Source: taint-and-toleration.md #Taint Types]\n\n**Both taints are added with the `NoExecute` effect by default**, which triggers pod eviction unless pods have matching tolerations [Source: taint-and-toleration.md #Taint Application].\n\n## Pod Eviction Behavior\n\nThe node controller is responsible for **evicting pods running on nodes with `NoExecute` taints, unless those pods tolerate that taint** [Source: nodes.md #Node Controller Responsibilities].\n\n### Default Eviction Timeline\n\nKubernetes automatically adds tolerations to pods for the `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable` taints with **`tolerationSeconds=300`** (5 minutes). This means **pods remain bound to unresponsive nodes for 5 minutes after the problem is detected** before eviction occurs [Source: taint-and-toleration.md #Toleration Seconds].\n\n### Rate-Limited Eviction\n\nThe node controller implements sophisticated rate limiting to prevent cascading failures:\n\n**Default Rate**: The controller limits eviction to **`--node-eviction-rate` (default 0.1) per second**, meaning it won't evict pods from more than 1 node per 10 seconds [Source: nodes.md #Rate Limits on Eviction].\n\n**Zone-Based Adjustments**: The eviction behavior adapts based on the health of availability zones:\n\n1. **Unhealthy Zone Threshold**: If the percentage of unhealthy nodes (with `Ready` condition as `Unknown` or `False`) reaches at least **`--unhealthy-zone-threshold` (default 0.55 or 55%)**, the eviction rate is reduced [Source: nodes.md #Rate Limits on Eviction].\n\n2. **Small Cluster Protection**: If the cluster is small (\u2264 `--large-cluster-size-threshold` nodes, default 50), **evictions are stopped entirely** [Source: nodes.md #Rate Limits on Eviction].\n\n3. **Secondary Rate**: Otherwise, the eviction rate is reduced to **`--secondary-node-eviction-rate` (default 0.01) per second** [Source: nodes.md #Rate Limits on Eviction].\n\n4. **Complete Zone Failure**: When all zones are completely unhealthy (no healthy nodes in the cluster), **the node controller assumes a connectivity problem between the control plane and nodes and doesn't perform any evictions**. However, if nodes reappear after an outage, the controller will evict pods from remaining unhealthy or unreachable nodes [Source: nodes.md #Rate Limits on Eviction].\n\n## Special Considerations\n\n### API Server Communication Challenges\n\n**When a node is unreachable, the API server may be unable to communicate with the kubelet on that node**. In such cases, the decision to delete pods cannot be communicated to the kubelet until communication is re-established. During this partition, **pods scheduled for deletion may continue to run on the partitioned node** [Source: taint-and-toleration.md #Communication Issues].\n\n### DaemonSet Exception\n\nDaemonSet pods receive special treatment: they are created with **`NoExecute` tolerations for `node.kubernetes.io/unreachable` and `node.kubernetes.io/not-ready` taints with no `tolerationSeconds`**. This ensures that **DaemonSet pods are never evicted due to these problems** [Source: taint-and-toleration.md #DaemonSet Behavior].\n\n### Control Plane Rate Limiting\n\nThe control plane itself **limits the rate of adding new taints to nodes**, which helps manage the number of evictions triggered when many nodes become unreachable simultaneously (such as during a network disruption) [Source: taint-and-toleration.md #Rate Limiting Note].\n\nThis comprehensive approach ensures that the node controller responds to unresponsive nodes in a measured, intelligent way that balances workload availability with cluster stability.",
+      "ground_truth": "When a node becomes unresponsive, the node controller checks with the cloud provider's API to see if the server has been deactivated, deleted, or terminated. If the node has been deleted from the cloud, the controller deletes the Node object from the Kubernetes cluster.",
+      "faithfulness": 0.8918918918918919,
+      "answer_relevancy": 0.9637818863119301,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/nodes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/nodes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/nodes.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_004",
+      "question": "What happens to the nominatedNodeName field of Pod P when a higher priority Pod arrives and is given Node N instead?",
+      "generated_answer": "# What Happens to nominatedNodeName When a Higher Priority Pod Takes Node N\n\n## The Clearing Behavior\n\nWhen a higher priority Pod arrives and is given Node N (the node that was previously nominated for Pod P), **the scheduler clears the `nominatedNodeName` field of Pod P**. [Source: pod-priority-preemption.md #Preemption]\n\n## Why This Happens\n\nThe scheduler implements this clearing mechanism for a specific strategic reason: **by clearing `nominatedNodeName`, the scheduler makes Pod P eligible to preempt Pods on another Node**. [Source: pod-priority-preemption.md #Preemption]\n\nThis design ensures that Pod P isn't locked into waiting for a specific node that is no longer available to it, and can instead compete for scheduling opportunities on other nodes in the cluster.\n\n## The Broader Context: nominatedNodeName is Not a Guarantee\n\nIt's important to understand that **`nominatedNodeName` and `nodeName` of Pod spec are not always the same**. [Source: pod-priority-preemption.md #Preemption] The `nominatedNodeName` field serves as a tracking mechanism and informational field, but it does not represent a binding commitment.\n\n### Multiple Scenarios Where nominatedNodeName Changes\n\nThe clearing due to a higher priority Pod is just one scenario. Other situations include:\n\n1. **Alternative Node Becomes Available**: If another node becomes available while the scheduler is waiting for victim Pods to terminate, the scheduler may use that other node to schedule Pod P instead of the originally nominated node. [Source: pod-priority-preemption.md #Preemption]\n\n2. **Higher Priority Pod Preemption**: As described, if a higher priority Pod than Pod P arrives, the scheduler may give Node N to the new higher priority Pod, resulting in the clearing of Pod P's `nominatedNodeName`. [Source: pod-priority-preemption.md #Preemption]\n\n## Purpose of the nominatedNodeName Field\n\nThe `nominatedNodeName` field serves two primary purposes:\n\n1. **Resource Tracking**: It helps the scheduler track resources reserved for Pod P [Source: pod-priority-preemption.md #Preemption]\n\n2. **User Information**: It provides users with information about preemptions occurring in their clusters [Source: pod-priority-preemption.md #Preemption]\n\nHowever, users should note that **Pod P is not necessarily scheduled to the \"nominated Node\"**, even though the scheduler always tries the nominated Node before iterating over other nodes. [Source: pod-priority-preemption.md #Preemption]",
+      "ground_truth": "When a higher priority Pod than Pod P arrives and is given Node N, the scheduler clears the nominatedNodeName of Pod P. By doing this, the scheduler makes Pod P eligible to preempt Pods on another Node.",
+      "faithfulness": 0.8666666666666667,
+      "answer_relevancy": 0.9414815074234185,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_005",
+      "question": "Can you join a Windows server as a worker node to a Kubernetes cluster?",
+      "generated_answer": "## Windows Server as a Kubernetes Worker Node\n\n**Yes, it is absolutely possible to join a Windows server as a worker node to a Kubernetes cluster.** This capability enables organizations to orchestrate Windows containers alongside Linux-based workloads within the same Kubernetes environment. [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md #Introduction]\n\n## Architecture and Requirements\n\n### Multi-OS Cluster Configuration\n\nTo enable Windows containers in Kubernetes, you must configure a **multi-operating system cluster** that includes both Windows and Linux nodes. The architecture follows these fundamental requirements:\n\n- **Control Plane:** Must run exclusively on Linux - Windows cannot host the Kubernetes control plane components\n- **Worker Nodes:** Can run either Windows or Linux operating systems\n- **Mixed Workloads:** Windows containers are scheduled on Windows nodes, while Linux containers run on Linux nodes\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md #Windows nodes in Kubernetes]\n\n### Supported Windows Server Versions\n\nWindows nodes are supported provided the operating system meets these specifications:\n\n- **Windows Server 2019**\n- **Windows Server 2022**\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md #Windows nodes in Kubernetes]\n\n### Installation Options\n\nFor optimal resource utilization, consider the following when deploying Windows Server nodes:\n\n**Windows Server Core (Recommended):** If a graphical user interface is not required, use a Windows Server OS installation that **excludes the Windows Desktop Experience** installation option. This configuration typically frees up more system resources, making it preferable for containerized workloads. [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md #Windows nodes in Kubernetes]\n\n## Resource Considerations\n\n### Disk Space Requirements\n\nWhen planning Windows worker nodes, be aware of significant differences in resource consumption compared to Linux nodes:\n\n**Container Image Sizes:**\n- Windows container images are typically **larger than Linux container images**\n- Image sizes range from **300MB to over 10GB** for a single image\n- This is substantially larger than typical Linux container images\n\n**Container Storage:**\n- The `C:` drive in Windows containers represents a **virtual free size of 20GB by default**\n- This is not the actual consumed space, but rather the disk size a single container can grow to occupy when using local storage on the host\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md #Windows nodes in Kubernetes]\n\n## Scheduling and Operations\n\n### Container Scheduling\n\nScheduling Windows containers in **Pods** on Kubernetes operates similarly to scheduling Linux-based containers. The Kubernetes scheduler automatically places Windows containers on Windows nodes and Linux containers on Linux nodes, maintaining workload isolation based on operating system requirements. [Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md #Windows nodes in Kubernetes]\n\n### Operational Benefits\n\nOrganizations with investments in both Windows-based and Linux-based applications gain significant advantages:\n\n- **Unified Orchestration:** No need for separate orchestrators to manage different workload types\n- **Increased Operational Efficiency:** Consistent management practices across deployments regardless of operating system\n- **DevOps Practices:** Windows containers enable encapsulation of processes and package dependencies, making it easier to follow cloud-native patterns for Windows applications\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md #Windows nodes in Kubernetes]\n\n## Additional Resources\n\nThe Kubernetes documentation provides comprehensive guidance for Windows node operations, including:\n\n- Networking configuration specific to Windows\n- Storage management for Windows nodes\n- Resource management strategies\n- Security considerations\n- Debugging and troubleshooting techniques\n- User guides for scheduling Windows containers\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md #Introduction]",
+      "ground_truth": "Yes, it is possible to join your Windows server as a worker node to a Kubernetes cluster. According to the text, the CNCF and Linux Foundation take a vendor-neutral approach towards compatibility, which enables this functionality.",
+      "faithfulness": 0.7941176470588235,
+      "answer_relevancy": 0.996610979266357,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/multi-tenancy.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/_index.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_006",
+      "question": "What formula should you use to determine if your container needs a startup probe instead of relying solely on a liveness probe?",
+      "generated_answer": "## Formula for Determining Startup Probe Necessity\n\nAccording to the Kubernetes documentation, you should use a **startup probe** instead of relying solely on a liveness probe when your container's startup time exceeds the following formula:\n\n### The Decision Formula\n\n\\\\[ \\text{Container Startup Time} > initialDelaySeconds + (failureThreshold \\times periodSeconds) \\\\]\n\n**Where:**\n- **initialDelaySeconds**: The delay before the first liveness probe is executed\n- **failureThreshold**: The number of consecutive probe failures before the container is considered unhealthy\n- **periodSeconds**: The interval between probe executions\n\n[Source: pod-lifecycle.md #When should you use a startup probe?]\n\n---\n\n## Understanding the Formula\n\n### Why This Formula Matters\n\nIf your container usually starts in **more time** than the liveness probe configuration allows (as calculated by the formula above), the liveness probe will begin executing before your application is fully initialized. This creates a problematic scenario where:\n\n1. The liveness probe starts checking the container's health\n2. The application hasn't finished starting up yet\n3. The probe fails repeatedly\n4. The kubelet kills the container before it can complete startup\n5. The cycle repeats, preventing the container from ever becoming healthy\n\n### The Startup Probe Solution\n\nRather than setting an excessively long liveness interval (which would delay detection of actual failures), you should **configure a separate startup probe** that:\n\n- Checks the **same endpoint** as the liveness probe\n- Allows a **longer time period** specifically for the startup phase\n- **Disables liveness and readiness checks** until it succeeds\n\n[Source: pod-lifecycle.md #When should you use a startup probe?]\n\n---\n\n## Practical Application\n\n### When to Use a Startup Probe\n\nStartup probes are particularly useful for Pods with containers that:\n\n- **Take a long time to come into service**\n- Perform **time-consuming initial tasks** such as:\n  - Loading large data files\n  - Loading configuration files\n  - Running database migrations\n  - Establishing network connections\n  - Warming caches\n  - Depending on backing services\n\n[Source: pod-lifecycle.md #When should you use a startup probe?, liveness-readiness-startup-probes.md #Startup probe]\n\n### Example Scenario\n\nIf your application typically takes **90 seconds** to start, but your liveness probe is configured with:\n- `initialDelaySeconds = 30`\n- `failureThreshold = 3`\n- `periodSeconds = 10`\n\nThe maximum time allowed would be: **30 + (3 \u00d7 10) = 60 seconds**\n\nSince **90 seconds > 60 seconds**, your container needs a startup probe to avoid premature termination during the initialization phase.\n\n---\n\n## Key Characteristics of Startup Probes\n\nUnlike liveness and readiness probes:\n\n- **Executed only at startup** (not periodically throughout the container's lifecycle)\n- **Disables other probes** until it succeeds\n- Prevents the kubelet from killing **slow-starting containers** before they're fully initialized\n- Can be used to **adopt liveness checks on slow starting containers**\n\n[Source: liveness-readiness-startup-probes.md #Startup probe]",
+      "ground_truth": "According to the text, if your container usually starts in more than `initialDelaySeconds + failureThreshold \u00d7 periodSeconds`, you should specify a startup probe. This formula helps determine when the standard liveness probe configuration would not allow enough time for container startup.",
+      "faithfulness": 0.5769230769230769,
+      "answer_relevancy": 0.6875413644884162,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/liveness-readiness-startup-probes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/liveness-readiness-startup-probes.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_007",
+      "question": "What happens to a pod with a NoExecute toleration that specifies tolerationSeconds: 3600 when a matching taint is added to the node it's running on?",
+      "generated_answer": "## Pod Behavior with NoExecute Toleration and tolerationSeconds\n\nWhen a pod with a `NoExecute` toleration that specifies `tolerationSeconds: 3600` is running on a node and a matching taint is added to that node, the following behavior occurs:\n\n### Immediate Response\n\nThe pod **remains bound to the node** rather than being immediately evicted. This is the key distinction from pods without a matching toleration, which would be evicted immediately when a `NoExecute` taint is applied [Source: taint-and-toleration.md #The allowed values for the `effect` field are].\n\n### Time-Bound Tolerance Period\n\nThe pod will **stay bound to the node for exactly 3600 seconds (1 hour)** after the matching taint is added. After this grace period elapses, the **node lifecycle controller evicts the pod from the node** [Source: taint-and-toleration.md #However, a toleration with `NoExecute` effect can specify].\n\n### Example Configuration\n\n```yaml\ntolerations:\n- key: \"key1\"\n  operator: \"Equal\"\n  value: \"value1\"\n  effect: \"NoExecute\"\n  tolerationSeconds: 3600\n```\n\nThis configuration means: \"If this pod is running and a matching taint is added to the node, then the pod will stay bound to the node for 3600 seconds, and then be evicted\" [Source: taint-and-toleration.md #means that if this pod is running].\n\n### Early Taint Removal\n\n**Important exception:** If the taint is removed from the node before the 3600 seconds expire, the pod will **not be evicted** and continues running normally [Source: taint-and-toleration.md #If the taint is removed before that time].\n\n### Contrast with Other Behaviors\n\nThis behavior differs from:\n- **Pods without matching tolerations**: Evicted immediately when `NoExecute` taint is applied\n- **Pods with `NoExecute` tolerations but no `tolerationSeconds`**: Remain bound forever (never evicted due to that taint) [Source: taint-and-toleration.md #The allowed values for the `effect` field are]",
+      "ground_truth": "When a matching NoExecute taint is added to the node, the pod will stay bound to the node for 3600 seconds, and then be evicted. If the taint is removed before that time, the pod will not be evicted.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9945211616096241,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_008",
+      "question": "What parameter is required when configuring a gang policy for a pod group in a Kubernetes Workload?",
+      "generated_answer": "# Required Parameter for Gang Policy Configuration\n\nWhen configuring a **gang policy** for a pod group in a Kubernetes Workload, the **`minCount` parameter is required**.\n\n## Parameter Details\n\n### minCount\n\nThe `minCount` parameter specifies **the number of Pods that must be schedulable simultaneously for the group to be admitted**. This is the core requirement that enables the \"all-or-nothing\" scheduling behavior characteristic of gang scheduling.\n\n**Configuration Example:**\n\n```yaml\npolicy:\n  gang:\n    # The number of Pods that must be schedulable simultaneously\n    # for the group to be admitted.\n    minCount: 4\n```\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md #Gang policy]\n\n## Purpose and Use Cases\n\nThe gang policy with its `minCount` parameter is **essential for tightly-coupled workloads** where:\n\n- **Partial startup results in deadlocks or wasted resources**\n- All workers must run concurrently to make progress\n- The workload cannot function properly unless a minimum number of Pods are running simultaneously\n\nThis policy is particularly useful for:\n- **Jobs** and batch processes where all workers must run concurrently\n- Distributed training workloads\n- Applications requiring coordinated startup of multiple components\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md #Gang policy]\n\n## Behavioral Impact\n\nWhen a pod group uses the gang policy (and the `GangScheduling` feature gate is enabled), Pods with a `workloadRef` to that group will:\n- Enter a gang scheduling lifecycle\n- Wait for other Pods in the group to be created and scheduled before binding to a node\n\n[Source: /Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/workload-reference.md #Behavior]",
+      "ground_truth": "When configuring a gang policy for a pod group in a Kubernetes Workload, the `minCount` parameter is required. This parameter specifies the number of Pods that must be schedulable simultaneously for the group to be admitted.",
+      "faithfulness": 0.6666666666666666,
+      "answer_relevancy": 0.9999999999998445,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/workload-reference.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/workload-reference.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/workload-api/policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/gang-scheduling.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.5,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_009",
+      "question": "What happens to the node selection when a CSI storage driver cannot create a volume on the initially selected node for a Pod with WaitForFirstConsumer volumes?",
+      "generated_answer": "## Rescheduling When Volume Creation Fails\n\nWhen a CSI storage driver cannot create a volume on the initially selected node for a Pod with `WaitForFirstConsumer` volumes, Kubernetes implements a **rescheduling mechanism** to recover from the failed placement decision.\n\n### The Rescheduling Process\n\nThe process unfolds as follows:\n\n1. **Tentative Node Selection**: When a node is initially selected for a Pod with `WaitForFirstConsumer` volumes, this decision is considered **tentative** rather than final [Source: storage-capacity.md #Rescheduling].\n\n2. **Volume Creation Attempt**: The CSI storage driver is asked to create the volume with a hint that the volume should be available on the selected node [Source: storage-capacity.md #Rescheduling].\n\n3. **Failure Detection**: If the volume cannot actually be created on that node (potentially because Kubernetes made the selection based on out-dated capacity information), the creation fails [Source: storage-capacity.md #Rescheduling].\n\n4. **Node Selection Reset**: When creation fails, **the node selection is reset** [Source: storage-capacity.md #Rescheduling].\n\n5. **Retry**: The Kubernetes scheduler **tries again to find a node** for the Pod, effectively restarting the scheduling process [Source: storage-capacity.md #Rescheduling].\n\n### Why This Happens\n\nThis rescheduling mechanism exists because:\n\n- **Out-dated Information**: The scheduler may have chosen a node based on **potentially out-dated capacity information** [Source: storage-capacity.md #Rescheduling].\n- **No Guarantees**: Storage capacity tracking increases the chance that scheduling works on the first try, but **cannot guarantee** success because the scheduler must decide based on information that may not reflect the current state [Source: storage-capacity.md #Limitations].\n\nThis design ensures that Pods eventually find suitable nodes even when initial placement decisions prove incorrect due to stale storage capacity data.",
+      "ground_truth": "When the CSI storage driver cannot create the volume on the initially selected node, the node selection is reset. The Kubernetes scheduler then tries again to find a node for the Pod.",
+      "faithfulness": 0.8333333333333334,
+      "answer_relevancy": 0.9615124226663633,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-limits.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-classes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_010",
+      "question": "What happens to the PersistentVolumeClaim created for a generic ephemeral volume when the Pod that uses it gets deleted?",
+      "generated_answer": "## Lifecycle of PersistentVolumeClaims in Generic Ephemeral Volumes\n\nWhen a Pod using a generic ephemeral volume is deleted, the associated PersistentVolumeClaim (PVC) follows a specific deletion sequence governed by Kubernetes' resource ownership and garbage collection mechanisms.\n\n### Automatic Deletion Process\n\n**The PersistentVolumeClaim is automatically deleted when the Pod is deleted.** This occurs through Kubernetes' garbage collection system, which recognizes the ownership relationship between these resources [Source: ephemeral-volumes.md #Lifecycle and PersistentVolumeClaim].\n\n### Resource Ownership Model\n\nIn terms of resource ownership, **the Pod that has generic ephemeral storage is the owner of the PersistentVolumeClaim(s) that provide that ephemeral storage** [Source: ephemeral-volumes.md #Lifecycle and PersistentVolumeClaim]. This owner-dependent relationship is fundamental to understanding the deletion cascade.\n\n### Complete Deletion Sequence\n\nThe deletion follows this chain of events:\n\n1. **Pod Deletion**: When the Pod is deleted (either manually or by a controller)\n2. **PVC Deletion**: The Kubernetes garbage collector automatically deletes the PVC\n3. **Volume Deletion**: The PVC deletion \"usually triggers deletion of the volume because the default reclaim policy of storage classes is to delete volumes\" [Source: ephemeral-volumes.md #Lifecycle and PersistentVolumeClaim]\n\n### Exception: Quasi-Ephemeral Storage with Retain Policy\n\nThere is an important exception to this automatic cleanup behavior:\n\n**You can create quasi-ephemeral local storage using a StorageClass with a reclaim policy of `retain`**. In this configuration:\n- The storage outlives the Pod\n- The PVC is still deleted when the Pod is deleted (due to garbage collection)\n- However, the underlying volume persists\n- **You need to ensure that volume cleanup happens separately** [Source: ephemeral-volumes.md #Lifecycle and PersistentVolumeClaim]\n\nThis retain policy approach allows for storage that technically persists beyond the Pod's lifetime, though it requires manual intervention for cleanup and deviates from the truly ephemeral nature of the default configuration.",
+      "ground_truth": "When a Pod that uses a generic ephemeral volume gets deleted, the ephemeral volume controller ensures that the PersistentVolumeClaim gets deleted as well. The controller creates the PersistentVolumeClaim when the Pod is created and automatically deletes it when the Pod is deleted.",
+      "faithfulness": 0.7777777777777778,
+      "answer_relevancy": 0.9873838926503195,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-classes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volume-snapshots.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_011",
+      "question": "In what order does Kubernetes evict Pods from a Node when it runs out of resources?",
+      "generated_answer": "# Kubernetes Pod Eviction Order Under Resource Pressure\n\nWhen a Kubernetes Node runs out of resources, the system follows a specific, prioritized eviction order to maintain cluster stability. This process is driven by the kubelet and is based on multiple factors including QoS class, resource usage, and Pod priority.\n\n## Primary Eviction Order by QoS Class\n\nKubernetes uses **Quality of Service (QoS) classes** as the primary mechanism for determining eviction order. When a Node experiences resource pressure, Pods are evicted in the following sequence:\n\n1. **`BestEffort` Pods** - Evicted first\n2. **`Burstable` Pods** - Evicted second\n3. **`Guaranteed` Pods** - Evicted last\n\n[Source: pod-qos.md #QoS classes]\n\n### Important Constraint\n**Only Pods exceeding their resource requests are candidates for eviction** when the eviction is due to resource pressure. This means a Pod using resources within its declared requests has protection from eviction until higher-priority considerations come into play. [Source: pod-qos.md #QoS classes]\n\n## Detailed Eviction Order Within QoS Classes\n\nWithin each QoS class category, Kubernetes applies additional sorting criteria to determine the specific eviction order:\n\n### 1. **BestEffort Pods (Highest Eviction Priority)**\n- These Pods have no resource requests or limits defined\n- They are the first candidates for eviction\n- Evicted based on their **Priority** value\n- Then sorted by how much their usage exceeds requests\n\n[Source: node-pressure-eviction.md #Eviction order]\n\n### 2. **Burstable Pods Exceeding Requests**\n- These are `Burstable` Pods whose current resource usage **exceeds** their declared requests\n- Evicted based on their **Priority** value first\n- Then sorted by the magnitude of how much their usage level exceeds the request\n\n[Source: node-pressure-eviction.md #Eviction order]\n\n### 3. **Guaranteed and Burstable Pods Within Requests (Lowest Eviction Priority)**\n- `Guaranteed` Pods (those with requests equal to limits for all containers)\n- `Burstable` Pods where usage is **less than** their requests\n- These are evicted last, based solely on their **Priority** value\n\n[Source: node-pressure-eviction.md #Eviction order]\n\n## Special Characteristics of Guaranteed Pods\n\n`Guaranteed` Pods receive the strongest protection from eviction:\n\n- They have the **strictest resource limits** and are **least likely to face eviction**\n- They are **guaranteed not to be killed** until either:\n  - They exceed their own limits, OR\n  - There are no lower-priority Pods that can be preempted from the Node\n- They **may not acquire resources beyond their specified limits**\n- These Pods will **never be evicted because of another Pod's resource consumption**\n\n[Source: pod-qos.md #Guaranteed, node-pressure-eviction.md #Eviction order]\n\n### Exception for System Stability\nEven `Guaranteed` Pods can be evicted if system daemons (such as `kubelet` or `journald`) consume more resources than reserved via `system-reserved` or `kube-reserved` allocations, and only `Guaranteed` or `Burstable` Pods using less than their requests remain on the node. In this scenario, the kubelet must evict Pods to preserve node stability, choosing those with the **lowest Priority first**. [Source: node-pressure-eviction.md #Eviction order]\n\n## Resource-Specific Sorting Behavior\n\nThe eviction sorting mechanism varies depending on which specific resource is under pressure and the node's filesystem configuration:\n\n### For Inode or Process ID Starvation\nThe kubelet uses **Pods' relative priority** to determine eviction order, since inodes and PIDs have no resource requests. [Source: node-pressure-eviction.md #Eviction sorting]\n\n### For Disk Pressure (varies by filesystem configuration)\n\n**Without separate `imagefs` or `containerfs`:**\n- Pods sorted by **total disk usage** (local volumes + logs + writable layer of all containers)\n\n**With separate `imagefs`:**\n- If `nodefs` triggers eviction: sorted by `nodefs` usage (local volumes + logs of all containers)\n- If `imagefs` triggers eviction: sorted by writable layer usage of all containers\n\n**With separate `imagefs` and `containerfs`:**\n- If `containerfs` triggers eviction: sorted by `containerfs` usage (local volumes + logs + writable layer)\n- If `imagefs` triggers eviction: sorted by storage of images rank\n\n[Source: node-pressure-eviction.md #Eviction sorting]\n\n## Important Notes\n\n{{< note >}}\n**The kubelet does not use the Pod's QoS class to determine the eviction order.** However, you can use the QoS class to **estimate** the most likely Pod eviction order when reclaiming resources like memory. QoS classification does **not apply to EphemeralStorage requests**, so the QoS-based eviction order will not apply if the node is under `DiskPressure`. [Source: node-pressure-eviction.md #Eviction order]\n{{< /note >}}\n\n## Summary\n\nThe eviction order prioritizes maintaining cluster stability by first removing Pods with the least resource guarantees (`BestEffort`), then those exceeding their commitments (`Burstable` over requests), and finally those with strict guarantees (`Guaranteed`). Within each category, Pod Priority provides the final sorting mechanism, ensuring that critical workloads receive maximum protection from eviction.",
+      "ground_truth": "When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.",
+      "faithfulness": 0.8979591836734694,
+      "answer_relevancy": 0.9670240200843345,
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-qos.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/node-pressure-eviction.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/swap-memory-management.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/node-pressure-eviction.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-qos.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/node-pressure-eviction.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "category": "workloads"
+    }
+  ],
+  "failure_cases": [
+    {
+      "question_id": "k8s_002",
+      "question": "How are Kubernetes Secrets stored by default in the API server's underlying data store?",
+      "faithfulness": 0.38461538461538464,
+      "issue": "Low faithfulness - possible hallucination"
+    },
+    {
+      "question_id": "k8s_006",
+      "question": "What formula should you use to determine if your container needs a startup probe instead of relying solely on a liveness probe?",
+      "faithfulness": 0.5769230769230769,
+      "issue": "Low faithfulness - possible hallucination"
+    },
+    {
+      "question_id": "k8s_008",
+      "question": "What parameter is required when configuring a gang policy for a pod group in a Kubernetes Workload?",
+      "faithfulness": 0.6666666666666666,
+      "issue": "Low faithfulness - possible hallucination"
+    }
+  ]
+}

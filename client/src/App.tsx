@@ -5,10 +5,10 @@ import { useChat } from '@/hooks/useChat'
 import { ThemeProvider } from '@/components/theme-provider'
 
 const SUGGESTED_QUESTIONS = [
-  "Why is my Pod stuck in CrashLoopBackOff and how do I debug it?",
+  "What is the kubectl command to switch my context?",
   "How do I troubleshoot a 503 Service Unavailable error when using an Nginx Ingress?",
   "What are the most common reasons a Pod remains in a Pending state?",
-  "Show me the kubectl command to find pods that have restarted more than 5 times in the last hour.",
+  "What are Pods in kubernetes?",
 ]
 
 function App() {

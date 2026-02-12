@@ -3,11 +3,14 @@ FastAPI server for Plug and Play RAG System
 """
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, FileResponse, HTMLResponse
 from contextlib import asynccontextmanager
 from pydantic import BaseModel, Field
 from typing import List
 import json
+import os
+from pathlib import Path
+import markdown
 
 from config import DATA_PATH, RERANK_TOP_N
 from models.rag_pipeline import RAGPipeline
@@ -179,6 +182,125 @@ def query_stream_endpoint(request: QueryRequest):
             "X-Accel-Buffering": "no"  # Disable buffering in nginx
         }
     )
+
+
+@app.get("/api/file")
+def get_file(path: str):
+    """
+    Serve a markdown file from the k8s_data directory as HTML.
+    """
+    try:
+        # Security: Ensure the path is within the project directory
+        project_root = Path(__file__).parent.parent
+        absolute_path = Path(path).resolve()
+
+        # Check if file exists and is within allowed directory
+        if not absolute_path.exists():
+            raise HTTPException(status_code=404, detail="File not found")
+
+        if not str(absolute_path).startswith(str(project_root)):
+            raise HTTPException(status_code=403, detail="Access denied")
+
+        # Read the markdown file
+        with open(absolute_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Convert markdown to HTML
+        html_content = markdown.markdown(content, extensions=['extra', 'codehilite', 'toc'])
+
+        # Wrap in a styled HTML template
+        styled_html = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>{absolute_path.name}</title>
+            <style>
+                body {{
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                    line-height: 1.6;
+                    max-width: 900px;
+                    margin: 0 auto;
+                    padding: 2rem;
+                    background: #f8f9fa;
+                    color: #333;
+                }}
+                h1, h2, h3, h4, h5, h6 {{
+                    margin-top: 1.5em;
+                    margin-bottom: 0.5em;
+                    font-weight: 600;
+                    color: #111;
+                }}
+                h1 {{ font-size: 2em; border-bottom: 2px solid #e5e5e5; padding-bottom: 0.3em; }}
+                h2 {{ font-size: 1.5em; border-bottom: 1px solid #e5e5e5; padding-bottom: 0.3em; }}
+                code {{
+                    background: #f4f4f4;
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    font-family: 'Monaco', 'Courier New', monospace;
+                    font-size: 0.9em;
+                }}
+                pre {{
+                    background: #f4f4f4;
+                    padding: 1em;
+                    border-radius: 5px;
+                    overflow-x: auto;
+                    border: 1px solid #ddd;
+                }}
+                pre code {{
+                    background: none;
+                    padding: 0;
+                }}
+                a {{
+                    color: #0066cc;
+                    text-decoration: none;
+                }}
+                a:hover {{
+                    text-decoration: underline;
+                }}
+                blockquote {{
+                    border-left: 4px solid #ddd;
+                    padding-left: 1em;
+                    color: #666;
+                    margin: 1em 0;
+                }}
+                table {{
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin: 1em 0;
+                }}
+                th, td {{
+                    border: 1px solid #ddd;
+                    padding: 8px 12px;
+                    text-align: left;
+                }}
+                th {{
+                    background: #f4f4f4;
+                    font-weight: 600;
+                }}
+                .file-path {{
+                    background: #e3f2fd;
+                    padding: 0.5em 1em;
+                    border-radius: 5px;
+                    margin-bottom: 1em;
+                    font-size: 0.9em;
+                    color: #555;
+                    word-break: break-all;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="file-path">📄 {absolute_path}</div>
+            {html_content}
+        </body>
+        </html>
+        """
+
+        return HTMLResponse(content=styled_html)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading file: {str(e)}")
 
 
 if __name__ == "__main__":

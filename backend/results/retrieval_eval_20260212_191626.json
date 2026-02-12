@@ -1,0 +1,1240 @@
+{
+  "metadata": {
+    "timestamp": "2026-02-12T19:28:32.453401",
+    "dataset": "datasets/50questions_multi_context_dataset.json",
+    "num_samples": 50,
+    "num_successful": 50,
+    "num_failed": 0,
+    "evaluation_type": "retrieval_only"
+  },
+  "aggregate_metrics": {
+    "hit_at_1": 0.9,
+    "hit_at_3": 0.98,
+    "hit_at_5": 0.98,
+    "recall_at_1": 0.54,
+    "recall_at_3": 0.637,
+    "recall_at_5": 0.7,
+    "precision_at_1": 0.9,
+    "precision_at_3": 0.49,
+    "precision_at_5": 0.407
+  },
+  "per_question_results": [
+    {
+      "question_id": "k8s_001",
+      "question": "What does 1 CPU unit represent in Kubernetes when measuring CPU resource limits and requests?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_002",
+      "question": "What kubectl command syntax is used to display pods with specific label columns for app, tier, and role?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/labels.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/labels.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/labels.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/labels.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicaset.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/labels.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_003",
+      "question": "What kubectl command should you use to verify if a deployment rollout is stuck?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_004",
+      "question": "Does the new resource support clients that want to use Protocol Buffers?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/api-extension/custom-resources.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/api-extension/custom-resources.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "category": "resource-management"
+    },
+    {
+      "question_id": "k8s_005",
+      "question": "What label must be present on a Pod running on a node for the scheduler to place a replica of the web-server deployment on that same node?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/labels.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_006",
+      "question": "What is the default value for the `expirationSeconds` field of a serviceAccountToken projected volume, and what is the minimum allowed value?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/projected-volumes.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/projected-volumes.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_007",
+      "question": "What is the name of the datastore where volumes will be created when using the StorageClass example that specifies \"VSANDatastore\" in its parameters?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-classes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-classes.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-classes.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.5,
+      "precision_at_5": 0.5,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_008",
+      "question": "What value should you avoid using when naming EndpointSlices that are manually managed, and why?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/endpoint-slices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/owners-dependents.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.25,
+      "category": "networking"
+    },
+    {
+      "question_id": "k8s_009",
+      "question": "On Linux nodes that use systemd, what command would you use to read the kubelet logs from the systemd journal?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/logging.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/logging.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/system-logs.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/system-logs.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/user-namespaces.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/logging.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_010",
+      "question": "How many authentication techniques are allowed per user when determining actual user information in kubeconfig?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/organize-cluster-access-kubeconfig.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/organize-cluster-access-kubeconfig.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_011",
+      "question": "What command is used to resume a paused Deployment rollout in Kubernetes?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_012",
+      "question": "What happens to environment variables sourced from a ConfigMap when the ConfigMap is updated?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/api-extension/custom-resources.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_013",
+      "question": "What kubectl command runs all applicable validation and activates admission-time checks for precise and complete verification?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/kubernetes-api.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/kubernetes-api.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_014",
+      "question": "What is the minimum value that `minDomains` must be when specified, and with which `whenUnsatisfiable` setting can it be used?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/topology-spread-constraints.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/topology-spread-constraints.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/topology-spread-constraints.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.5,
+      "precision_at_5": 0.5,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_015",
+      "question": "What are the three possible values for the `status` field of a Pod condition?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/taint-and-toleration.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/job.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_016",
+      "question": "How do ResourceClaims interact with the scheduling framework's extension points when a Pod requests access to devices defined by a DeviceClass?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/scheduling-framework.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "resource-management"
+    },
+    {
+      "question_id": "k8s_017",
+      "question": "How does the Ingress resource relate to Services for exposing applications, and what are the implications for protocols that cannot be exposed through Ingress when using ExternalName Services?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/ingress.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/ingress.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/ingress.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/ingress.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/ingress.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/network-policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.6666666666666666,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "category": "networking"
+    },
+    {
+      "question_id": "k8s_018",
+      "question": "How can you configure custom scheduling plugins to work alongside default pod affinity and anti-affinity rules when determining pod placement?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/topology-spread-constraints.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/scheduling-framework.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.5,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_019",
+      "question": "What are the security risks when RBAC permissions allow PersistentVolume creation, and how does this relate to bypassing Kubernetes admission control and audit logging?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/security-checklist.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.3333333333333333,
+      "category": "security"
+    },
+    {
+      "question_id": "k8s_020",
+      "question": "How does an operator automate database backups, and what steps would you take to interact with those backups after deploying the operator to your cluster?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.5,
+      "precision_at_5": 0.5,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_021",
+      "question": "How does an operator that manages database backups differ from the binary plugin extension model in terms of how they interact with the Kubernetes cluster?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/_index.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_022",
+      "question": "What are the security risks of allowing users to create arbitrary PersistentVolumes, and how does this relate to the broader concern of bypassing Kubernetes API server controls and RBAC enforcement?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.5,
+      "precision_at_5": 0.5,
+      "category": "security"
+    },
+    {
+      "question_id": "k8s_023",
+      "question": "What are the namespace requirements and naming conventions that apply to both ConfigMaps and Secrets when they are referenced by Pods, and how do imagePullSecrets differ from regular Secrets in terms of their usage?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/security-checklist.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/images.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/projected-volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md"
+      ],
+      "hit_at_1": 0.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.5,
+      "precision_at_1": 0.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_024",
+      "question": "What are the differences between the Node controller in the control plane and the Node controller in the cloud controller manager in terms of their responsibilities and required API permissions?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/nodes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/nodes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/nodes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/garbage-collection.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.6666666666666666,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_025",
+      "question": "How does pausing a Deployment affect the ability to rollback to previous revisions, and what implications does this have for StatefulSet Pods that rely on stable DNS names during updates?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/management.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.4,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_026",
+      "question": "How can you monitor and optimize the performance of Dynamic Resource Allocation (DRA) in a cluster that also uses API Priority and Fairness to manage API server request flow, and what metrics should you track from the kube-controller-manager?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/dra.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/dra.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/flow-control.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/node-autoscaling.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_027",
+      "question": "How does pod DNS naming in StatefulSets differ from pod management in DaemonSets when both use label selectors, and what role does the ReplicationController's pod counting mechanism play in these differences?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicationcontroller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.6666666666666666,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_028",
+      "question": "How can you use PriorityClass in combination with Pod affinity rules to ensure that high-priority web application Pods are scheduled before lower-priority Pods while also maintaining co-location with cache Pods on the same node?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.5,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_029",
+      "question": "What are the namespace requirements and naming constraints that apply when a Pod needs to reference both a ConfigMap and a Secret, and how do these compare to the precision constraints for CPU resource specifications in the Pod's container definitions?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/images.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/security-checklist.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/projected-volumes.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md"
+      ],
+      "hit_at_1": 0.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 0.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_030",
+      "question": "How would you configure a NetworkPolicy to allow traffic from Pods in specific namespaces to a NodePort Service, and what are the key differences between using a single selector versus multiple selectors in the policy's ingress rules when the Service uses an ExternalName type?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/network-policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/network-policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/network-policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/network-policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/network-policies.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/network-policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.5,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "networking"
+    },
+    {
+      "question_id": "k8s_031",
+      "question": "How would you configure a Redis cache deployment to ensure high availability across nodes while also guaranteeing it gets scheduled before lower-priority workloads during resource contention?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_032",
+      "question": "How can you use ResourceQuotas and admission policies together to enforce CPU allocation limits while ensuring pods are scheduled with the distribute-cpus-across-cores policy option enabled?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/node-resource-managers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/node-resource-managers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/security-checklist.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/resource-quotas.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/node-resource-managers.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/node-resource-managers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/resource-quotas.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/_index.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.4,
+      "category": "resource-management"
+    },
+    {
+      "question_id": "k8s_033",
+      "question": "What are the key differences between hostPath and local volumes in terms of pod scheduling awareness, and how might storage capacity constraints affect a pod that uses multiple local volumes when one volume has already been provisioned?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-storage.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-volumes.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-storage.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 0.6,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_034",
+      "question": "What are the key differences in Pod specification compatibility and networking capabilities between Windows and Linux nodes in Kubernetes?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/windows-networking.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/_index.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.4,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_035",
+      "question": "How does PriorityClass interact with HorizontalPodAutoscaler scaling policies when the autoscaler needs to scale down Pods, and what happens if critical Pods with high priority values are targeted for removal during a Deployment rollout that has hit its maxUnavailable threshold?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/autoscaling/horizontal-pod-autoscale.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/autoscaling/horizontal-pod-autoscale.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/autoscaling/horizontal-pod-autoscale.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/autoscaling/horizontal-pod-autoscale.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/autoscaling/horizontal-pod-autoscale.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/autoscaling/horizontal-pod-autoscale.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_036",
+      "question": "How does the kubelet determine kernel version compatibility for features, and what are the implications when a feature's API version is disabled via command-line flags in the kube-apiserver?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/compute-storage-net/device-plugins.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/flow-control.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/node-autoscaling.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/swap-memory-management.md"
+      ],
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "hit_at_5": 0.0,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.0,
+      "recall_at_5": 0.0,
+      "precision_at_1": 0.0,
+      "precision_at_3": 0.0,
+      "precision_at_5": 0.0,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_037",
+      "question": "When using kubectl with field selectors to query Kubernetes objects, how does the storage version of an object affect which fields are available for filtering, and what format must be used when specifying these selectors in a manifest file?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/field-selectors.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/field-selectors.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/api-extension/custom-resources.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/api-extension/custom-resources.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/field-selectors.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/storage-version.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_038",
+      "question": "How can an attacker with etcd access bypass Kubernetes security controls, and what encryption and access control measures should cluster administrators implement to protect sensitive data stored in Secrets?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/pod-security-standards.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.4,
+      "category": "security"
+    },
+    {
+      "question_id": "k8s_039",
+      "question": "How do the selector matching requirements differ between ReplicationController, DaemonSet, and Deployment controllers, and what role does the selector play in determining which pods each controller manages?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/labels.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicaset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicationcontroller.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicationcontroller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "hit_at_1": 0.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 1.0,
+      "precision_at_1": 0.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.6,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_040",
+      "question": "What is the common requirement for the `.spec.selector` field across DaemonSets, Deployments, and ReplicaSets, and what happens if this requirement is not met?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicaset.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.4,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_041",
+      "question": "How do ResourceQuota limits interact with Pod QoS classes, and what happens when you set a namespace ResourceQuota for CPU requests while deploying Pods with different resource specifications that result in different QoS classifications?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/resource-quotas.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/node-resource-managers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-qos.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/resource-quotas.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/resource-quotas.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/node-resource-managers.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.6666666666666666,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "category": "resource-management"
+    },
+    {
+      "question_id": "k8s_042",
+      "question": "How does the Deployment controller's default maxUnavailable setting interact with the ReplicaSet's pod deletion algorithm when scaling down during a failed rollout?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicaset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicaset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicaset.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 0.5,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.4,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_043",
+      "question": "What steps should you take to verify that your Kubernetes cluster nodes are healthy before deploying Windows containers, and what command-line tool is used for this verification regardless of whether you're working with Linux or Windows nodes?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/windows-resource-management.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.5,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.25,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_044",
+      "question": "How can you ensure a Pod always uses the same version of a container image, and what events would you observe in kubectl describe when that image is pulled by the kubelet?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/images.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/images.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/images.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/images.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/images.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/container-lifecycle-hooks.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/_index.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "workloads"
+    },
+    {
+      "question_id": "k8s_045",
+      "question": "What security considerations should be implemented when configuring a custom scheduler that uses authentication lookups from the API server, and how might an attacker exploit misconfigurations in both the authentication mechanism and plugin extension points?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/hardening-guide/scheduler.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/hardening-guide/scheduler.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/hardening-guide/scheduler.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/hardening-guide/scheduler.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/hardening-guide/authentication-mechanisms.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.5,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.5,
+      "precision_at_5": 0.5,
+      "category": "security"
+    },
+    {
+      "question_id": "k8s_046",
+      "question": "How can cluster administrators combine encryption at rest for Secrets with Pod Security Standards and RBAC to prevent workloads from gaining unauthorized access to sensitive information through privileged Pod execution?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/security-checklist.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/pod-security-standards.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md"
+      ],
+      "hit_at_1": 0.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 0.0,
+      "precision_at_3": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_047",
+      "question": "How do local volumes' node constraints interact with storage capacity-based scheduling failures when a Pod requires multiple volumes?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/persistent-volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volume-attributes-classes.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.6666666666666666,
+      "recall_at_5": 0.6666666666666666,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "category": "configuration"
+    },
+    {
+      "question_id": "k8s_048",
+      "question": "What RBAC permissions does the cloud controller manager's route controller need, and how does this relate to the kubelet's resource management responsibilities on the same nodes?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/garbage-collection.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/mixed-version-proxy.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.5,
+      "precision_at_5": 0.5,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_049",
+      "question": "How do Node autoscaling decisions interact with kubelet operations, considering both the scheduling constraints that affect Node provisioning and the priority levels assigned to kubelet requests in the API server's flow control configuration?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/node-autoscaling.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/node-autoscaling.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/node-autoscaling.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/swap-memory-management.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/flow-control.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.3333333333333333,
+      "recall_at_5": 0.3333333333333333,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.5,
+      "precision_at_5": 0.5,
+      "category": "general"
+    },
+    {
+      "question_id": "k8s_050",
+      "question": "How does the storage version of a Kubernetes object relate to the format used when creating objects through kubectl manifests, and what happens when objects are stored versus when they are accessed through different API versions?",
+      "retrieved_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/storage-version.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/kubernetes-api.md"
+      ],
+      "expected_sources": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/storage-version.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/storage-version.md"
+      ],
+      "hit_at_1": 1.0,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "recall_at_1": 0.5,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "category": "general"
+    }
+  ]
+}

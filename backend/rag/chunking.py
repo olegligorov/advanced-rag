@@ -8,9 +8,9 @@ from config import EMBEDDING_MODEL, CHUNK_PERCENTILE
 
 MAX_UNITS_PER_SECTION = 100
 MIN_CHUNK_SIZE = 100
-MAX_CHUNK_SIZE = 2000
+MAX_CHUNK_SIZE = 1600
 
-class SemanticChunker:
+class Chunker:
     """
     RAG-Optimized Chunker for Technical Documentation.
     
@@ -122,7 +122,7 @@ class SemanticChunker:
 
         return chunks
 
-    def create_semantic_chunks(self, docs, percentile_threshold=CHUNK_PERCENTILE,
+    def create_chunks(self, docs, percentile_threshold=CHUNK_PERCENTILE,
                               min_chunk_size=MIN_CHUNK_SIZE, max_chunk_size=MAX_CHUNK_SIZE):
         final_chunks = []
 

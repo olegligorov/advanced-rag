@@ -12,7 +12,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from models.rag_pipeline import RAGPipeline
-from evaluation.metrics import compute_all_metrics, compute_recall_at_k, compute_hit_at_k
+from evaluation.metrics import compute_all_metrics, compute_recall_at_k, compute_hit_at_k, compute_precision_at_k
 from config import DATA_PATH
 import math
 
@@ -76,13 +76,14 @@ class RAGEvaluator:
 
         return evaluation_result
 
-    def evaluate_dataset(self, dataset_path: str, output_path: str = None) -> Dict:
+    def evaluate_dataset(self, dataset_path: str, output_path: str = None, skip_llm_metrics: bool = False) -> Dict:
         """
         Evaluate the RAG system on a full test dataset.
 
         Args:
             dataset_path: Path to JSON file containing test cases
             output_path: Optional path to save evaluation results
+            skip_llm_metrics: If True, skip expensive LLM-based metrics (faithfulness, answer_relevancy)
 
         Returns:
             dict: Complete evaluation report with aggregate metrics and per-question results
@@ -123,11 +124,18 @@ class RAGEvaluator:
             try:
                 result = self.rag_pipeline.query_with_contexts(question, top_n=5)
 
-                metrics = compute_all_metrics(
-                    question=result["question"],
-                    answer=result["answer"],
-                    contexts=result["contexts"]
-                )
+                # Compute LLM-based metrics only if not skipped
+                if skip_llm_metrics:
+                    metrics = {
+                        "faithfulness": None,
+                        "answer_relevancy": None
+                    }
+                else:
+                    metrics = compute_all_metrics(
+                        question=result["question"],
+                        answer=result["answer"],
+                        contexts=result["contexts"]
+                    )
 
                 retrieved_sources = [src["source"] for src in result["sources"]]
                 expected_contexts = test_case.get("expected_contexts", [])
@@ -138,6 +146,9 @@ class RAGEvaluator:
                 recall_at_1 = None
                 recall_at_3 = None
                 recall_at_5 = None
+                precision_at_1 = None
+                precision_at_3 = None
+                precision_at_5 = None
                 if expected_contexts:
                     hit_at_1 = compute_hit_at_k(retrieved_sources, expected_contexts, k=1)
                     hit_at_3 = compute_hit_at_k(retrieved_sources, expected_contexts, k=3)
@@ -145,6 +156,9 @@ class RAGEvaluator:
                     recall_at_1 = compute_recall_at_k(retrieved_sources, expected_contexts, k=1)
                     recall_at_3 = compute_recall_at_k(retrieved_sources, expected_contexts, k=3)
                     recall_at_5 = compute_recall_at_k(retrieved_sources, expected_contexts, k=5)
+                    precision_at_1 = compute_precision_at_k(retrieved_sources, expected_contexts, k=1)
+                    precision_at_3 = compute_precision_at_k(retrieved_sources, expected_contexts, k=3)
+                    precision_at_5 = compute_precision_at_k(retrieved_sources, expected_contexts, k=5)
 
                 per_question_result = {
                     "question_id": question_id,
@@ -161,13 +175,16 @@ class RAGEvaluator:
                     "recall_at_1": recall_at_1,
                     "recall_at_3": recall_at_3,
                     "recall_at_5": recall_at_5,
+                    "precision_at_1": precision_at_1,
+                    "precision_at_3": precision_at_3,
+                    "precision_at_5": precision_at_5,
                     "category": test_case.get("category", "general")
                 }
 
                 per_question_results.append(per_question_result)
 
                 # Identify failure cases (low faithfulness = hallucination risk)
-                if metrics["faithfulness"] < 0.7:
+                if not skip_llm_metrics and metrics["faithfulness"] is not None and metrics["faithfulness"] < 0.7:
                     failure_cases.append({
                         "question_id": question_id,
                         "question": question,
@@ -189,11 +206,16 @@ class RAGEvaluator:
             raise RuntimeError("No valid results to aggregate")
 
         # Filter out NaN values for faithfulness and answer relevancy
-        valid_faithfulness = [r["faithfulness"] for r in valid_results if not math.isnan(r["faithfulness"])]
-        valid_relevancy = [r["answer_relevancy"] for r in valid_results if not math.isnan(r["answer_relevancy"])]
-
-        avg_faithfulness = sum(valid_faithfulness) / len(valid_faithfulness) if valid_faithfulness else 0.0
-        avg_relevancy = sum(valid_relevancy) / len(valid_relevancy) if valid_relevancy else 0.0
+        if skip_llm_metrics:
+            valid_faithfulness = []
+            valid_relevancy = []
+            avg_faithfulness = None
+            avg_relevancy = None
+        else:
+            valid_faithfulness = [r["faithfulness"] for r in valid_results if r["faithfulness"] is not None and not math.isnan(r["faithfulness"])]
+            valid_relevancy = [r["answer_relevancy"] for r in valid_results if r["answer_relevancy"] is not None and not math.isnan(r["answer_relevancy"])]
+            avg_faithfulness = sum(valid_faithfulness) / len(valid_faithfulness) if valid_faithfulness else 0.0
+            avg_relevancy = sum(valid_relevancy) / len(valid_relevancy) if valid_relevancy else 0.0
 
         valid_hit_1 = [r["hit_at_1"] for r in valid_results if r.get("hit_at_1") is not None]
         avg_hit_1 = sum(valid_hit_1) / len(valid_hit_1) if valid_hit_1 else None
@@ -213,6 +235,15 @@ class RAGEvaluator:
         valid_recall_5 = [r["recall_at_5"] for r in valid_results if r.get("recall_at_5") is not None]
         avg_recall_5 = sum(valid_recall_5) / len(valid_recall_5) if valid_recall_5 else None
 
+        valid_precision_1 = [r["precision_at_1"] for r in valid_results if r.get("precision_at_1") is not None]
+        avg_precision_1 = sum(valid_precision_1) / len(valid_precision_1) if valid_precision_1 else None
+
+        valid_precision_3 = [r["precision_at_3"] for r in valid_results if r.get("precision_at_3") is not None]
+        avg_precision_3 = sum(valid_precision_3) / len(valid_precision_3) if valid_precision_3 else None
+
+        valid_precision_5 = [r["precision_at_5"] for r in valid_results if r.get("precision_at_5") is not None]
+        avg_precision_5 = sum(valid_precision_5) / len(valid_precision_5) if valid_precision_5 else None
+
         evaluation_report = {
             "metadata": {
                 "timestamp": datetime.now().isoformat(),
@@ -222,14 +253,17 @@ class RAGEvaluator:
                 "num_failed": len(test_cases) - len(valid_results)
             },
             "aggregate_metrics": {
-                "faithfulness": round(avg_faithfulness, 3),
-                "answer_relevancy": round(avg_relevancy, 3),
+                "faithfulness": round(avg_faithfulness, 3) if avg_faithfulness is not None else None,
+                "answer_relevancy": round(avg_relevancy, 3) if avg_relevancy is not None else None,
                 "hit_at_1": round(avg_hit_1, 3) if avg_hit_1 is not None else None,
                 "hit_at_3": round(avg_hit_3, 3) if avg_hit_3 is not None else None,
                 "hit_at_5": round(avg_hit_5, 3) if avg_hit_5 is not None else None,
                 "recall_at_1": round(avg_recall_1, 3) if avg_recall_1 is not None else None,
                 "recall_at_3": round(avg_recall_3, 3) if avg_recall_3 is not None else None,
-                "recall_at_5": round(avg_recall_5, 3) if avg_recall_5 is not None else None
+                "recall_at_5": round(avg_recall_5, 3) if avg_recall_5 is not None else None,
+                "precision_at_1": round(avg_precision_1, 3) if avg_precision_1 is not None else None,
+                "precision_at_3": round(avg_precision_3, 3) if avg_precision_3 is not None else None,
+                "precision_at_5": round(avg_precision_5, 3) if avg_precision_5 is not None else None
             },
             "per_question_results": per_question_results,
             "failure_cases": failure_cases
@@ -245,13 +279,17 @@ class RAGEvaluator:
         print(f"Successful: {len(valid_results)}")
         print(f"Failed: {len(test_cases) - len(valid_results)}")
 
-        print(f"\n--- Answer Quality Metrics ---")
-        print(f"Average Faithfulness: {avg_faithfulness:.3f} ({len(valid_faithfulness)}/{len(valid_results)} valid)")
-        if num_nan_faithfulness > 0:
-            print(f"  Note: {num_nan_faithfulness} questions had NaN faithfulness (RAGAS parsing errors)")
-        print(f"Average Answer Relevancy: {avg_relevancy:.3f}")
-        if num_nan_relevancy > 0:
-            print(f"  Note: {num_nan_relevancy} questions had NaN answer relevancy (RAGAS parsing errors)")
+        if not skip_llm_metrics:
+            print(f"\n--- Answer Quality Metrics ---")
+            print(f"Average Faithfulness: {avg_faithfulness:.3f} ({len(valid_faithfulness)}/{len(valid_results)} valid)")
+            if num_nan_faithfulness > 0:
+                print(f"  Note: {num_nan_faithfulness} questions had NaN faithfulness (RAGAS parsing errors)")
+            print(f"Average Answer Relevancy: {avg_relevancy:.3f}")
+            if num_nan_relevancy > 0:
+                print(f"  Note: {num_nan_relevancy} questions had NaN answer relevancy (RAGAS parsing errors)")
+        else:
+            print(f"\n--- Answer Quality Metrics ---")
+            print("Skipped (--skip-llm-metrics flag enabled)")
 
         print(f"\n--- Retrieval Quality Metrics ---")
         if avg_hit_1 is not None:
@@ -273,6 +311,16 @@ class RAGEvaluator:
             print(f"  → System retrieved {avg_recall_5*100:.1f}% of expected docs in top 5")
         else:
             print("Recall@K: N/A (no expected_contexts in dataset)")
+
+        if avg_precision_1 is not None:
+            print(f"\nAverage Precision@1: {avg_precision_1:.3f} ({len(valid_precision_1)}/{len(valid_results)} questions)")
+            print(f"  → {avg_precision_1*100:.1f}% of top 1 retrieved docs were relevant")
+            print(f"Average Precision@3: {avg_precision_3:.3f} ({len(valid_precision_3)}/{len(valid_results)} questions)")
+            print(f"  → {avg_precision_3*100:.1f}% of top 3 retrieved docs were relevant")
+            print(f"Average Precision@5: {avg_precision_5:.3f} ({len(valid_precision_5)}/{len(valid_results)} questions)")
+            print(f"  → {avg_precision_5*100:.1f}% of top 5 retrieved docs were relevant")
+        else:
+            print("Precision@K: N/A (no expected_contexts in dataset)")
 
         print(f"\nFailure Cases (faithfulness < 0.7): {len(failure_cases)}")
         print("=" * 60)
