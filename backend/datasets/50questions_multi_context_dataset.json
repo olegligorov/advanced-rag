@@ -1,0 +1,634 @@
+{
+  "metadata": {
+    "generated_by": "multi_context_dataset_generator",
+    "num_samples": 50,
+    "num_single_source": 15,
+    "num_multi_source": 35,
+    "multi_source_ratio": 0.7,
+    "source": "kubernetes documentation",
+    "random_seed": 42,
+    "description": "Mixed dataset with 30% single-source and 70% multi-source questions for comprehensive retrieval evaluation"
+  },
+  "test_cases": [
+    {
+      "question_id": "k8s_001",
+      "question": "What does 1 CPU unit represent in Kubernetes when measuring CPU resource limits and requests?",
+      "ground_truth": "In Kubernetes, 1 CPU unit is equivalent to 1 physical CPU core, or 1 virtual core, depending on whether the node is a physical host or a virtual machine running inside a physical machine.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md"
+      ],
+      "category": "workloads",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_002",
+      "question": "What kubectl command syntax is used to display pods with specific label columns for app, tier, and role?",
+      "ground_truth": "The command syntax is `kubectl get pods -Lapp -Ltier -Lrole`. The `-L` flag followed by the label name is used to display each specified label as a separate column in the output.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/labels.md"
+      ],
+      "category": "general",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_003",
+      "question": "What kubectl command should you use to verify if a deployment rollout is stuck?",
+      "ground_truth": "According to the text, you should use the command `kubectl rollout status deployment/nginx-deployment` to verify if a deployment rollout is stuck. When stuck, this command will show output similar to \"Waiting for rollout to finish: 1 out of 3 new replicas have been updated...",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "category": "workloads",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_004",
+      "question": "Does the new resource support clients that want to use Protocol Buffers?",
+      "ground_truth": "Yes, the new resource supports clients that want to use Protocol Buffers.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/api-extension/custom-resources.md"
+      ],
+      "category": "resource-management",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_005",
+      "question": "What label must be present on a Pod running on a node for the scheduler to place a replica of the web-server deployment on that same node?",
+      "ground_truth": "According to the Pod affinity rule in the configuration, a Pod with the label `app=store` must be present on a node for the scheduler to place a replica of the web-server deployment on that same node. This is specified in the `podAffinity` section with `requiredDuringSchedulingIgnoredDuringExecution`.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "category": "workloads",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_006",
+      "question": "What is the default value for the `expirationSeconds` field of a serviceAccountToken projected volume, and what is the minimum allowed value?",
+      "ground_truth": "The default value for the `expirationSeconds` field is 1 hour. The minimum allowed value is 10 minutes (600 seconds).",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/projected-volumes.md"
+      ],
+      "category": "configuration",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_007",
+      "question": "What is the name of the datastore where volumes will be created when using the StorageClass example that specifies \"VSANDatastore\" in its parameters?",
+      "ground_truth": "The datastore where volumes will be created is **VSANDatastore**. This is specified in the StorageClass parameters, and the volume will be created on this datastore as indicated in the example.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-classes.md"
+      ],
+      "category": "general",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_008",
+      "question": "What value should you avoid using when naming EndpointSlices that are manually managed, and why?",
+      "ground_truth": "You should avoid using the reserved value `\"controller\"` when naming manually managed EndpointSlices. This value is reserved because it identifies EndpointSlices managed by Kubernetes' own control plane.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md"
+      ],
+      "category": "networking",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_009",
+      "question": "On Linux nodes that use systemd, what command would you use to read the kubelet logs from the systemd journal?",
+      "ground_truth": "On Linux nodes that use systemd, you would use `journalctl` to read the systemd journal. The specific command for reading kubelet logs is `journalctl -u kubelet`.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/logging.md"
+      ],
+      "category": "general",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_010",
+      "question": "How many authentication techniques are allowed per user when determining actual user information in kubeconfig?",
+      "ground_truth": "According to the text, only one authentication technique per user is allowed when determining actual user information in kubeconfig. If there are two conflicting techniques, the process will fail.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/organize-cluster-access-kubeconfig.md"
+      ],
+      "category": "general",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_011",
+      "question": "What command is used to resume a paused Deployment rollout in Kubernetes?",
+      "ground_truth": "The command used to resume a paused Deployment rollout in Kubernetes is `kubectl rollout resume deployment/nginx-deployment`. When executed, this command resumes the Deployment rollout and allows new updates to take effect, resulting in a new ReplicaSet being created with all the new updates.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "category": "workloads",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_012",
+      "question": "What happens to environment variables sourced from a ConfigMap when the ConfigMap is updated?",
+      "ground_truth": "When a ConfigMap is updated, environment variables sourced from that ConfigMap are not updated automatically and require a pod restart to reflect the changes.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md"
+      ],
+      "category": "configuration",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_013",
+      "question": "What kubectl command runs all applicable validation and activates admission-time checks for precise and complete verification?",
+      "ground_truth": "The command `kubectl apply --dry-run=server` runs all applicable validation and activates admission-time checks for precise and complete verification.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/kubernetes-api.md"
+      ],
+      "category": "general",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_014",
+      "question": "What is the minimum value that `minDomains` must be when specified, and with which `whenUnsatisfiable` setting can it be used?",
+      "ground_truth": "According to the text, the value of `minDomains` must be greater than 0 when specified. It can only be specified in conjunction with `whenUnsatisfiable: DoNotSchedule`.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/topology-spread-constraints.md"
+      ],
+      "category": "general",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_015",
+      "question": "What are the three possible values for the `status` field of a Pod condition?",
+      "ground_truth": "The three possible values for the `status` field of a Pod condition are \"True\", \"False\", or \"Unknown\".",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/pods/pod-lifecycle.md"
+      ],
+      "category": "workloads",
+      "difficulty": "medium",
+      "question_type": "single_source"
+    },
+    {
+      "question_id": "k8s_016",
+      "question": "How do ResourceClaims interact with the scheduling framework's extension points when a Pod requests access to devices defined by a DeviceClass?",
+      "ground_truth": "Based on the documents, when a Pod requests access to devices defined by a DeviceClass through ResourceClaims, the scheduling framework must evaluate these resource requirements during the pod scheduling process. ResourceClaims describe requests for access to attached resources like devices in the cluster, and they can be created directly or generated from ResourceClaimTemplates to provide Pods with access to specific resources. The scheduling framework's extension points, such as PreFilter and other plugin interfaces, would need to consider these ResourceClaim requirements when determining pod placement, ensuring that the selected node has the appropriate devices matching the DeviceClass parameters specified in the claim. This integration allows the scheduler to make informed decisions about which nodes can satisfy both the Pod's compute requirements and its device resource claims.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/dynamic-resource-allocation.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/scheduling-framework.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "category": "resource-management",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_017",
+      "question": "How does the Ingress resource relate to Services for exposing applications, and what are the implications for protocols that cannot be exposed through Ingress when using ExternalName Services?",
+      "ground_truth": "Based on the documents, Ingress resources work with Services to expose HTTP and HTTPS applications to the internet, with an Ingress controller fulfilling the Ingress by configuring load balancers or edge routers. However, Ingress does not expose arbitrary ports or protocols, so services using non-HTTP/HTTPS protocols typically require Service.Type=NodePort or Service.Type=LoadBalancer instead. When using ExternalName Services, there are additional complications for protocols like HTTP and HTTPS, as the hostname used by clients inside the cluster differs from the ExternalName reference, which can lead to issues such as HTTP Host header mismatches and TLS certificate validation failures. This means applications requiring these protocols face challenges with both Ingress limitations and ExternalName Service configurations.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/ingress.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/network-policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md"
+      ],
+      "category": "networking",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_018",
+      "question": "How can you configure custom scheduling plugins to work alongside default pod affinity and anti-affinity rules when determining pod placement?",
+      "ground_truth": "To configure custom scheduling plugins alongside default pod affinity and anti-affinity rules, you need to enable them in the scheduler configuration, as most scheduling plugins (including those handling affinity rules) are enabled by default in Kubernetes v1.18 or later. You can implement your own scheduling plugins by following the extension point interfaces (such as PreFilterPlugin or QueueSortPlugin) and configure them to work with the default plugins through the scheduler configuration. These custom plugins will then operate in conjunction with the built-in affinity and anti-affinity mechanisms that allow you to configure workload co-location based on topology, such as using `podAntiAffinity` rules to control pod placement across nodes. For more details on implementing custom plugins, you can refer to the scheduler-plugins repository at github.com/kubernetes-sigs/scheduler-plugins.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/scheduling-framework.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_019",
+      "question": "What are the security risks when RBAC permissions allow PersistentVolume creation, and how does this relate to bypassing Kubernetes admission control and audit logging?",
+      "ground_truth": "When RBAC permissions allow arbitrary PersistentVolume creation, it poses a significant security risk because users can create `hostPath` volumes that grant Pods unrestricted access to the underlying host filesystem, enabling privilege escalation through reading data from other containers or abusing the host system. This risk is compounded by the fact that, similar to direct etcd access, such filesystem access can potentially bypass normal Kubernetes security controls. As noted in the etcd context, direct access paths are not subject to Kubernetes admission control and are not logged by Kubernetes audit logging, meaning that malicious activities through host filesystem access may go undetected and cannot be prevented by admission controllers that would normally enforce security policies. Therefore, following least privilege principles when granting PersistentVolume creation permissions is critical to maintaining cluster security boundaries.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/security-checklist.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md"
+      ],
+      "category": "security",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_020",
+      "question": "How does an operator automate database backups, and what steps would you take to interact with those backups after deploying the operator to your cluster?",
+      "ground_truth": "Based on the documents, an operator automates database backups by monitoring Custom Resources (like SampleDB) and automatically creating Pods that can connect to the database and perform backups at appropriate intervals. These backup Pods rely on ConfigMaps and/or Secrets that contain the necessary database connection details and credentials. After deploying the operator to your cluster as a Deployment, you would interact with the backups by using kubectl commands to manage the Custom Resource, such as `kubectl get SampleDB` to view configured databases and `kubectl edit SampleDB/example-database` to manually modify settings related to the backup configuration or schedule.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_021",
+      "question": "How does an operator that manages database backups differ from the binary plugin extension model in terms of how they interact with the Kubernetes cluster?",
+      "ground_truth": "Based on the documents, an operator that manages database backups interacts with the Kubernetes cluster through the Kubernetes API as a controller for Custom Resources, where it creates and manages Kubernetes objects like Pods, ConfigMaps, Secrets, and Jobs to handle tasks such as database backups and upgrades. In contrast, the binary plugin extension model involves Kubernetes executing a binary program directly, as seen with CSI storage plugins and CNI network plugins used by the kubelet. While the operator uses network-based API calls to monitor and control resources within the cluster (similar to the webhook model mentioned), binary plugins operate as standalone executables that Kubernetes invokes locally. This fundamental difference means operators work within the Kubernetes resource model to orchestrate complex application management, whereas binary plugins extend Kubernetes functionality at a lower, more integrated level.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/operator.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/extend-kubernetes/_index.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_022",
+      "question": "What are the security risks of allowing users to create arbitrary PersistentVolumes, and how does this relate to the broader concern of bypassing Kubernetes API server controls and RBAC enforcement?",
+      "ground_truth": "Allowing users to create arbitrary PersistentVolumes poses significant security risks because it permits the creation of `hostPath` volumes, which grant Pods direct access to the underlying host filesystem on associated nodes. This access enables containers to escalate privileges through multiple vectors, including reading data from other containers and abusing the host system. This risk relates to the broader concern of bypassing Kubernetes API server controls because, similar to direct etcd access, it circumvents the intended security boundaries and RBAC enforcement mechanisms. Such bypasses are particularly dangerous as they allow attackers to operate outside of Kubernetes admission control and audit logging, potentially gaining unauthorized access to sensitive data or modifying access rules without proper oversight.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md"
+      ],
+      "category": "security",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_023",
+      "question": "What are the namespace requirements and naming conventions that apply to both ConfigMaps and Secrets when they are referenced by Pods, and how do imagePullSecrets differ from regular Secrets in terms of their usage?",
+      "ground_truth": "Based on the documents, both ConfigMaps and Secrets must be in the same namespace as the Pods that reference them. The naming convention for both requires valid DNS subdomain names, with keys consisting of alphanumeric characters, `-`, `_`, or `.`. The imagePullSecrets differ from regular Secrets in their specific usage: they are configured at the Pod level through the `imagePullSecrets` field (a list of Secret references) and serve the specialized purpose of allowing the kubelet to authenticate to private container image repositories and pull images on behalf of the Pod, rather than being used for general application configuration or credential storage.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md"
+      ],
+      "category": "configuration",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_024",
+      "question": "What are the differences between the Node controller in the control plane and the Node controller in the cloud controller manager in terms of their responsibilities and required API permissions?",
+      "ground_truth": "Based on the documents, the Node controller in the control plane and the Node controller in the cloud controller manager have distinct responsibilities and API permissions. The control plane's Node controller manages various aspects of nodes including assigning CIDR blocks upon registration and maintaining an internal list of nodes synchronized with the cloud provider's available machines, while also handling Node status updates and Lease objects. In contrast, the Node controller within the cloud controller manager specifically focuses on working exclusively with Node objects and requires full access permissions (get, list, create, update, patch, watch, delete) to read and modify them. The cloud controller manager's Node controller appears to be more narrowly scoped with comprehensive API permissions, whereas the control plane's Node controller has broader responsibilities related to node lifecycle management and networking configuration.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/nodes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/garbage-collection.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_025",
+      "question": "How does pausing a Deployment affect the ability to rollback to previous revisions, and what implications does this have for StatefulSet Pods that rely on stable DNS names during updates?",
+      "ground_truth": "Based on the documents provided, pausing a Deployment affects its behavior during updates but does not directly impact the ability to rollback to previous revisions, as rollback capability depends on the retention of old ReplicaSets (which store revision history). By default, 10 old ReplicaSets are kept regardless of whether a Deployment is paused, so pausing doesn't affect the revision history unless the ReplicaSets are manually cleaned up. However, the documents do not establish a direct connection between paused Deployments and StatefulSet Pod DNS names, as StatefulSets maintain stable DNS names (like web-{0..N-1}.nginx.default.svc.cluster.local) independent of Deployment pause states. The pausing mechanism appears to be specific to Deployments and doesn't directly influence StatefulSet Pod identity or DNS resolution patterns.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md"
+      ],
+      "category": "workloads",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_026",
+      "question": "How can you monitor and optimize the performance of Dynamic Resource Allocation (DRA) in a cluster that also uses API Priority and Fairness to manage API server request flow, and what metrics should you track from the kube-controller-manager?",
+      "ground_truth": "To monitor and optimize Dynamic Resource Allocation (DRA) performance in your cluster, you should track specific metrics from the kube-controller-manager, particularly focusing on the internal ResourceClaim controller. Key metrics include the Workqueue Add Rate, which can be monitored using `sum(rate(workqueue_adds_total{name=\"resource_claim\"}[5m]))` to gauge how quickly items are added to the ResourceClaim controller, and Workqueue Depth to track the queue size. When using API Priority and Fairness alongside DRA, be aware that this feature must be used carefully in recursive server scenarios and can be disabled if needed using the `--enable-priority-and-fairness=false` flag, though it's enabled by default with stable v1 API support introduced in Kubernetes 1.29. For comprehensive monitoring guidance, you can refer to the Kubernetes Metrics Reference documentation for all stable metrics available in Kubernetes.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/dra.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/flow-control.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/node-autoscaling.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_027",
+      "question": "How does pod DNS naming in StatefulSets differ from pod management in DaemonSets when both use label selectors, and what role does the ReplicationController's pod counting mechanism play in these differences?",
+      "ground_truth": "Based on the documents, StatefulSets provide predictable, stable DNS naming for pods using a pattern like `web-{0..N-1}.nginx.default.svc.cluster.local`, which includes the StatefulSet name, service name, namespace, and cluster domain. In contrast, DaemonSets focus on ensuring pods run on eligible nodes based on node selectors or affinity rules rather than providing stable network identities. While both StatefulSets and DaemonSets use label selectors to match pods (with `.spec.selector` matching `.spec.template.metadata.labels`), the ReplicationController's pod counting mechanism\u2014which excludes only terminated pods from its count\u2014is conceptually separate from these controllers and represents a different approach to maintaining desired pod replicas rather than the identity-based management of StatefulSets or node-placement focus of DaemonSets.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/statefulset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicationcontroller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_028",
+      "question": "How can you use PriorityClass in combination with Pod affinity rules to ensure that high-priority web application Pods are scheduled before lower-priority Pods while also maintaining co-location with cache Pods on the same node?",
+      "ground_truth": "To ensure high-priority web application Pods are scheduled before lower-priority Pods while maintaining co-location with cache Pods, you can combine PriorityClass with Pod affinity rules. First, create a PriorityClass object with a high integer value (up to 1 billion) and assign it to your web application Pods to ensure they are scheduled first by the Kubernetes scheduler. Then, configure inter-pod affinity rules on the web application Pods to prefer co-location with cache Pods (such as Redis) that have matching labels like `app=store`, which will instruct the scheduler to place the web servers on the same nodes as the cache to minimize latency. The PriorityClass ensures scheduling precedence, while the Pod affinity rules handle the topology placement to keep related workloads together on the same node.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md"
+      ],
+      "category": "workloads",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_029",
+      "question": "What are the namespace requirements and naming constraints that apply when a Pod needs to reference both a ConfigMap and a Secret, and how do these compare to the precision constraints for CPU resource specifications in the Pod's container definitions?",
+      "ground_truth": "When a Pod needs to reference both a ConfigMap and a Secret, they must all be in the same namespace, as ConfigMaps and Pods are required to be namespace-scoped. The naming constraints differ between these resources: ConfigMap names must be valid DNS subdomain names with keys consisting of alphanumeric characters, `-`, `_` or `.`, while Secrets follow similar patterns with custom types using domain-based naming conventions (e.g., `domain.example.net/type`). In contrast, CPU resource specifications in Pod container definitions have precision constraints that are fundamentally different from naming rules\u2014CPU can only be specified with precision down to `1m` (0.001 CPU), and Kubernetes recommends using the milliCPU form (like `5m`) rather than decimal form (like `0.005`) to avoid accidentally specifying invalid values below this minimum threshold.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/configmap.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/secret.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/configuration/manage-resources-containers.md"
+      ],
+      "category": "configuration",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_030",
+      "question": "How would you configure a NetworkPolicy to allow traffic from Pods in specific namespaces to a NodePort Service, and what are the key differences between using a single selector versus multiple selectors in the policy's ingress rules when the Service uses an ExternalName type?",
+      "ground_truth": "Based on the documents, to configure a NetworkPolicy for allowing traffic from specific namespaces, you need to understand the crucial difference between selector combinations. When you use a single `from` element with both `namespaceSelector` and `podSelector` together (as shown in the first example), it creates an AND condition that only allows connections from Pods with `role=client` in namespaces labeled `user=alice`. However, when you separate them into multiple elements in the `from` array (as in the second example), it creates an OR condition allowing connections from Pods with `role=client` in the local namespace OR from any Pod in namespaces with `user=alice`. \n\nIt's important to note that while NetworkPolicies control Pod-to-Pod traffic based on labels and selectors, the Service type (NodePort or ExternalName) operates at a different layer\u2014ExternalName Services may cause complications with hostname-based protocols as the hostname used by clients differs from the ExternalName reference, which could lead to errors or unexpected responses that NetworkPolicies wouldn't address.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/network-policies.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/services-networking/service.md"
+      ],
+      "category": "networking",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_031",
+      "question": "How would you configure a Redis cache deployment to ensure high availability across nodes while also guaranteeing it gets scheduled before lower-priority workloads during resource contention?",
+      "ground_truth": "To configure a Redis cache deployment for high availability and priority scheduling, you would combine two Kubernetes features. First, use `podAntiAffinity` rules in your deployment to prevent multiple Redis replicas with the same label (e.g., `app=store`) from being placed on a single node, ensuring distribution across nodes for high availability. Second, create a PriorityClass object with a high integer value and reference it in your Redis deployment to ensure the cache gets scheduled before lower-priority workloads during resource contention. The PriorityClass must be a non-namespaced object with a valid DNS subdomain name, and the higher the value specified in its `value` field, the higher the scheduling priority it will have over other workloads.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/assign-pod-node.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "category": "workloads",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_032",
+      "question": "How can you use ResourceQuotas and admission policies together to enforce CPU allocation limits while ensuring pods are scheduled with the distribute-cpus-across-cores policy option enabled?",
+      "ground_truth": "To enforce CPU allocation limits while ensuring optimal CPU distribution, you can combine ResourceQuotas with admission policies in a multi-layered approach. First, create a ResourceQuota in your namespace to set hard limits on CPU requests and limits (e.g., `requests.cpu: \"1\"` and `limits.cpu: \"2\"` as shown in the examples), which will restrict the total CPU resources that can be consumed. Then, use a ValidatingAdmissionPolicy with Common Expression Language (CEL) to validate that pods have the appropriate annotations or configurations indicating they should use the `distribute-cpus-across-cores` policy option, which helps reduce CPU contention by spreading virtual cores across different physical cores rather than packing them together. This combination ensures both quantitative resource limits through quotas and qualitative scheduling behavior through admission policy validation, though note that the distribute-cpus-across-cores option requires the CPUManager static policy to be configured at the node level.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/node-resource-managers.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/resource-quotas.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/_index.md"
+      ],
+      "category": "resource-management",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_033",
+      "question": "What are the key differences between hostPath and local volumes in terms of pod scheduling awareness, and how might storage capacity constraints affect a pod that uses multiple local volumes when one volume has already been provisioned?",
+      "ground_truth": "Based on the documents, the key difference between hostPath and local volumes is that local volumes enable the system to be aware of volume node constraints through node affinity on the PersistentVolume, allowing for more durable and portable scheduling without manual pod-to-node assignments, whereas hostPath volumes require manual scheduling. However, local volumes share a critical limitation with hostPath in that they depend on the underlying node's health and availability. When a pod uses multiple local volumes, storage capacity constraints can cause permanent scheduling failures if one volume has already been created in a topology segment that lacks sufficient capacity for additional volumes, requiring manual intervention such as increasing capacity or deleting the already-created volume to recover.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/ephemeral-storage.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_034",
+      "question": "What are the key differences in Pod specification compatibility and networking capabilities between Windows and Linux nodes in Kubernetes?",
+      "ground_truth": "Based on the documentation, Windows nodes in Kubernetes have several key differences in Pod specification compatibility compared to Linux nodes. Windows does not support host namespace sharing features like `hostIPC` and `hostpid`, and critically, `hostNetwork` (host networking) is not possible on Windows, which means Pods always run with a container network. As a consequence of the lack of host networking support, the `dnsPolicy` setting of `ClusterFirstWithHostNet` is also not supported on Windows. Additionally, Windows nodes cannot use the `shareProcessNamespace` feature, which is a beta capability that depends on Linux namespaces.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/intro.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_035",
+      "question": "How does PriorityClass interact with HorizontalPodAutoscaler scaling policies when the autoscaler needs to scale down Pods, and what happens if critical Pods with high priority values are targeted for removal during a Deployment rollout that has hit its maxUnavailable threshold?",
+      "ground_truth": "Based on the provided documents, PriorityClass and HorizontalPodAutoscaler operate as separate mechanisms that don't directly interact. PriorityClass is a non-namespaced object that assigns integer priority values to Pods (with higher values indicating higher priority) to ensure critical components are scheduled first, while HorizontalPodAutoscaler uses scaling policies to determine how many replicas to add or remove based on metrics and configured parameters like the stabilization window. During a Deployment rollout, the maxUnavailable parameter (defaulting to 25%) controls how many Pods can be unavailable at once, and the Deployment controller will automatically stop a bad rollout and halt scaling of the new ReplicaSet when this threshold is reached. However, the documents don't explicitly describe how these systems coordinate when high-priority Pods are targeted for removal during simultaneous autoscaling and rollout operations, suggesting this scenario may require careful configuration to prevent conflicts between scheduling priorities and scaling decisions.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/autoscaling/horizontal-pod-autoscale.md"
+      ],
+      "category": "workloads",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_036",
+      "question": "How does the kubelet determine kernel version compatibility for features, and what are the implications when a feature's API version is disabled via command-line flags in the kube-apiserver?",
+      "ground_truth": "Based on the documents, the kubelet determines kernel version compatibility by checking the kernel version directly and performing fallback verification tests. For example, with the `noswap` option for swap memory management, the kubelet first checks if the kernel version is above 6.3 to assume support; if not, it attempts to mount a dummy tmpfs with the option to verify compatibility, emitting warning logs if the feature is unsupported. In contrast, when API versions are disabled via command-line flags in the kube-apiserver (such as disabling `flowcontrol.apiserver.k8s.io/v1beta3` with `--runtime-config`), the entire API group version becomes unavailable, which can completely disable features like API Priority and Fairness when using the `--enable-priority-and-fairness=false` flag. These different approaches show that kubelet handles kernel-level feature compatibility through runtime detection, while kube-apiserver feature availability is controlled through explicit configuration flags.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/flow-control.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/node-autoscaling.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/swap-memory-management.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_037",
+      "question": "When using kubectl with field selectors to query Kubernetes objects, how does the storage version of an object affect which fields are available for filtering, and what format must be used when specifying these selectors in a manifest file?",
+      "ground_truth": "Based on the documents provided, field selectors allow you to filter Kubernetes objects based on resource field values (like `metadata.name=my-service` or `status.phase=Running`), and these selectors are essentially resource filters applied via kubectl commands. However, the storage version of an object, which determines how the object is serialized in etcd (such as v1 representation of a ConfigMap), does not directly affect field selector availability because Kubernetes uses automatic conversion between API versions, ensuring clients can interact with objects regardless of the actual storage version. When providing information to kubectl, manifests are conventionally written in YAML format (though JSON is also supported), and kubectl converts this information into JSON for API requests, but the documents don't specify a particular format requirement for field selectors within manifest files themselves\u2014they appear to be primarily used as command-line flags.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/field-selectors.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/storage-version.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_038",
+      "question": "How can an attacker with etcd access bypass Kubernetes security controls, and what encryption and access control measures should cluster administrators implement to protect sensitive data stored in Secrets?",
+      "ground_truth": "An attacker with read access to etcd can bypass Kubernetes security controls because direct etcd access is not subject to Kubernetes admission control and is not logged by Kubernetes audit logging. By accessing the API server's etcd client certificate private key or creating a new trusted client certificate, an attacker can gain cluster admin rights through accessing cluster secrets or modifying access rules, since any certificate issued by a certificate authority that etcd trusts allows full access to all data stored inside etcd. To protect against this, cluster administrators should configure encryption at rest for etcd (as mentioned in the Secrets good practices), restrict etcd API access to only the Kubernetes API server and backup tooling, and implement strong client certificate authentication controls to prevent unauthorized certificate creation or key compromise.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/api-server-bypass-risks.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/pod-security-standards.md"
+      ],
+      "category": "security",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_039",
+      "question": "How do the selector matching requirements differ between ReplicationController, DaemonSet, and Deployment controllers, and what role does the selector play in determining which pods each controller manages?",
+      "ground_truth": "Based on the documents, the selector plays a critical role in determining which pods each controller manages by matching pod labels. For ReplicationController, the controller ensures that the desired number of pods matches its label selector and are operational, using this selector to identify which pods fall under its management. DaemonSet has stricter matching requirements, as the `.spec.selector` must match the `.spec.template.metadata.labels`, and configurations where these two don't match will be rejected by the API. While the Deployment document doesn't explicitly detail selector requirements, it references that the Deployment controller manages ReplicaSets (which inherit similar selector-based pod management), and all three controllers fundamentally use selectors to identify and count the pods they are responsible for maintaining.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicationcontroller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_040",
+      "question": "What is the common requirement for the `.spec.selector` field across DaemonSets, Deployments, and ReplicaSets, and what happens if this requirement is not met?",
+      "ground_truth": "Based on the documents, the common requirement for the `.spec.selector` field across DaemonSets and ReplicaSets is that it must match the `.spec.template.metadata.labels`. If this requirement is not met, the configuration will be rejected by the API. This validation ensures that the controller can properly identify and manage the Pods it is responsible for, preventing mismatches between the selector used to find Pods and the labels actually applied to those Pods through the template.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/daemonset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicaset.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_041",
+      "question": "How do ResourceQuota limits interact with Pod QoS classes, and what happens when you set a namespace ResourceQuota for CPU requests while deploying Pods with different resource specifications that result in different QoS classifications?",
+      "ground_truth": "Based on the documents, ResourceQuotas set namespace-level limits on resource requests and limits (such as `requests.cpu` and `limits.cpu`), while Pod QoS classes are determined by the resource specifications within individual Pod specs. When you set a namespace ResourceQuota for CPU requests, Pods with different resource specifications will be classified into different QoS classes: BestEffort (no requests/limits), Burstable (requests don't equal limits or CPU not specified), or Guaranteed (requests equal limits for all resources). The ResourceQuota enforces aggregate consumption limits across all Pods in the namespace, meaning the total CPU requests from all Pods cannot exceed the quota regardless of their individual QoS classifications, and Pods that would cause the quota to be exceeded will fail to be admitted to the namespace.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/resource-quotas.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/policy/node-resource-managers.md"
+      ],
+      "category": "resource-management",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_042",
+      "question": "How does the Deployment controller's default maxUnavailable setting interact with the ReplicaSet's pod deletion algorithm when scaling down during a failed rollout?",
+      "ground_truth": "During a failed rollout, the Deployment controller automatically stops the bad rollout and halts scaling up the new ReplicaSet, with the behavior influenced by the `maxUnavailable` parameter that defaults to 25%. When scaling down occurs, the underlying ReplicaSet controller follows a specific pod deletion algorithm that prioritizes removing pending/unschedulable pods first, then considers the `pod-deletion-cost` annotation, followed by preferring pods on nodes with more replicas, and finally selecting more recently created pods. This means the 25% maxUnavailable limit controls how many pods can be unavailable during the rollout process, while the ReplicaSet's deletion algorithm determines the specific order in which pods are terminated when scaling down is necessary. The combination ensures that during a failed rollout, the system maintains availability constraints while making intelligent decisions about which pods to remove first.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/deployment.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicaset.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/workloads/controllers/replicaset.md"
+      ],
+      "category": "workloads",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_043",
+      "question": "What steps should you take to verify that your Kubernetes cluster nodes are healthy before deploying Windows containers, and what command-line tool is used for this verification regardless of whether you're working with Linux or Windows nodes?",
+      "ground_truth": "Based on the documentation, you should verify that all nodes in your Kubernetes cluster are healthy by running the command `kubectl get nodes`. This verification step is important to perform before deploying Windows containers to ensure your cluster is ready. The kubectl command-line tool is used for this verification and for interfacing with the cluster, and notably, the kubectl commands remain identical regardless of whether you're working with Linux or Windows nodes, as the behavior for managing services and workloads is consistent across both operating systems.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/windows/user-guide.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_044",
+      "question": "How can you ensure a Pod always uses the same version of a container image, and what events would you observe in kubectl describe when that image is pulled by the kubelet?",
+      "ground_truth": "To ensure a Pod always uses the same version of a container image, you should specify the image's digest instead of a tag, using the format `<image-name>@<digest>` rather than `<image-name>:<tag>`. This approach is more reliable than using tags like `:latest`, which are discouraged in production because they make it harder to track which version is running and complicate rollback procedures. When the kubelet pulls the specified image, you would observe events in `kubectl describe` showing the pulling process, such as \"Pulling image\" followed by \"Successfully pulled image\" with timing information, and then subsequent \"Created container\" and \"Started\" events as the container is instantiated and launched.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/images.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/container-lifecycle-hooks.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/containers/_index.md"
+      ],
+      "category": "workloads",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_045",
+      "question": "What security considerations should be implemented when configuring a custom scheduler that uses authentication lookups from the API server, and how might an attacker exploit misconfigurations in both the authentication mechanism and plugin extension points?",
+      "ground_truth": "When configuring a custom scheduler with API server authentication lookups, administrators should ensure that the kubeconfig file is protected with strict file permissions and set both `authentication-tolerate-lookup-failure` and `authentication-skip-lookup` to `false` to guarantee the scheduler always retrieves authentication configuration from the API server. Additionally, securely configured TLS must be used between the scheduler and API server to prevent traffic interception, as attackers who can modify request headers may gain unauthorized access to Kubernetes resources. From a plugin perspective, custom plugins implementing the `permit` extension point should be thoroughly reviewed since they can halt pod scheduling, and administrators should consider disabling non-default `queueSort`, `filter`, and `permit` extension points to minimize attack surfaces. Misconfigurations in either authentication mechanisms (such as weak TLS or unprotected kubeconfig files) or improperly vetted scheduler plugins could allow attackers to either intercept credentials or manipulate scheduling decisions, potentially disrupting cluster operations.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/hardening-guide/scheduler.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/hardening-guide/scheduler.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/hardening-guide/authentication-mechanisms.md"
+      ],
+      "category": "security",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_046",
+      "question": "How can cluster administrators combine encryption at rest for Secrets with Pod Security Standards and RBAC to prevent workloads from gaining unauthorized access to sensitive information through privileged Pod execution?",
+      "ground_truth": "Cluster administrators should configure encryption at rest for Secrets to protect sensitive information stored in the cluster, while implementing RBAC controls that carefully restrict permissions to create workloads. Since granting permission to create workloads implicitly grants API access levels of any service account in that namespace, and users who can run privileged Pods can use that access to gain node access and potentially elevate their privileges, administrators should enforce either the **Baseline** or **Restricted** Pod Security Standard using Pod Security admission or third-party tools like Kyverno, OPA Gatekeeper, or Kubewarden. This layered approach ensures that even if users have workload creation permissions, they cannot create privileged Pods that could bypass security controls to access encrypted Secrets, while RBAC further limits which service accounts and users can interact with Secret objects directly.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/secrets-good-practices.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/pod-security-standards.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/security/rbac-good-practices.md"
+      ],
+      "category": "configuration",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_047",
+      "question": "How do local volumes' node constraints interact with storage capacity-based scheduling failures when a Pod requires multiple volumes?",
+      "ground_truth": "Local volumes use node affinity constraints that the system recognizes from the PersistentVolume, which helps with scheduling pods to appropriate nodes without manual intervention. However, when a Pod requires multiple volumes, this can create a problematic scenario where one volume might already be created in a topology segment (potentially on the node where the local volume must be placed due to node affinity), but that segment lacks sufficient capacity for additional volumes. This situation can lead to permanent scheduling failures that require manual intervention to resolve, such as increasing capacity or deleting already-created volumes. The combination of local volumes' strict node constraints and multi-volume capacity limitations makes such Pods particularly vulnerable to these irrecoverable scheduling states.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volumes.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/storage-capacity.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/storage/volume-attributes-classes.md"
+      ],
+      "category": "configuration",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_048",
+      "question": "What RBAC permissions does the cloud controller manager's route controller need, and how does this relate to the kubelet's resource management responsibilities on the same nodes?",
+      "ground_truth": "Based on the documentation, the cloud controller manager's route controller requires minimal RBAC permissions\u2014specifically, only **get** access to Node objects (`v1/Node: get`). The route controller listens to Node object creation events and configures routes appropriately, but unlike the Node controller which requires full access (get, list, create, update, patch, watch, delete), the route controller only needs read access to retrieve Node information. While the route controller operates at the cluster networking level by configuring routes based on Node objects, the kubelet manages resources locally on each node, including responsibilities like garbage collection of unused container images based on disk usage thresholds and maximum age settings. These are complementary but separate concerns: the route controller handles cluster-level network routing configuration while the kubelet manages node-local resource utilization.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/cloud-controller.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/garbage-collection.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/architecture/mixed-version-proxy.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_049",
+      "question": "How do Node autoscaling decisions interact with kubelet operations, considering both the scheduling constraints that affect Node provisioning and the priority levels assigned to kubelet requests in the API server's flow control configuration?",
+      "ground_truth": "Node autoscaling decisions are influenced by scheduling constraints such as Node affinity, inter-Pod affinity, and storage volume requirements, which determine the specifications of provisioned Nodes including their resources and labels. Once Nodes are provisioned, kubelets running on these Nodes must communicate with the API server to enable workload scheduling, and these kubelet requests are assigned to the `system` priority level in the flow control configuration for non-health requests from the `system:nodes` group. Additionally, health updates from Nodes are handled at an even higher `node-high` priority level, ensuring that kubelet operations maintain reliable communication with the API server. This priority structure ensures that newly autoscaled Nodes can effectively register and communicate their status, allowing the cluster to properly utilize the additional capacity created by autoscaling decisions.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/node-autoscaling.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/swap-memory-management.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/cluster-administration/flow-control.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    },
+    {
+      "question_id": "k8s_050",
+      "question": "How does the storage version of a Kubernetes object relate to the format used when creating objects through kubectl manifests, and what happens when objects are stored versus when they are accessed through different API versions?",
+      "ground_truth": "When you create a Kubernetes object through kubectl using a manifest (typically in YAML or JSON format), the API server converts this into JSON and then stores the object using a specific storage version in etcd, which may differ from the API version you used in your manifest. The storage version represents the particular API version (like v1) that Kubernetes uses to serialize and persist the object internally. When you later access that object through the API, Kubernetes automatically handles version conversion, allowing you to interact with the object using any supported API version (for example, accessing a HorizontalPodAutoscaler via v1 or v2) regardless of which version is actually stored. When an object is updated, Kubernetes converts it to the new storage version representation upon write, but objects can remain in older storage versions indefinitely if they are never modified.",
+      "expected_contexts": [
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/_index.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/storage-version.md",
+        "/Users/I750415/Personal/Masters/InformationRetrieval/kubernetes_advanced_rag/k8s_data/concepts/overview/working-with-objects/storage-version.md"
+      ],
+      "category": "general",
+      "difficulty": "hard",
+      "question_type": "multi_source"
+    }
+  ]
+}

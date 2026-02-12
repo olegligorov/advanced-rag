@@ -25,7 +25,7 @@ RERANK_TOP_N = 5
 
 # Set to None to disable filtering, or use a value like 0.3-0.5 for quality filtering
 # RERANK_SCORE_THRESHOLD = 0.5
-RERANK_SCORE_THRESHOLD = 1
+RERANK_SCORE_THRESHOLD = 0.5
 MIN_RETRIEVED_DOCS = 1
 
 # Chunking parameters
